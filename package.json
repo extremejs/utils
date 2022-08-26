@@ -1,0 +1,25 @@
+{
+  "name": "@extremejs/utils",
+  "version": "0.0.0",
+  "description": "ExtremeJS Utilities",
+  "homepage": "https://github.com/extremejs/utils#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/extremejs/utils.git"
+  },
+  "bugs": {
+    "url": "https://github.com/extremejs/utils/issues"
+  },
+  "author": "Ardalan Amini <ardalanamini22@gmail.com> (https://ardalanamini.com/)",
+  "license": "MIT",
+  "keywords": [
+    "utilities"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "index.js"
+}
