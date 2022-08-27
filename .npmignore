@@ -1,9 +1,11 @@
 .idea/
 .vscode/
-coverage/
 __tests__/
+coverage/
+docs/
 jest.config.js
 nodemon.json
+typedoc.json
 tsconfig*.json
 *.tsbuildinfo
 .gitattributes
