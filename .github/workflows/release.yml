@@ -6,7 +6,7 @@ on:
       - 'v[0-9]+.[0-9]+.[0-9]+*'
 
 env:
-  NODE_VERSION: 16
+  NODE_VERSION: 18
 
 jobs:
   test:
@@ -50,7 +50,7 @@ jobs:
 
     environment:
       name: npm
-      url: https://www.npmjs.com/package/@extremejs/utils
+      url: https://www.npmjs.com/package/@${{ github.repository }}
 
     concurrency:
       group: ${{ github.workflow }}-npm-${{ github.ref_name }}
@@ -72,7 +72,7 @@ jobs:
         run: npm ci --no-fund
 
       - name: Publish the package
-        run: npm publish --access public
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -88,7 +88,7 @@ jobs:
 
     environment:
       name: gpr
-      url: https://github.com/${{ github.repository }}/packages
+      url: https://github.com/${{ github.repository }}/pkgs/npm/utils
 
     concurrency:
       group: ${{ github.workflow }}-gpr-${{ github.ref_name }}
@@ -102,7 +102,6 @@ jobs:
       - name: Use Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v3
         with:
-          cache: npm
           node-version: ${{ env.NODE_VERSION }}
           registry-url: https://npm.pkg.github.com/
           scope: '@extremejs'
