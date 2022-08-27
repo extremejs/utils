@@ -4,8 +4,11 @@ env:
   node: true
 extends: noir/all
 parserOptions:
-  project: ./tsconfig.json
+  project: ./tsconfig.eslint.json
   ecmaVersion: latest
   sourceType: module
 rules:
+  multiline-comment-style: off
   import/extensions: off
+  import/no-relative-parent-imports: off
+  "@typescript-eslint/no-magic-numbers": off

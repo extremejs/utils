@@ -1,5 +1,8 @@
 .idea/
 .vscode/
+coverage/
+__tests__/
+jest.config.js
 nodemon.json
 tsconfig*.json
 *.tsbuildinfo
