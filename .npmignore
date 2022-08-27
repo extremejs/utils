@@ -3,3 +3,5 @@
 nodemon.json
 tsconfig*.json
 *.tsbuildinfo
+.gitattributes
+.eslintrc.yml
