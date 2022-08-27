@@ -105,8 +105,9 @@ module.exports = {
    * that allow to stub out resources with a single module
    */
   moduleNameMapper: {
-    "@extremejs/utils"    : "<rootDir>/src/index.ts",
-    "^(\\.{1,2}/.*)\\.js$": "$1",
+    "@extremejs/utils/package.json": "<rootDir>/package.json",
+    "@extremejs/utils"             : "<rootDir>/src/index.ts",
+    "^(\\.{1,2}/.*)\\.js$"         : "$1",
   },
 
   /**
