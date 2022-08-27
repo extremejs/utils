@@ -1,0 +1,5 @@
+.idea/
+.vscode/
+nodemon.json
+tsconfig*.json
+*.tsbuildinfo
