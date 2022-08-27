@@ -155,7 +155,7 @@ jobs:
         run: npm ci
 
       - name: Generate code documents
-        run: npm run documents
+        run: npm run document
 
       - name: Setup Pages
         uses: actions/configure-pages@v2
