@@ -1,0 +1,8 @@
+{
+  "restartable": "rs",
+  "exec": "npm run build",
+  "watch": [
+    "src/"
+  ],
+  "ext": "*"
+}

@@ -17,6 +17,7 @@
   ],
   "scripts": {
     "build": "npm run build:esm && npm run build:cjs",
+    "build:watch": "nodemon",
     "build:esm": "tsc",
     "build:esm:watch": "npm run build:esm -- --watch",
     "build:cjs": "tsc -p tsconfig.cjs.json",
@@ -51,6 +52,7 @@
     "./package.json": "./package.json"
   },
   "devDependencies": {
+    "nodemon": "^2.0.19",
     "typescript": "^4.8.2"
   }
 }
