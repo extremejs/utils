@@ -6,7 +6,6 @@ on:
       - 'v[0-9]+.[0-9]+.[0-9]+*'
 
 env:
-  OS: ubuntu-latest
   NODE_VERSION: 16
 
 jobs:
@@ -57,7 +56,7 @@ jobs:
       group: ${{ github.workflow }}-npm-${{ github.ref_name }}
       cancel-in-progress: true
 
-    runs-on: ${{ env.OS }}
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
@@ -98,7 +97,7 @@ jobs:
       group: ${{ github.workflow }}-gpr-${{ github.ref_name }}
       cancel-in-progress: true
 
-    runs-on: ${{ env.OS }}
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
@@ -141,7 +140,7 @@ jobs:
       group: ${{ github.workflow }}-documents-${{ github.ref_name }}
       cancel-in-progress: true
 
-    runs-on: ${{ env.OS }}
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v3
