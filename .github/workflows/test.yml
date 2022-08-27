@@ -32,12 +32,6 @@ jobs:
 
     timeout-minutes: 15
 
-    env:
-      OS: ${{ runner.os }}
-      ARCH: ${{ runner.arch }}
-      NODE_VERSION: ${{ matrix.node-version }}
-      REF: ${{ github.ref_name }}
-
     steps:
       - uses: actions/checkout@v3
 
@@ -83,6 +77,11 @@ jobs:
       - name: Upload coverage to CodeCov
         uses: codecov/codecov-action@v3
         if: ${{ github.event_name != 'schedule' }}
+        env:
+          OS: ${{ runner.os }}
+          ARCH: ${{ runner.arch }}
+          NODE_VERSION: ${{ matrix.node-version }}
+          REF: ${{ github.ref_name }}
         with:
           env_vars: OS,ARCH,NODE_VERSION,REF
           fail_ci_if_error: true
