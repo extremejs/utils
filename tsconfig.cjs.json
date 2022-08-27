@@ -1,0 +1,9 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "tsBuildInfoFile": "./build/.cjs.tsbuildinfo",
+    "module": "CommonJS",
+    "moduleResolution": "Node16",
+    "outDir": "./build/cjs/"
+  }
+}

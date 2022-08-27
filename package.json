@@ -16,10 +16,41 @@
     "utilities"
   ],
   "scripts": {
+    "build": "npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc",
+    "build:esm:watch": "npm run build:esm -- --watch",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:cjs:watch": "npm run build:cjs -- --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "publishConfig": {
     "access": "public"
   },
-  "main": "index.js"
+  "engines": {
+    "node": ">=16"
+  },
+  "sideEffects": false,
+  "main": "build/cjs/index.js",
+  "module": "build/esm/index.js",
+  "types": "build/cjs/index.d.ts",
+  "exports": {
+    ".": {
+      "browser": {
+        "types": "./build/esm/index.d.ts",
+        "default": "./build/esm/index.js"
+      },
+      "import": {
+        "types": "./build/esm/index.d.ts",
+        "default": "./build/esm/index.js"
+      },
+      "default": {
+        "types": "./build/cjs/index.d.ts",
+        "default": "./build/cjs/index.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "devDependencies": {
+    "typescript": "^4.8.2"
+  }
 }
