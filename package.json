@@ -27,7 +27,8 @@
     "lint:fix": "npm run lint -- --fix",
     "test": "node --no-compilation-cache --expose-gc node_modules/jest/bin/jest --logHeapUsage",
     "test:coverage": "npm test -- --coverage",
-    "test:ci": "npm run test:coverage -- --ci --verbose --no-cache"
+    "test:ci": "npm run test:coverage -- --ci --verbose --no-cache",
+    "prepublishOnly": "scripts/pre-build.sh && npm run build && scripts/post-build.sh"
   },
   "publishConfig": {
     "access": "public"

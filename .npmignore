@@ -4,6 +4,7 @@
 __tests__/
 coverage/
 docs/
+scripts/
 jest.config.js
 nodemon.json
 typedoc.json
