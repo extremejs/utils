@@ -36,7 +36,7 @@ npm i @extremejs/utils
 ```typescript
 import { sumByFn } from "@extremejs/utils";
 
-const sum = miniCSS.keyframe("keyframe");
+const sum = sumByFn([{ a: 1 }, { a: 2 }, { a: 3 }], ({ a }) => a);
 ```
 
 > API usage documents are available [here](https://extremejs.github.io/utils).
