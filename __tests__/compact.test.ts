@@ -1,6 +1,6 @@
 import { compact } from "@extremejs/utils";
 
-test('[0,1,false,2,"",3,"a","e" * 23,NaN,"s",34].compact() returns [1,2,3,"a","s",34]', () => {
+test("should filter out the falsey values from the provided array", () => {
   expect(compact([
     0 as const,
     1,
