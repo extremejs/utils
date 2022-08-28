@@ -5,9 +5,11 @@
  * @param values
  * @param iteratee
  * @example
- * const sum = sumByFn([1, 2, 3], number => number);
+ * sumByFn([1, 2, 3], number => number);
+ * // => 6
  * @example
- * const sum = sumByFn([{ a: 1 }, { a: 2 }, { a: 3 }], ({ a }) => a);
+ * sumByFn([{ a: 1 }, { a: 2 }, { a: 3 }], ({ a }) => a);
+ * // => 6
  */
 export default function sumByFn<Value>(values: Value[], iteratee: (value: Value) => number): number {
   return values.reduce(
