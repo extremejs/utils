@@ -28,6 +28,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    outputs:
+      release-id: ${{ steps.changelog.outputs.release-id }}
+
     steps:
       - uses: actions/checkout@v3
 
@@ -72,7 +75,7 @@ jobs:
         run: npm ci --no-fund
 
       - name: Publish the package
-        run: npm publish
+        run: npm publish --tag ${{ needs.release.outputs.release-id }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -110,7 +113,7 @@ jobs:
         run: npm ci --no-fund
 
       - name: Publish the package
-        run: npm publish
+        run: npm publish --tag ${{ needs.release.outputs.release-id }}
         env:
           NODE_AUTH_TOKEN: ${{ github.token }}
 
