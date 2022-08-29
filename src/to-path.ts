@@ -1,5 +1,4 @@
-import isNumber from "./is-number.js";
-import isSymbol from "./is-symbol.js";
+import isString from "./is-string.js";
 
 /**
  * It will convert the provided `property` to an array of keys that'll represent the `path` of a value in an object.
@@ -19,9 +18,9 @@ import isSymbol from "./is-symbol.js";
  * // => ["a", "b", "0", "c", "d"]
  */
 export default function toPath<Property extends PropertyT>(property: Property): PathT<Property> {
-  if (isNumber(property) || isSymbol(property)) return [property] as PathT<Property>;
+  if (isString(property)) return property.replaceAll(/\[(?<key>[^.[\]]+)]/g, ".$1").split(".") as PathT<Property>;
 
-  return property.replaceAll(/\[(?<key>[^.[\]]+)]/g, ".$1").split(".") as PathT<Property>;
+  return [property] as PathT<Property>;
 }
 
 export type PropertyT = PropertyKey;
