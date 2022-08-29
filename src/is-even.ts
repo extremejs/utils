@@ -1,5 +1,6 @@
 /**
  * It will determine whether the provided `number` is an even number or not.
+ * @since 1.0.0
  * @param number
  * @example
  * isEven(2);

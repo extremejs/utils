@@ -1,5 +1,6 @@
 /**
  * It will filter out the falsey values from the provided `array`.
+ * @since 1.0.0
  * @param array
  * @example
  * compact([0, 1, false, 2, '', 3, 'a', 'e' * 23, NaN, 's', 34]);
