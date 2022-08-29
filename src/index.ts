@@ -7,3 +7,4 @@ export { default as isString } from "./is-string.js";
 export { default as isSymbol } from "./is-symbol.js";
 export { default as sum } from "./sum.js";
 export { default as sumByFn } from "./sum-by-fn.js";
+export { default as toPath, type PathT, type PropertyT } from "./to-path.js";
