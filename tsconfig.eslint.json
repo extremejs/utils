@@ -3,6 +3,7 @@
   "include": [
     "src",
     "__tests__",
+    "scripts",
     "jest.config.js"
   ]
 }

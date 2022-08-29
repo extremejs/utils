@@ -28,7 +28,9 @@
     "test": "node --no-compilation-cache --expose-gc node_modules/jest/bin/jest --logHeapUsage",
     "test:coverage": "npm test -- --coverage",
     "test:ci": "npm run test:coverage -- --ci --verbose --no-cache",
-    "prepublishOnly": "scripts/pre-build.sh && npm run build && scripts/post-build.sh"
+    "prepublishOnly": "npm run build:pre && npm run build && npm run build:post",
+    "build:post": "ts-node -P tsconfig.cjs.json scripts/post-build.ts",
+    "build:pre": "ts-node -P tsconfig.cjs.json scripts/pre-build.ts"
   },
   "publishConfig": {
     "access": "public"
@@ -68,6 +70,7 @@
     "jest": "^28.1.3",
     "nodemon": "^2.0.19",
     "ts-jest": "^28.0.8",
+    "ts-node": "^10.9.1",
     "typedoc": "^0.23.11",
     "typescript": "^4.8.2"
   }
