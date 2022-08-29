@@ -28,7 +28,7 @@
     "test": "node --no-compilation-cache --expose-gc node_modules/jest/bin/jest --logHeapUsage",
     "test:coverage": "npm test -- --coverage",
     "test:ci": "npm run test:coverage -- --ci --verbose --no-cache",
-    "prepublishOnly": "npm run build:pre && npm run build && npm run build:post",
+    "prepack": "npm run build:pre && npm run build && npm run build:post",
     "build:post": "ts-node -P tsconfig.cjs.json scripts/post-build.ts",
     "build:pre": "ts-node -P tsconfig.cjs.json scripts/pre-build.ts"
   },

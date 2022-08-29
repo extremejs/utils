@@ -1,5 +1,6 @@
 import { existsSync, writeFileSync, readdirSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
+import { camelCase } from "@extremejs/utils";
 
 const CWD = process.cwd();
 const DIR = resolve(CWD, "build");
@@ -39,7 +40,7 @@ for (const file of files) {
     },
   };
 
-  const keyword = file.replaceAll(/-(?<char>.)/g, (_, char) => char.toUpperCase());
+  const keyword = camelCase(file);
 
   if (!pkg.keywords.includes(keyword)) pkg.keywords.push(keyword);
 }
