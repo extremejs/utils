@@ -1,3 +1,4 @@
+export { default as camelCase } from "./camel-case.js";
 export { default as compact, type CompactT } from "./compact.js";
 export { default as get, type RecordT, type CalculatedPropertyT, type CalculatedPathT, type ValueAtT } from "./get.js";
 export { default as isArray } from "./is-array.js";
