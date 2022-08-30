@@ -23,7 +23,7 @@
     "build:esm:watch": "npm run build:esm -- --watch",
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:cjs:watch": "npm run build:cjs -- --watch",
-    "lint": "eslint src __tests__",
+    "lint": "eslint src __tests__ scripts",
     "lint:fix": "npm run lint -- --fix",
     "test": "node --no-compilation-cache --expose-gc node_modules/jest/bin/jest --logHeapUsage",
     "test:coverage": "npm test -- --coverage",
