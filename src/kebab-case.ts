@@ -1,3 +1,4 @@
+import { LETTER_CASE_REGEX } from "./internals/index.js";
 import join from "./join.js";
 import lowerCase from "./lower-case.js";
 
@@ -22,6 +23,6 @@ import lowerCase from "./lower-case.js";
  * // => "i-am-listening-to-fm-while-loading-different-url-on-my-browser-and-also-editing-some-xml-and-html"
  */
 export default function kebabCase(string: string): string {
-  return join((string.match(/[A-Z]{2,}(?=[A-Z][a-z]+\d*|\b)|[A-Z]?[a-z]+|[A-Z]|\d+/g) ?? [])
+  return join((string.match(LETTER_CASE_REGEX) ?? [])
     .map(lowerCase), "-");
 }

@@ -1,3 +1,4 @@
+import { LETTER_CASE_REGEX } from "./internals/index.js";
 import join from "./join.js";
 import lowerCase from "./lower-case.js";
 
@@ -22,6 +23,6 @@ import lowerCase from "./lower-case.js";
  * // => "i_am_listening_to_fm_while_loading_different_url_on_my_browser_and_also_editing_some_xml_and_html"
  */
 export default function snakeCase(string: string): string {
-  return join((string.match(/[A-Z]{2,}(?=[A-Z][a-z]+\d*|\b)|[A-Z]?[a-z]+|[A-Z]|\d+/g) ?? [])
+  return join((string.match(LETTER_CASE_REGEX) ?? [])
     .map(lowerCase), "_");
 }
