@@ -15,6 +15,7 @@ export { default as join } from "./join.js";
 export { default as kebabCase } from "./kebab-case.js";
 export { default as last, type LastT } from "./last.js";
 export { default as lowerCase } from "./lower-case.js";
+export { default as lowerFirst } from "./lower-first.js";
 export { default as slice } from "./slice.js";
 export { default as snakeCase } from "./snake-case.js";
 export { default as split } from "./split.js";
