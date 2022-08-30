@@ -17,6 +17,7 @@ export { default as snakeCase } from "./snake-case.js";
 export { default as sum } from "./sum.js";
 export { default as sumByFn } from "./sum-by-fn.js";
 export { default as sumByProperty } from "./sum-by-property.js";
+export { default as tail, type TailT } from "./tail.js";
 export { default as toPath, type PathT, type PropertyT } from "./to-path.js";
 export { default as upperCase } from "./upper-case.js";
 export { default as upperFirst } from "./upper-first.js";
