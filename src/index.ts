@@ -10,6 +10,7 @@ export { default as isSymbol } from "./is-symbol.js";
 export { default as join } from "./join.js";
 export { default as lowerCase } from "./lower-case.js";
 export { default as slice } from "./slice.js";
+export { default as snakeCase } from "./snake-case.js";
 export { default as sum } from "./sum.js";
 export { default as sumByFn } from "./sum-by-fn.js";
 export { default as sumByProperty } from "./sum-by-property.js";
