@@ -7,6 +7,7 @@ export { default as isEven } from "./is-even.js";
 export { default as isNumber } from "./is-number.js";
 export { default as isString } from "./is-string.js";
 export { default as isSymbol } from "./is-symbol.js";
+export { default as join } from "./join.js";
 export { default as lowerCase } from "./lower-case.js";
 export { default as slice } from "./slice.js";
 export { default as sum } from "./sum.js";
