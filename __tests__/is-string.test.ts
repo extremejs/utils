@@ -1,6 +1,6 @@
 import { isString } from "@extremejs/utils";
 
-test("should determine whether the provided value is a string or not", () => {
+it("should determine whether the provided value is a string or not", () => {
   expect(isString("foo")).toBe(true);
 
   expect(isString(String("foo"))).toBe(true);

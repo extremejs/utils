@@ -1,6 +1,6 @@
 import { isNumber } from "@extremejs/utils";
 
-test("should determine whether the provided value is a number or not", () => {
+it("should determine whether the provided value is a number or not", () => {
   expect(isNumber("foo")).toBe(false);
 
   expect(isNumber(false)).toBe(false);

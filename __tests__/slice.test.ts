@@ -1,6 +1,6 @@
 import { slice } from "@extremejs/utils";
 
-test("should create a slice of the value from start, up to, but not including, end", () => {
+it("should create a slice of the value from start, up to, but not including, end", () => {
   expect(slice([0, 1, 2, 3, 4, 5])).toEqual([0, 1, 2, 3, 4, 5]);
 
   expect(slice([0, 1, 2, 3, 4, 5], 2)).toEqual([2, 3, 4, 5]);

@@ -1,6 +1,6 @@
 import { get } from "@extremejs/utils";
 
-test("should return value of the provided property in an object", () => {
+it("should return value of the provided property in an object", () => {
   expect(get({ a: { b: [{ c: { d: 1 } }] } }, "a.b.0.c.d")).toBe(1);
 
   expect(get({ a: { b: [{ c: { d: 2 } }] } }, "a.b[0][c].d")).toBe(2);
@@ -13,7 +13,7 @@ test("should return value of the provided property in an object", () => {
   expect(get({ a: { b: [{ c: { d: 5 } }] } }, "a.b.5.c.d", 6)).toBe(6);
 });
 
-test("should return value of the provided property in an array", () => {
+it("should return value of the provided property in an array", () => {
   expect(get([{ a: { b: 1 } }], "0.a.b")).toBe(1);
 
   expect(get([{ a: { b: 2 } }], "0[a].b")).toBe(2);

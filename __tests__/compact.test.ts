@@ -1,6 +1,6 @@
 import { compact } from "@extremejs/utils";
 
-test("should filter out the falsey values from the provided array", () => {
+it("should filter out the falsey values from the provided array", () => {
   expect(compact([
     0 as const,
     1,

@@ -1,6 +1,6 @@
 import { first } from "@extremejs/utils";
 
-test("should return the first element of the value", () => {
+it("should return the first element of the value", () => {
   // eslint-disable-next-line no-undefined
   expect(first([])).toBe(undefined);
 

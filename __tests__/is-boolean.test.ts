@@ -1,6 +1,6 @@
 import { isBoolean } from "@extremejs/utils";
 
-test("should determine whether the provided value is a boolean or not", () => {
+it("should determine whether the provided value is a boolean or not", () => {
   expect(isBoolean(false)).toBe(true);
 
   expect(isBoolean(Boolean(false))).toBe(true);
