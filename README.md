@@ -1,6 +1,7 @@
 # @extremejs/utils
 
-ExtremeJS Utilities
+Modern TypeScript utilities inspired by [lodash](https://lodash.com),
+aiming to be high performance while having minimal size impact.
 
 [![Test](https://github.com/extremejs/utils/actions/workflows/test.yml/badge.svg)](https://github.com/extremejs/utils/actions/workflows/test.yml)
 [![CodeCov](https://codecov.io/gh/extremejs/utils/branch/main/graph/badge.svg?token=1TKSPJICKI)](https://codecov.io/gh/extremejs/utils)
@@ -20,6 +21,8 @@ ExtremeJS Utilities
 ## Table of Content
 
 - [Installation](#installation)
+  - [NPM & GitHub Packages](#npm--github-packages)
+  - [Yarn](#yarn)
 - [Usage](#usage)
 - [Versioning](#versioning)
 - [Authors](#authors)
@@ -27,8 +30,16 @@ ExtremeJS Utilities
 
 ## Installation
 
+### NPM & GitHub Packages
+
 ```shell
 npm i @extremejs/utils
+```
+
+### Yarn
+
+```shell
+yarn add @extremejs/utils
 ```
 
 ## Usage
