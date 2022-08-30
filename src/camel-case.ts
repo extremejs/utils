@@ -1,3 +1,4 @@
+import lowerCase from "./lower-case.js";
 import slice from "./slice.js";
 
 /**
@@ -19,8 +20,8 @@ import slice from "./slice.js";
  */
 export default function camelCase(string: string): string {
   string = (string.match(/[A-Z]{2,}(?=[A-Z][a-z]+\d*|\b)|[A-Z]?[a-z]+|[A-Z]|\d+/g) ?? [""])
-    .map(x => slice(x, 0, 1).toUpperCase() + slice(x, 1).toLowerCase())
+    .map(x => slice(x, 0, 1).toUpperCase() + lowerCase(slice(x, 1)))
     .join("");
 
-  return slice(string, 0, 1).toLowerCase() + slice(string, 1);
+  return lowerCase(slice(string, 0, 1)) + slice(string, 1);
 }
