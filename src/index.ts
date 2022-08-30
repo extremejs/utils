@@ -1,4 +1,5 @@
 export { default as camelCase } from "./camel-case.js";
+export { default as capitalize } from "./capitalize.js";
 export { default as chunk } from "./chunk.js";
 export { default as compact, type CompactT } from "./compact.js";
 export { default as endsWith } from "./ends-with.js";
