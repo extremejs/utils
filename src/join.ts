@@ -2,7 +2,7 @@
  * It will convert all elements in the `array` into a string separated by the `separator`.
  * @since 1.0.0
  * @param array
- * @param separator
+ * @param [separator=""]
  * @example
  * join([1, 2, 3]);
  * // => "123"
