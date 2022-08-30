@@ -1,0 +1,26 @@
+/**
+ * It will return the first element of the `value`.
+ * @since 1.0.0
+ * @param value
+ * @example
+ * first([0, 1, 2, 3, 4, 5]);
+ * // => 0
+ * @example
+ * first("012345");
+ * // => "0"
+ */
+export default function first<Value extends unknown[] | string>(value: Value): FirstT<Value> {
+  return value[0] as FirstT<Value>;
+}
+
+export type FirstT<Value extends unknown[] | string> = Value extends string
+  ? Value extends `${ infer First }${ infer Rest }`
+    ? First
+    : string
+  : Value extends [infer First]
+    ? First
+    : Value extends [infer First, ...infer Rest]
+      ? First
+      : Value extends Array<infer First>
+        ? First
+        : undefined;
