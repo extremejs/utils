@@ -1,3 +1,4 @@
+import join from "./join.js";
 import lowerCase from "./lower-case.js";
 import slice from "./slice.js";
 import upperCase from "./upper-case.js";
@@ -20,9 +21,8 @@ import upperCase from "./upper-case.js";
  * // => "someMixedStringWithSpacesUnderscoresAndHyphens"
  */
 export default function camelCase(string: string): string {
-  string = (string.match(/[A-Z]{2,}(?=[A-Z][a-z]+\d*|\b)|[A-Z]?[a-z]+|[A-Z]|\d+/g) ?? [""])
-    .map(x => upperCase(slice(x, 0, 1)) + lowerCase(slice(x, 1)))
-    .join("");
+  string = join((string.match(/[A-Z]{2,}(?=[A-Z][a-z]+\d*|\b)|[A-Z]?[a-z]+|[A-Z]|\d+/g) ?? [])
+    .map(x => upperCase(slice(x, 0, 1)) + lowerCase(slice(x, 1))));
 
   return lowerCase(slice(string, 0, 1)) + slice(string, 1);
 }
