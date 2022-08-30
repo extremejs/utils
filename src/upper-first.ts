@@ -1,3 +1,4 @@
+import first from "./first.js";
 import slice from "./slice.js";
 import upperCase from "./upper-case.js";
 
@@ -16,5 +17,5 @@ import upperCase from "./upper-case.js";
  * // => 'FrED'
  */
 export default function upperFirst<Value extends string>(string: Value): Capitalize<Value> {
-  return (upperCase(slice(string, 0, 1)) + slice(string, 1)) as Capitalize<Value>;
+  return (upperCase(first(string)) + slice(string, 1)) as Capitalize<Value>;
 }
