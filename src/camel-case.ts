@@ -2,7 +2,7 @@ import first from "./first.js";
 import { LETTER_CASE_REGEX } from "./internals/index.js";
 import join from "./join.js";
 import lowerCase from "./lower-case.js";
-import slice from "./slice.js";
+import tail from "./tail.js";
 import upperCase from "./upper-case.js";
 
 /**
@@ -23,9 +23,8 @@ import upperCase from "./upper-case.js";
  * // => "someMixedStringWithSpacesUnderscoresAndHyphens"
  */
 export default function camelCase(string: string): string {
-  string = join((string.match(LETTER_CASE_REGEX) ?? [])
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    .map(x => upperCase(first(x)!) + lowerCase(slice(x, 1))));
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+  string = join((string.match(LETTER_CASE_REGEX) ?? []).map(x => upperCase(first(x)!) + lowerCase(tail(x))));
 
-  return lowerCase(first(string) ?? "") + slice(string, 1);
+  return lowerCase(first(string) ?? "") + tail(string);
 }
