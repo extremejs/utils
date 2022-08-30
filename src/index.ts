@@ -17,6 +17,7 @@ export { default as lowerCase } from "./lower-case.js";
 export { default as slice } from "./slice.js";
 export { default as snakeCase } from "./snake-case.js";
 export { default as split } from "./split.js";
+export { default as startsWith } from "./starts-with.js";
 export { default as sum } from "./sum.js";
 export { default as sumByFn } from "./sum-by-fn.js";
 export { default as sumByProperty } from "./sum-by-property.js";
