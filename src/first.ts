@@ -16,7 +16,7 @@ export default function first<Value extends unknown[] | string>(value: Value): F
 export type FirstT<Value extends unknown[] | string> = Value extends string
   ? Value extends `${ infer First }${ infer Rest }`
     ? First
-    : string
+    : string | undefined
   : Value extends [infer First]
     ? First
     : Value extends [infer First, ...infer Rest]

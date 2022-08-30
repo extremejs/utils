@@ -17,5 +17,5 @@ import upperCase from "./upper-case.js";
  * // => 'FrED'
  */
 export default function upperFirst<Value extends string>(string: Value): Capitalize<Value> {
-  return (upperCase(first(string)) + slice(string, 1)) as Capitalize<Value>;
+  return (upperCase(first(string) ?? "") + slice(string, 1)) as Capitalize<Value>;
 }
