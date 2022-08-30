@@ -3,6 +3,7 @@ export { default as chunk } from "./chunk.js";
 export { default as compact, type CompactT } from "./compact.js";
 export { default as first, type FirstT } from "./first.js";
 export { default as get, type RecordT, type CalculatedPropertyT, type CalculatedPathT, type ValueAtT } from "./get.js";
+export { default as head, type HeadT } from "./head.js";
 export { default as isArray } from "./is-array.js";
 export { default as isBoolean } from "./is-boolean.js";
 export { default as isEven } from "./is-even.js";
