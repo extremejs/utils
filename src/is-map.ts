@@ -1,3 +1,5 @@
+import isInstanceOf from "./is-instance-of.js";
+
 /**
  * It will determine whether the provided value is a Map object or not.
  * @since 1.0.0
@@ -11,5 +13,5 @@
  */
 export default function isMap(value: unknown): value is Map<unknown, unknown> {
   // TODO: Use "node:util" for node environment.
-  return value instanceof Map;
+  return isInstanceOf(value, Map);
 }

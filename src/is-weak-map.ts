@@ -1,4 +1,5 @@
 import { RecordT } from "./get.js";
+import isInstanceOf from "./is-instance-of.js";
 
 /**
  * It will determine whether the provided value is a WeakMap object or not.
@@ -13,5 +14,5 @@ import { RecordT } from "./get.js";
  */
 export default function isWeakMap(value: unknown): value is WeakMap<RecordT, unknown> {
   // TODO: Use "node:util" for node environment.
-  return value instanceof WeakMap;
+  return isInstanceOf(value, WeakMap);
 }

@@ -1,4 +1,5 @@
 import { RecordT } from "./get.js";
+import isInstanceOf from "./is-instance-of.js";
 
 /**
  * It will determine whether the provided value is a WeakSet object or not.
@@ -13,5 +14,5 @@ import { RecordT } from "./get.js";
  */
 export default function isWeakSet(value: unknown): value is WeakSet<RecordT> {
   // TODO: Use "node:util" for node environment.
-  return value instanceof WeakSet;
+  return isInstanceOf(value, WeakSet);
 }

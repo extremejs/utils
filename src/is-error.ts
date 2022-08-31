@@ -1,3 +1,5 @@
+import isInstanceOf from "./is-instance-of.js";
+
 /**
  * It will determine whether the provided `value` is an Error or not.
  * @since 1.0.0
@@ -14,5 +16,5 @@
  */
 export default function isError(value: unknown): value is Error {
   // TODO: Use "node:util" for node environment.
-  return value instanceof Error;
+  return isInstanceOf(value, Error);
 }
