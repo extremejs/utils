@@ -3,7 +3,7 @@ import join from "./join.js";
 import lowerCase from "./lower-case.js";
 
 /**
- * It will convert the given string to [kebab case](https://en.wikipedia.org/wiki/Letter_case#Special_case_styles).
+ * It will convert the given `string` to [kebab case](https://en.wikipedia.org/wiki/Letter_case#Special_case_styles).
  * @since 1.0.0
  * @param string
  * @example

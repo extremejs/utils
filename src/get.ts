@@ -1,7 +1,7 @@
 import toPath, { PathT, PropertyT } from "./to-path.js";
 
 /**
- * It will return the desired value based on the provided property.
+ * It will return the desired `value` based on the provided `property`.
  * @since 1.0.0
  * @param value
  * @param property

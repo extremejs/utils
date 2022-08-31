@@ -1,5 +1,5 @@
 /**
- * It will determine whether the provided value is an array or not.
+ * It will determine whether the provided `value` is an array or not.
  * @since 1.0.0
  * @function
  */

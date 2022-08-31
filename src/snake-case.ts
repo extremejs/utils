@@ -3,7 +3,7 @@ import join from "./join.js";
 import lowerCase from "./lower-case.js";
 
 /**
- * It will convert the given string to [snake case](https://en.wikipedia.org/wiki/Snake_case).
+ * It will convert the given `string` to [snake case](https://en.wikipedia.org/wiki/Snake_case).
  * @since 1.0.0
  * @param string
  * @example

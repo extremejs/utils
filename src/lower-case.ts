@@ -1,5 +1,5 @@
 /**
- * It will convert the given string to lowercase.
+ * It will convert the given `string` to lowercase.
  * @since 1.0.0
  * @param string
  * @example

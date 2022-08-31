@@ -13,7 +13,60 @@
   "author": "Ardalan Amini <ardalanamini22@gmail.com> (https://ardalanamini.com/)",
   "license": "MIT",
   "keywords": [
-    "utilities"
+    "utilities",
+    "camelCase",
+    "capitalize",
+    "chunk",
+    "compact",
+    "endsWith",
+    "first",
+    "get",
+    "head",
+    "internals",
+    "isArray",
+    "isBoolean",
+    "isBuffer",
+    "isDate",
+    "isError",
+    "isEven",
+    "isFinite",
+    "isFunction",
+    "isInstanceOf",
+    "isInteger",
+    "isMap",
+    "isNan",
+    "isNil",
+    "isNull",
+    "isNumber",
+    "isObject",
+    "isRegExp",
+    "isSafeInteger",
+    "isSet",
+    "isString",
+    "isSymbol",
+    "isUndefined",
+    "isWeakMap",
+    "isWeakSet",
+    "join",
+    "kebabCase",
+    "last",
+    "lowerCase",
+    "lowerFirst",
+    "mean",
+    "meanByFn",
+    "meanByProperty",
+    "repeat",
+    "slice",
+    "snakeCase",
+    "split",
+    "startsWith",
+    "sum",
+    "sumByFn",
+    "sumByProperty",
+    "tail",
+    "toPath",
+    "upperCase",
+    "upperFirst"
   ],
   "scripts": {
     "document": "typedoc",
@@ -57,7 +110,749 @@
         "default": "./build/cjs/index.js"
       }
     },
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./camel-case": {
+      "browser": {
+        "types": "./build/esm/camel-case.d.ts",
+        "default": "./build/esm/camel-case.js"
+      },
+      "import": {
+        "types": "./build/esm/camel-case.d.ts",
+        "default": "./build/esm/camel-case.js"
+      },
+      "default": {
+        "types": "./build/cjs/camel-case.d.ts",
+        "default": "./build/cjs/camel-case.js"
+      }
+    },
+    "./capitalize": {
+      "browser": {
+        "types": "./build/esm/capitalize.d.ts",
+        "default": "./build/esm/capitalize.js"
+      },
+      "import": {
+        "types": "./build/esm/capitalize.d.ts",
+        "default": "./build/esm/capitalize.js"
+      },
+      "default": {
+        "types": "./build/cjs/capitalize.d.ts",
+        "default": "./build/cjs/capitalize.js"
+      }
+    },
+    "./chunk": {
+      "browser": {
+        "types": "./build/esm/chunk.d.ts",
+        "default": "./build/esm/chunk.js"
+      },
+      "import": {
+        "types": "./build/esm/chunk.d.ts",
+        "default": "./build/esm/chunk.js"
+      },
+      "default": {
+        "types": "./build/cjs/chunk.d.ts",
+        "default": "./build/cjs/chunk.js"
+      }
+    },
+    "./compact": {
+      "browser": {
+        "types": "./build/esm/compact.d.ts",
+        "default": "./build/esm/compact.js"
+      },
+      "import": {
+        "types": "./build/esm/compact.d.ts",
+        "default": "./build/esm/compact.js"
+      },
+      "default": {
+        "types": "./build/cjs/compact.d.ts",
+        "default": "./build/cjs/compact.js"
+      }
+    },
+    "./ends-with": {
+      "browser": {
+        "types": "./build/esm/ends-with.d.ts",
+        "default": "./build/esm/ends-with.js"
+      },
+      "import": {
+        "types": "./build/esm/ends-with.d.ts",
+        "default": "./build/esm/ends-with.js"
+      },
+      "default": {
+        "types": "./build/cjs/ends-with.d.ts",
+        "default": "./build/cjs/ends-with.js"
+      }
+    },
+    "./first": {
+      "browser": {
+        "types": "./build/esm/first.d.ts",
+        "default": "./build/esm/first.js"
+      },
+      "import": {
+        "types": "./build/esm/first.d.ts",
+        "default": "./build/esm/first.js"
+      },
+      "default": {
+        "types": "./build/cjs/first.d.ts",
+        "default": "./build/cjs/first.js"
+      }
+    },
+    "./get": {
+      "browser": {
+        "types": "./build/esm/get.d.ts",
+        "default": "./build/esm/get.js"
+      },
+      "import": {
+        "types": "./build/esm/get.d.ts",
+        "default": "./build/esm/get.js"
+      },
+      "default": {
+        "types": "./build/cjs/get.d.ts",
+        "default": "./build/cjs/get.js"
+      }
+    },
+    "./head": {
+      "browser": {
+        "types": "./build/esm/head.d.ts",
+        "default": "./build/esm/head.js"
+      },
+      "import": {
+        "types": "./build/esm/head.d.ts",
+        "default": "./build/esm/head.js"
+      },
+      "default": {
+        "types": "./build/cjs/head.d.ts",
+        "default": "./build/cjs/head.js"
+      }
+    },
+    "./internals": {
+      "browser": {
+        "types": "./build/esm/internals.d.ts",
+        "default": "./build/esm/internals.js"
+      },
+      "import": {
+        "types": "./build/esm/internals.d.ts",
+        "default": "./build/esm/internals.js"
+      },
+      "default": {
+        "types": "./build/cjs/internals.d.ts",
+        "default": "./build/cjs/internals.js"
+      }
+    },
+    "./is-array": {
+      "browser": {
+        "types": "./build/esm/is-array.d.ts",
+        "default": "./build/esm/is-array.js"
+      },
+      "import": {
+        "types": "./build/esm/is-array.d.ts",
+        "default": "./build/esm/is-array.js"
+      },
+      "default": {
+        "types": "./build/cjs/is-array.d.ts",
+        "default": "./build/cjs/is-array.js"
+      }
+    },
+    "./is-boolean": {
+      "browser": {
+        "types": "./build/esm/is-boolean.d.ts",
+        "default": "./build/esm/is-boolean.js"
+      },
+      "import": {
+        "types": "./build/esm/is-boolean.d.ts",
+        "default": "./build/esm/is-boolean.js"
+      },
+      "default": {
+        "types": "./build/cjs/is-boolean.d.ts",
+        "default": "./build/cjs/is-boolean.js"
+      }
+    },
+    "./is-buffer": {
+      "browser": {
+        "types": "./build/esm/is-buffer.d.ts",
+        "default": "./build/esm/is-buffer.js"
+      },
+      "import": {
+        "types": "./build/esm/is-buffer.d.ts",
+        "default": "./build/esm/is-buffer.js"
+      },
+      "default": {
+        "types": "./build/cjs/is-buffer.d.ts",
+        "default": "./build/cjs/is-buffer.js"
+      }
+    },
+    "./is-date": {
+      "browser": {
+        "types": "./build/esm/is-date.d.ts",
+        "default": "./build/esm/is-date.js"
+      },
+      "import": {
+        "types": "./build/esm/is-date.d.ts",
+        "default": "./build/esm/is-date.js"
+      },
+      "default": {
+        "types": "./build/cjs/is-date.d.ts",
+        "default": "./build/cjs/is-date.js"
+      }
+    },
+    "./is-error": {
+      "browser": {
+        "types": "./build/esm/is-error.d.ts",
+        "default": "./build/esm/is-error.js"
+      },
+      "import": {
+        "types": "./build/esm/is-error.d.ts",
+        "default": "./build/esm/is-error.js"
+      },
+      "default": {
+        "types": "./build/cjs/is-error.d.ts",
+        "default": "./build/cjs/is-error.js"
+      }
+    },
+    "./is-even": {
+      "browser": {
+        "types": "./build/esm/is-even.d.ts",
+        "default": "./build/esm/is-even.js"
+      },
+      "import": {
+        "types": "./build/esm/is-even.d.ts",
+        "default": "./build/esm/is-even.js"
+      },
+      "default": {
+        "types": "./build/cjs/is-even.d.ts",
+        "default": "./build/cjs/is-even.js"
+      }
+    },
+    "./is-finite": {
+      "browser": {
+        "types": "./build/esm/is-finite.d.ts",
+        "default": "./build/esm/is-finite.js"
+      },
+      "import": {
+        "types": "./build/esm/is-finite.d.ts",
+        "default": "./build/esm/is-finite.js"
+      },
+      "default": {
+        "types": "./build/cjs/is-finite.d.ts",
+        "default": "./build/cjs/is-finite.js"
+      }
+    },
+    "./is-function": {
+      "browser": {
+        "types": "./build/esm/is-function.d.ts",
+        "default": "./build/esm/is-function.js"
+      },
+      "import": {
+        "types": "./build/esm/is-function.d.ts",
+        "default": "./build/esm/is-function.js"
+      },
+      "default": {
+        "types": "./build/cjs/is-function.d.ts",
+        "default": "./build/cjs/is-function.js"
+      }
+    },
+    "./is-instance-of": {
+      "browser": {
+        "types": "./build/esm/is-instance-of.d.ts",
+        "default": "./build/esm/is-instance-of.js"
+      },
+      "import": {
+        "types": "./build/esm/is-instance-of.d.ts",
+        "default": "./build/esm/is-instance-of.js"
+      },
+      "default": {
+        "types": "./build/cjs/is-instance-of.d.ts",
+        "default": "./build/cjs/is-instance-of.js"
+      }
+    },
+    "./is-integer": {
+      "browser": {
+        "types": "./build/esm/is-integer.d.ts",
+        "default": "./build/esm/is-integer.js"
+      },
+      "import": {
+        "types": "./build/esm/is-integer.d.ts",
+        "default": "./build/esm/is-integer.js"
+      },
+      "default": {
+        "types": "./build/cjs/is-integer.d.ts",
+        "default": "./build/cjs/is-integer.js"
+      }
+    },
+    "./is-map": {
+      "browser": {
+        "types": "./build/esm/is-map.d.ts",
+        "default": "./build/esm/is-map.js"
+      },
+      "import": {
+        "types": "./build/esm/is-map.d.ts",
+        "default": "./build/esm/is-map.js"
+      },
+      "default": {
+        "types": "./build/cjs/is-map.d.ts",
+        "default": "./build/cjs/is-map.js"
+      }
+    },
+    "./is-nan": {
+      "browser": {
+        "types": "./build/esm/is-nan.d.ts",
+        "default": "./build/esm/is-nan.js"
+      },
+      "import": {
+        "types": "./build/esm/is-nan.d.ts",
+        "default": "./build/esm/is-nan.js"
+      },
+      "default": {
+        "types": "./build/cjs/is-nan.d.ts",
+        "default": "./build/cjs/is-nan.js"
+      }
+    },
+    "./is-nil": {
+      "browser": {
+        "types": "./build/esm/is-nil.d.ts",
+        "default": "./build/esm/is-nil.js"
+      },
+      "import": {
+        "types": "./build/esm/is-nil.d.ts",
+        "default": "./build/esm/is-nil.js"
+      },
+      "default": {
+        "types": "./build/cjs/is-nil.d.ts",
+        "default": "./build/cjs/is-nil.js"
+      }
+    },
+    "./is-null": {
+      "browser": {
+        "types": "./build/esm/is-null.d.ts",
+        "default": "./build/esm/is-null.js"
+      },
+      "import": {
+        "types": "./build/esm/is-null.d.ts",
+        "default": "./build/esm/is-null.js"
+      },
+      "default": {
+        "types": "./build/cjs/is-null.d.ts",
+        "default": "./build/cjs/is-null.js"
+      }
+    },
+    "./is-number": {
+      "browser": {
+        "types": "./build/esm/is-number.d.ts",
+        "default": "./build/esm/is-number.js"
+      },
+      "import": {
+        "types": "./build/esm/is-number.d.ts",
+        "default": "./build/esm/is-number.js"
+      },
+      "default": {
+        "types": "./build/cjs/is-number.d.ts",
+        "default": "./build/cjs/is-number.js"
+      }
+    },
+    "./is-object": {
+      "browser": {
+        "types": "./build/esm/is-object.d.ts",
+        "default": "./build/esm/is-object.js"
+      },
+      "import": {
+        "types": "./build/esm/is-object.d.ts",
+        "default": "./build/esm/is-object.js"
+      },
+      "default": {
+        "types": "./build/cjs/is-object.d.ts",
+        "default": "./build/cjs/is-object.js"
+      }
+    },
+    "./is-reg-exp": {
+      "browser": {
+        "types": "./build/esm/is-reg-exp.d.ts",
+        "default": "./build/esm/is-reg-exp.js"
+      },
+      "import": {
+        "types": "./build/esm/is-reg-exp.d.ts",
+        "default": "./build/esm/is-reg-exp.js"
+      },
+      "default": {
+        "types": "./build/cjs/is-reg-exp.d.ts",
+        "default": "./build/cjs/is-reg-exp.js"
+      }
+    },
+    "./is-safe-integer": {
+      "browser": {
+        "types": "./build/esm/is-safe-integer.d.ts",
+        "default": "./build/esm/is-safe-integer.js"
+      },
+      "import": {
+        "types": "./build/esm/is-safe-integer.d.ts",
+        "default": "./build/esm/is-safe-integer.js"
+      },
+      "default": {
+        "types": "./build/cjs/is-safe-integer.d.ts",
+        "default": "./build/cjs/is-safe-integer.js"
+      }
+    },
+    "./is-set": {
+      "browser": {
+        "types": "./build/esm/is-set.d.ts",
+        "default": "./build/esm/is-set.js"
+      },
+      "import": {
+        "types": "./build/esm/is-set.d.ts",
+        "default": "./build/esm/is-set.js"
+      },
+      "default": {
+        "types": "./build/cjs/is-set.d.ts",
+        "default": "./build/cjs/is-set.js"
+      }
+    },
+    "./is-string": {
+      "browser": {
+        "types": "./build/esm/is-string.d.ts",
+        "default": "./build/esm/is-string.js"
+      },
+      "import": {
+        "types": "./build/esm/is-string.d.ts",
+        "default": "./build/esm/is-string.js"
+      },
+      "default": {
+        "types": "./build/cjs/is-string.d.ts",
+        "default": "./build/cjs/is-string.js"
+      }
+    },
+    "./is-symbol": {
+      "browser": {
+        "types": "./build/esm/is-symbol.d.ts",
+        "default": "./build/esm/is-symbol.js"
+      },
+      "import": {
+        "types": "./build/esm/is-symbol.d.ts",
+        "default": "./build/esm/is-symbol.js"
+      },
+      "default": {
+        "types": "./build/cjs/is-symbol.d.ts",
+        "default": "./build/cjs/is-symbol.js"
+      }
+    },
+    "./is-undefined": {
+      "browser": {
+        "types": "./build/esm/is-undefined.d.ts",
+        "default": "./build/esm/is-undefined.js"
+      },
+      "import": {
+        "types": "./build/esm/is-undefined.d.ts",
+        "default": "./build/esm/is-undefined.js"
+      },
+      "default": {
+        "types": "./build/cjs/is-undefined.d.ts",
+        "default": "./build/cjs/is-undefined.js"
+      }
+    },
+    "./is-weak-map": {
+      "browser": {
+        "types": "./build/esm/is-weak-map.d.ts",
+        "default": "./build/esm/is-weak-map.js"
+      },
+      "import": {
+        "types": "./build/esm/is-weak-map.d.ts",
+        "default": "./build/esm/is-weak-map.js"
+      },
+      "default": {
+        "types": "./build/cjs/is-weak-map.d.ts",
+        "default": "./build/cjs/is-weak-map.js"
+      }
+    },
+    "./is-weak-set": {
+      "browser": {
+        "types": "./build/esm/is-weak-set.d.ts",
+        "default": "./build/esm/is-weak-set.js"
+      },
+      "import": {
+        "types": "./build/esm/is-weak-set.d.ts",
+        "default": "./build/esm/is-weak-set.js"
+      },
+      "default": {
+        "types": "./build/cjs/is-weak-set.d.ts",
+        "default": "./build/cjs/is-weak-set.js"
+      }
+    },
+    "./join": {
+      "browser": {
+        "types": "./build/esm/join.d.ts",
+        "default": "./build/esm/join.js"
+      },
+      "import": {
+        "types": "./build/esm/join.d.ts",
+        "default": "./build/esm/join.js"
+      },
+      "default": {
+        "types": "./build/cjs/join.d.ts",
+        "default": "./build/cjs/join.js"
+      }
+    },
+    "./kebab-case": {
+      "browser": {
+        "types": "./build/esm/kebab-case.d.ts",
+        "default": "./build/esm/kebab-case.js"
+      },
+      "import": {
+        "types": "./build/esm/kebab-case.d.ts",
+        "default": "./build/esm/kebab-case.js"
+      },
+      "default": {
+        "types": "./build/cjs/kebab-case.d.ts",
+        "default": "./build/cjs/kebab-case.js"
+      }
+    },
+    "./last": {
+      "browser": {
+        "types": "./build/esm/last.d.ts",
+        "default": "./build/esm/last.js"
+      },
+      "import": {
+        "types": "./build/esm/last.d.ts",
+        "default": "./build/esm/last.js"
+      },
+      "default": {
+        "types": "./build/cjs/last.d.ts",
+        "default": "./build/cjs/last.js"
+      }
+    },
+    "./lower-case": {
+      "browser": {
+        "types": "./build/esm/lower-case.d.ts",
+        "default": "./build/esm/lower-case.js"
+      },
+      "import": {
+        "types": "./build/esm/lower-case.d.ts",
+        "default": "./build/esm/lower-case.js"
+      },
+      "default": {
+        "types": "./build/cjs/lower-case.d.ts",
+        "default": "./build/cjs/lower-case.js"
+      }
+    },
+    "./lower-first": {
+      "browser": {
+        "types": "./build/esm/lower-first.d.ts",
+        "default": "./build/esm/lower-first.js"
+      },
+      "import": {
+        "types": "./build/esm/lower-first.d.ts",
+        "default": "./build/esm/lower-first.js"
+      },
+      "default": {
+        "types": "./build/cjs/lower-first.d.ts",
+        "default": "./build/cjs/lower-first.js"
+      }
+    },
+    "./mean": {
+      "browser": {
+        "types": "./build/esm/mean.d.ts",
+        "default": "./build/esm/mean.js"
+      },
+      "import": {
+        "types": "./build/esm/mean.d.ts",
+        "default": "./build/esm/mean.js"
+      },
+      "default": {
+        "types": "./build/cjs/mean.d.ts",
+        "default": "./build/cjs/mean.js"
+      }
+    },
+    "./mean-by-fn": {
+      "browser": {
+        "types": "./build/esm/mean-by-fn.d.ts",
+        "default": "./build/esm/mean-by-fn.js"
+      },
+      "import": {
+        "types": "./build/esm/mean-by-fn.d.ts",
+        "default": "./build/esm/mean-by-fn.js"
+      },
+      "default": {
+        "types": "./build/cjs/mean-by-fn.d.ts",
+        "default": "./build/cjs/mean-by-fn.js"
+      }
+    },
+    "./mean-by-property": {
+      "browser": {
+        "types": "./build/esm/mean-by-property.d.ts",
+        "default": "./build/esm/mean-by-property.js"
+      },
+      "import": {
+        "types": "./build/esm/mean-by-property.d.ts",
+        "default": "./build/esm/mean-by-property.js"
+      },
+      "default": {
+        "types": "./build/cjs/mean-by-property.d.ts",
+        "default": "./build/cjs/mean-by-property.js"
+      }
+    },
+    "./repeat": {
+      "browser": {
+        "types": "./build/esm/repeat.d.ts",
+        "default": "./build/esm/repeat.js"
+      },
+      "import": {
+        "types": "./build/esm/repeat.d.ts",
+        "default": "./build/esm/repeat.js"
+      },
+      "default": {
+        "types": "./build/cjs/repeat.d.ts",
+        "default": "./build/cjs/repeat.js"
+      }
+    },
+    "./slice": {
+      "browser": {
+        "types": "./build/esm/slice.d.ts",
+        "default": "./build/esm/slice.js"
+      },
+      "import": {
+        "types": "./build/esm/slice.d.ts",
+        "default": "./build/esm/slice.js"
+      },
+      "default": {
+        "types": "./build/cjs/slice.d.ts",
+        "default": "./build/cjs/slice.js"
+      }
+    },
+    "./snake-case": {
+      "browser": {
+        "types": "./build/esm/snake-case.d.ts",
+        "default": "./build/esm/snake-case.js"
+      },
+      "import": {
+        "types": "./build/esm/snake-case.d.ts",
+        "default": "./build/esm/snake-case.js"
+      },
+      "default": {
+        "types": "./build/cjs/snake-case.d.ts",
+        "default": "./build/cjs/snake-case.js"
+      }
+    },
+    "./split": {
+      "browser": {
+        "types": "./build/esm/split.d.ts",
+        "default": "./build/esm/split.js"
+      },
+      "import": {
+        "types": "./build/esm/split.d.ts",
+        "default": "./build/esm/split.js"
+      },
+      "default": {
+        "types": "./build/cjs/split.d.ts",
+        "default": "./build/cjs/split.js"
+      }
+    },
+    "./starts-with": {
+      "browser": {
+        "types": "./build/esm/starts-with.d.ts",
+        "default": "./build/esm/starts-with.js"
+      },
+      "import": {
+        "types": "./build/esm/starts-with.d.ts",
+        "default": "./build/esm/starts-with.js"
+      },
+      "default": {
+        "types": "./build/cjs/starts-with.d.ts",
+        "default": "./build/cjs/starts-with.js"
+      }
+    },
+    "./sum": {
+      "browser": {
+        "types": "./build/esm/sum.d.ts",
+        "default": "./build/esm/sum.js"
+      },
+      "import": {
+        "types": "./build/esm/sum.d.ts",
+        "default": "./build/esm/sum.js"
+      },
+      "default": {
+        "types": "./build/cjs/sum.d.ts",
+        "default": "./build/cjs/sum.js"
+      }
+    },
+    "./sum-by-fn": {
+      "browser": {
+        "types": "./build/esm/sum-by-fn.d.ts",
+        "default": "./build/esm/sum-by-fn.js"
+      },
+      "import": {
+        "types": "./build/esm/sum-by-fn.d.ts",
+        "default": "./build/esm/sum-by-fn.js"
+      },
+      "default": {
+        "types": "./build/cjs/sum-by-fn.d.ts",
+        "default": "./build/cjs/sum-by-fn.js"
+      }
+    },
+    "./sum-by-property": {
+      "browser": {
+        "types": "./build/esm/sum-by-property.d.ts",
+        "default": "./build/esm/sum-by-property.js"
+      },
+      "import": {
+        "types": "./build/esm/sum-by-property.d.ts",
+        "default": "./build/esm/sum-by-property.js"
+      },
+      "default": {
+        "types": "./build/cjs/sum-by-property.d.ts",
+        "default": "./build/cjs/sum-by-property.js"
+      }
+    },
+    "./tail": {
+      "browser": {
+        "types": "./build/esm/tail.d.ts",
+        "default": "./build/esm/tail.js"
+      },
+      "import": {
+        "types": "./build/esm/tail.d.ts",
+        "default": "./build/esm/tail.js"
+      },
+      "default": {
+        "types": "./build/cjs/tail.d.ts",
+        "default": "./build/cjs/tail.js"
+      }
+    },
+    "./to-path": {
+      "browser": {
+        "types": "./build/esm/to-path.d.ts",
+        "default": "./build/esm/to-path.js"
+      },
+      "import": {
+        "types": "./build/esm/to-path.d.ts",
+        "default": "./build/esm/to-path.js"
+      },
+      "default": {
+        "types": "./build/cjs/to-path.d.ts",
+        "default": "./build/cjs/to-path.js"
+      }
+    },
+    "./upper-case": {
+      "browser": {
+        "types": "./build/esm/upper-case.d.ts",
+        "default": "./build/esm/upper-case.js"
+      },
+      "import": {
+        "types": "./build/esm/upper-case.d.ts",
+        "default": "./build/esm/upper-case.js"
+      },
+      "default": {
+        "types": "./build/cjs/upper-case.d.ts",
+        "default": "./build/cjs/upper-case.js"
+      }
+    },
+    "./upper-first": {
+      "browser": {
+        "types": "./build/esm/upper-first.d.ts",
+        "default": "./build/esm/upper-first.js"
+      },
+      "import": {
+        "types": "./build/esm/upper-first.d.ts",
+        "default": "./build/esm/upper-first.js"
+      },
+      "default": {
+        "types": "./build/cjs/upper-first.d.ts",
+        "default": "./build/cjs/upper-first.js"
+      }
+    }
   },
   "devDependencies": {
     "@types/jest": "^28.1.8",

@@ -1,7 +1,7 @@
 import isInstanceOf from "./is-instance-of.js";
 
 /**
- * It will determine whether the provided value is a Map object or not.
+ * It will determine whether the provided `value` is a Map object or not.
  * @since 1.0.0
  * @param value
  * @example

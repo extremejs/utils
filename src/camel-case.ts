@@ -6,7 +6,7 @@ import tail from "./tail.js";
 import upperCase from "./upper-case.js";
 
 /**
- * It will convert the given string to [camel case](https://en.wikipedia.org/wiki/CamelCase).
+ * It will convert the given `string` to [camel case](https://en.wikipedia.org/wiki/CamelCase).
  * @since 1.0.0
  * @param string
  * @example
