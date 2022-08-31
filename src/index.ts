@@ -8,6 +8,7 @@ export { default as get, type RecordT, type CalculatedPropertyT, type Calculated
 export { default as head, type HeadT } from "./head.js";
 export { default as isArray } from "./is-array.js";
 export { default as isBoolean } from "./is-boolean.js";
+export { default as isBuffer } from "./is-buffer.js";
 export { default as isEven } from "./is-even.js";
 export { default as isFinite } from "./is-finite.js";
 export { default as isNil } from "./is-nil.js";
