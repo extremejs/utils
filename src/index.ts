@@ -23,6 +23,7 @@ export { default as isNumber } from "./is-number.js";
 export { default as isObject } from "./is-object.js";
 export { default as isRegExp } from "./is-reg-exp.js";
 export { default as isSafeInteger } from "./is-safe-integer.js";
+export { default as isSet } from "./is-set.js";
 export { default as isString } from "./is-string.js";
 export { default as isSymbol } from "./is-symbol.js";
 export { default as isUndefined } from "./is-undefined.js";
