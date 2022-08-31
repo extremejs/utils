@@ -1,0 +1,15 @@
+/**
+ * It will determine whether the provided value is a Date or not.
+ * @since 1.0.0
+ * @param value
+ * @example
+ * isDate(new Date());
+ * // => true
+ * @example
+ * isDate(2);
+ * // => false
+ */
+export default function isDate(value: unknown): value is Date {
+  // TODO: Use "node:util" for node environment.
+  return value instanceof Date;
+}
