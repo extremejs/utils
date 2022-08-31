@@ -11,6 +11,7 @@ export { default as isBoolean } from "./is-boolean.js";
 export { default as isBuffer } from "./is-buffer.js";
 export { default as isEven } from "./is-even.js";
 export { default as isFinite } from "./is-finite.js";
+export { default as isNaN } from "./is-nan.js";
 export { default as isNil } from "./is-nil.js";
 export { default as isNull } from "./is-null.js";
 export { default as isNumber } from "./is-number.js";
