@@ -1,0 +1,15 @@
+/**
+ * It will determine whether the provided value is a Map object or not.
+ * @since 1.0.0
+ * @param value
+ * @example
+ * isMap(new Map);
+ * // => true
+ * @example
+ * isMap(new WeakMap);
+ * // => false
+ */
+export default function isMap(value: unknown): value is Map<unknown, unknown> {
+  // TODO: Use "node:util" for node environment.
+  return value instanceof Map;
+}

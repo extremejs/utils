@@ -15,6 +15,7 @@ export { default as isEven } from "./is-even.js";
 export { default as isFinite } from "./is-finite.js";
 export { default as isFunction } from "./is-function.js";
 export { default as isInteger } from "./is-integer.js";
+export { default as isMap } from "./is-map.js";
 export { default as isNaN } from "./is-nan.js";
 export { default as isNil } from "./is-nil.js";
 export { default as isNull } from "./is-null.js";
