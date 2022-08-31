@@ -12,6 +12,7 @@ export { default as isEven } from "./is-even.js";
 export { default as isNumber } from "./is-number.js";
 export { default as isString } from "./is-string.js";
 export { default as isSymbol } from "./is-symbol.js";
+export { default as isUndefined } from "./is-undefined.js";
 export { default as join } from "./join.js";
 export { default as kebabCase } from "./kebab-case.js";
 export { default as last, type LastT } from "./last.js";
