@@ -16,6 +16,7 @@ export { default as isNaN } from "./is-nan.js";
 export { default as isNil } from "./is-nil.js";
 export { default as isNull } from "./is-null.js";
 export { default as isNumber } from "./is-number.js";
+export { default as isSafeInteger } from "./is-safe-integer.js";
 export { default as isString } from "./is-string.js";
 export { default as isSymbol } from "./is-symbol.js";
 export { default as isUndefined } from "./is-undefined.js";
