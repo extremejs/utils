@@ -1,0 +1,18 @@
+/**
+ * It will repeat the given `string`, by `count` times.
+ * @since 1.0.0
+ * @param string
+ * @param count
+ * @example
+ * repeat("*", 3);
+ * // => "***"
+ * @example
+ * repeat("abc", 2);
+ * // => "abcabc"
+ * @example
+ * repeat("abc", 0);
+ * // => ""
+ */
+export default function repeat(string: string, count: number): string {
+  return string.repeat(count);
+}
