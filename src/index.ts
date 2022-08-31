@@ -28,6 +28,7 @@ export { default as isString } from "./is-string.js";
 export { default as isSymbol } from "./is-symbol.js";
 export { default as isUndefined } from "./is-undefined.js";
 export { default as isWeakMap } from "./is-weak-map.js";
+export { default as isWeakSet } from "./is-weak-set.js";
 export { default as join } from "./join.js";
 export { default as kebabCase } from "./kebab-case.js";
 export { default as last, type LastT } from "./last.js";
