@@ -1,3 +1,5 @@
+import isInstanceOf from "./is-instance-of.js";
+
 /**
  * It will determine whether the provided `value` is a number or not.
  * @since 1.0.0
@@ -10,5 +12,5 @@
  * // => true
  */
 export default function isNumber(value: unknown): value is number {
-  return typeof value === "number" || value instanceof Number;
+  return typeof value === "number" || isInstanceOf(value, Number);
 }

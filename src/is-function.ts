@@ -9,6 +9,9 @@
  * isFunction(2);
  * // => false
  */
-export default function isFunction(value: unknown): value is (...args: unknown[]) => unknown {
+export default function isFunction(value: unknown): value is FunctionT {
   return typeof value === "function";
 }
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type FunctionT = (...args: any[]) => any;

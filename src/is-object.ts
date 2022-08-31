@@ -1,4 +1,5 @@
 import { RecordT } from "./get.js";
+import isInstanceOf from "./is-instance-of.js";
 
 /**
  * It will determine whether the provided `value` is an Object or not.
@@ -18,5 +19,5 @@ import { RecordT } from "./get.js";
  * // => false
  */
 export default function isObject(value: unknown): value is RecordT {
-  return value instanceof Object;
+  return isInstanceOf(value, Object);
 }

@@ -1,3 +1,5 @@
+import isInstanceOf from "./is-instance-of.js";
+
 /**
  * It will determine whether the provided `value` is a symbol or not.
  * @since 1.0.0
@@ -10,5 +12,5 @@
  * // => true
  */
 export default function isSymbol(value: unknown): value is symbol {
-  return typeof value === "symbol" || value instanceof Symbol;
+  return typeof value === "symbol" || isInstanceOf(value, Symbol);
 }

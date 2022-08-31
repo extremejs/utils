@@ -1,3 +1,5 @@
+import isInstanceOf from "./is-instance-of.js";
+
 /**
  * It will determine whether the provided value is a Date or not.
  * @since 1.0.0
@@ -11,5 +13,5 @@
  */
 export default function isDate(value: unknown): value is Date {
   // TODO: Use "node:util" for node environment.
-  return value instanceof Date;
+  return isInstanceOf(value, Date);
 }
