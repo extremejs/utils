@@ -29,6 +29,7 @@ export { default as isSafeInteger } from "./is-safe-integer.js";
 export { default as isSet } from "./is-set.js";
 export { default as isString } from "./is-string.js";
 export { default as isSymbol } from "./is-symbol.js";
+export { default as isTypeOf, TYPE } from "./is-type-of.js";
 export { default as isUndefined } from "./is-undefined.js";
 export { default as isWeakMap } from "./is-weak-map.js";
 export { default as isWeakSet } from "./is-weak-set.js";
