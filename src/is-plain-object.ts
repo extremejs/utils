@@ -1,6 +1,7 @@
 import { RecordT } from "./get.js";
 import isNull from "./is-null.js";
 import isObjectLike from "./is-object-like.js";
+import prototypeOf from "./prototype-of.js";
 
 /**
  * Checks if `value` is a plain object,
@@ -23,11 +24,11 @@ import isObjectLike from "./is-object-like.js";
 export default function isPlainObject(value: unknown): value is RecordT {
   if (!isObjectLike(value)) return false;
 
-  if (isNull(Object.getPrototypeOf(value))) return true;
+  if (isNull(prototypeOf(value))) return true;
 
   let proto = value;
 
-  while (!isNull(Object.getPrototypeOf(proto))) proto = Object.getPrototypeOf(proto);
+  while (!isNull(prototypeOf(proto))) proto = prototypeOf(proto);
 
-  return Object.getPrototypeOf(value) === proto;
+  return prototypeOf(value) === proto;
 }
