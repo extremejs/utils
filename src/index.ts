@@ -23,6 +23,7 @@ export { default as isNil } from "./is-nil.js";
 export { default as isNull } from "./is-null.js";
 export { default as isNumber } from "./is-number.js";
 export { default as isObject } from "./is-object.js";
+export { default as isObjectLike } from "./is-object-like.js";
 export { default as isRegExp } from "./is-reg-exp.js";
 export { default as isSafeInteger } from "./is-safe-integer.js";
 export { default as isSet } from "./is-set.js";
