@@ -42,6 +42,7 @@ export { default as lowerFirst } from "./lower-first.js";
 export { default as mean } from "./mean.js";
 export { default as meanByFn } from "./mean-by-fn.js";
 export { default as meanByProperty } from "./mean-by-property.js";
+export { default as prototypeOf } from "./prototype-of.js";
 export { default as repeat } from "./repeat.js";
 export { default as replace } from "./replace.js";
 export { default as slice } from "./slice.js";
