@@ -1,5 +1,6 @@
 import { RecordT } from "./get.js";
 import isNil from "./is-nil.js";
+import typeOf from "./type-of.js";
 
 /**
  * Checks if `value` is object-like.
@@ -20,5 +21,5 @@ import isNil from "./is-nil.js";
  * // => false
  */
 export default function isObjectLike(value: unknown): value is RecordT {
-  return !isNil(value) && typeof value === "object";
+  return !isNil(value) && typeOf(value) === "object";
 }

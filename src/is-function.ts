@@ -1,3 +1,5 @@
+import typeOf from "./type-of.js";
+
 /**
  * It will determine whether the provided `value` is a function or not.
  * @since 1.0.0
@@ -10,7 +12,7 @@
  * // => false
  */
 export default function isFunction(value: unknown): value is FunctionT {
-  return typeof value === "function";
+  return typeOf(value) === "function";
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

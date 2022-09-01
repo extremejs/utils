@@ -1,4 +1,5 @@
 import isInstanceOf from "./is-instance-of.js";
+import typeOf from "./type-of.js";
 
 /**
  * It will determine whether the provided `value` is a boolean or not.
@@ -12,5 +13,5 @@ import isInstanceOf from "./is-instance-of.js";
  * // => false
  */
 export default function isBoolean(value: unknown): value is boolean {
-  return typeof value === "boolean" || isInstanceOf(value, Boolean);
+  return typeOf(value) === "boolean" || isInstanceOf(value, Boolean);
 }

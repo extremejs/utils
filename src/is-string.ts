@@ -1,4 +1,5 @@
 import isInstanceOf from "./is-instance-of.js";
+import typeOf from "./type-of.js";
 
 /**
  * It will determine whether the provided `value` is a string or not.
@@ -12,5 +13,5 @@ import isInstanceOf from "./is-instance-of.js";
  * // => false
  */
 export default function isString(value: unknown): value is string {
-  return typeof value === "string" || isInstanceOf(value, String);
+  return typeOf(value) === "string" || isInstanceOf(value, String);
 }
