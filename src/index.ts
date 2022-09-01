@@ -40,6 +40,7 @@ export { default as mean } from "./mean.js";
 export { default as meanByFn } from "./mean-by-fn.js";
 export { default as meanByProperty } from "./mean-by-property.js";
 export { default as repeat } from "./repeat.js";
+export { default as replace } from "./replace.js";
 export { default as slice } from "./slice.js";
 export { default as snakeCase } from "./snake-case.js";
 export { default as split } from "./split.js";
