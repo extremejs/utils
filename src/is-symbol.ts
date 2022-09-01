@@ -1,5 +1,5 @@
 import isInstanceOf from "./is-instance-of.js";
-import typeOf from "./type-of.js";
+import isTypeOf, { TYPE } from "./is-type-of.js";
 
 /**
  * It will determine whether the provided `value` is a symbol or not.
@@ -13,5 +13,5 @@ import typeOf from "./type-of.js";
  * // => true
  */
 export default function isSymbol(value: unknown): value is symbol {
-  return typeOf(value) === "symbol" || isInstanceOf(value, Symbol);
+  return isTypeOf(value, TYPE.SYMBOL) || isInstanceOf(value, Symbol);
 }
