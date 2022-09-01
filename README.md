@@ -5,6 +5,7 @@ aiming to be high performance while having minimal size impact.
 
 [![Test](https://github.com/extremejs/utils/actions/workflows/test.yml/badge.svg)](https://github.com/extremejs/utils/actions/workflows/test.yml)
 [![CodeCov](https://codecov.io/gh/extremejs/utils/branch/main/graph/badge.svg?token=1TKSPJICKI)](https://codecov.io/gh/extremejs/utils)
+[![Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/github/extremejs/utils)](https://snyk.io/test/github/extremejs/utils)
 [![License](https://img.shields.io/github/license/extremejs/utils.svg)](https://github.com/extremejs/utils/blob/main/LICENSE)
 [![NPM Version](https://img.shields.io/npm/v/@extremejs/utils.svg)](https://www.npmjs.com/package/@extremejs/utils)
 [![NPM Monthly Downloads](https://img.shields.io/npm/dm/@extremejs/utils.svg)](https://www.npmjs.com/package/@extremejs/utils)
