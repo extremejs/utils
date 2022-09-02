@@ -1,6 +1,12 @@
 /**
  * Returns the `Object.getPrototypeOf` result of `value`.
  * @since 1.0.0
- * @function
+ * @param value
+ * @example
+ * prototypeOf(Object.create(null));
+ * // => null
  */
-export default Object.getPrototypeOf;
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default function prototypeOf(value: unknown): any {
+  return Object.getPrototypeOf(value);
+}

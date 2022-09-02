@@ -1,6 +1,14 @@
 /**
  * It will determine whether the provided `value` is a finite number or not.
  * @since 1.0.0
- * @function
+ * @param value
+ * @example
+ * isFinite(Infinity);
+ * // => false
+ * @example
+ * isFinite(3);
+ * // => true
  */
-export default Number.isFinite;
+export default function isFinite(value: unknown): boolean {
+  return Number.isFinite(value);
+}
