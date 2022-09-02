@@ -25,6 +25,7 @@ aiming to be high performance while having minimal size impact.
   - [NPM & GitHub Packages](#npm--github-packages)
   - [Yarn](#yarn)
 - [Usage](#usage)
+  - [Notes](#notes)
 - [Versioning](#versioning)
 - [Authors](#authors)
 - [License](#license)
@@ -52,6 +53,15 @@ const sum = sumByFn([{ a: 1 }, { a: 2 }, { a: 3 }], ({ a }) => a);
 ```
 
 > API usage documents are available [here](https://extremejs.github.io/utils).
+
+### Notes
+
+1. Although this package is inspired by `lodash`,
+   the method names might not be exactly the same or have different usage API,
+   so make sure to read the docs first before using it.
+2. The methods do not type check at runtime
+   (e.g. The `Array` `chunk` method assumes the `size` parameter is always a valid positive integer)
+   so make sure you pass the correct values based on the `documents`/`typescript` types.
 
 ## Versioning
 
