@@ -10,4 +10,18 @@ export default function typeOf<Value>(value: Value): JSTypeT {
   return typeof value;
 }
 
-export type JSTypeT = "bigint" | "boolean" | "function" | "number" | "object" | "string" | "symbol" | "undefined";
+/**
+ * All `typeof` results.
+ */
+export const TYPE = {
+  BIGINT   : "bigint",
+  BOOLEAN  : "boolean",
+  FUNCTION : "function",
+  NUMBER   : "number",
+  OBJECT   : "object",
+  STRING   : "string",
+  SYMBOL   : "symbol",
+  UNDEFINED: "undefined",
+} as const;
+
+export type JSTypeT = typeof TYPE[keyof typeof TYPE];

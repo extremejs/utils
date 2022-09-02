@@ -1,6 +1,7 @@
 import { RecordT } from "./get.js";
 import isNil from "./is-nil.js";
-import isTypeOf, { TYPE } from "./is-type-of.js";
+import isTypeOf from "./is-type-of.js";
+import { TYPE } from "./type-of.js";
 
 /**
  * Checks if `value` is object-like.

@@ -1,4 +1,5 @@
-import isTypeOf, { TYPE } from "./is-type-of.js";
+import isTypeOf from "./is-type-of.js";
+import { TYPE } from "./type-of.js";
 
 /**
  * It will determine whether the provided `value` is a function or not.
