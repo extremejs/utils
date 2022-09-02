@@ -1,5 +1,6 @@
 /**
  * It will repeat the given `string`, by `count` times.
+ * @group String
  * @since 1.0.0
  * @param string
  * @param count

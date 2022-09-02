@@ -4,6 +4,7 @@ import tail from "./tail.js";
 
 /**
  * It will convert the first character of the `string` to lowercase.
+ * @group String
  * @since 1.0.0
  * @param string
  * @example

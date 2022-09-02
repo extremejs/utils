@@ -1,5 +1,6 @@
 /**
  * It will determine whether the provided `number` is an even number or not.
+ * @group Number
  * @since 1.0.0
  * @param number
  * @example

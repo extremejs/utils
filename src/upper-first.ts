@@ -4,6 +4,7 @@ import upperCase from "./upper-case.js";
 
 /**
  * It will convert the first character of the `string` to uppercase.
+ * @group String
  * @since 1.0.0
  * @param string
  * @example

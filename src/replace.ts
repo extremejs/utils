@@ -1,5 +1,6 @@
 /**
  * It will replace matches for the `searchValue` in the `string` with the `replaceValue`.
+ * @group String
  * @since 1.0.0
  * @param string
  * @param searchValue

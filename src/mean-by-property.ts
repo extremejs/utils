@@ -5,6 +5,7 @@ import sumByProperty from "./sum-by-property.js";
  * It will iterate through each of the provided `values` array
  * and add the value of each element's `property`,
  * then divide by `values.length`to produce the desired `mean`.
+ * @group Array
  * @since 1.0.0
  * @param values
  * @param property

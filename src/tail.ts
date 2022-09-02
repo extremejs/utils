@@ -2,6 +2,7 @@ import slice from "./slice.js";
 
 /**
  * It will return all but the first element of the `value`.
+ * @group Collection
  * @since 1.0.0
  * @param value
  * @example
@@ -15,6 +16,9 @@ export default function tail<Value extends unknown[] | string>(value: Value): Ta
   return slice(value, 1) as TailT<Value>;
 }
 
+/**
+ * @group Collection
+ */
 export type TailT<Value extends unknown[] | string> = Value extends string
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ? Value extends `${ infer First }${ infer Rest }`

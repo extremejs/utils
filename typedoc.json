@@ -6,5 +6,6 @@
   "out": "docs",
   "includeVersion": true,
   "searchInComments": true,
-  "githubPages": true
+  "githubPages": true,
+  "cleanOutputDir": true
 }

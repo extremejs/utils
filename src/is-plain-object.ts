@@ -6,6 +6,7 @@ import prototypeOf from "./prototype-of.js";
 /**
  * Checks if `value` is a plain object,
  * that is, an object created by the `Object` constructor or one with a `[[Prototype]]` of `null`.
+ * @group Object
  * @since 1.0.0
  * @param value
  * @example

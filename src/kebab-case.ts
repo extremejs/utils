@@ -4,6 +4,7 @@ import lowerCase from "./lower-case.js";
 
 /**
  * It will convert the given `string` to [kebab case](https://en.wikipedia.org/wiki/Letter_case#Special_case_styles).
+ * @group String
  * @since 1.0.0
  * @param string
  * @example

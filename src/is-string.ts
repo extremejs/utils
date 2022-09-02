@@ -4,6 +4,7 @@ import { TYPE } from "./type-of.js";
 
 /**
  * It will determine whether the provided `value` is a string or not.
+ * @group String
  * @since 1.0.0
  * @param value
  * @example

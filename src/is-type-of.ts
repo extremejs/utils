@@ -2,6 +2,7 @@ import typeOf, { JSTypeT } from "./type-of.js";
 
 /**
  * Checks if the `typeof` result of `value` is equal to the provided `type`.
+ * @group Other
  * @since 1.0.0
  * @param value
  * @param type

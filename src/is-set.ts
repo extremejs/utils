@@ -2,6 +2,7 @@ import isInstanceOf from "./is-instance-of.js";
 
 /**
  * It will determine whether the provided `value` is a Set object or not.
+ * @group Set
  * @since 1.0.0
  * @param value
  * @example

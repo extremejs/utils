@@ -1,5 +1,6 @@
 /**
  * Returns the `Object.getPrototypeOf` result of `value`.
+ * @group Other
  * @since 1.0.0
  * @param value
  * @example

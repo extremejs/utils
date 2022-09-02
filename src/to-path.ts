@@ -2,6 +2,7 @@ import isString from "./is-string.js";
 
 /**
  * It will convert the provided `property` to an array of keys that'll represent the `path` of a value in an object.
+ * @group Object
  * @since 1.0.0
  * @param property
  * @example
@@ -23,8 +24,16 @@ export default function toPath<Property extends PropertyT>(property: Property): 
   return [property] as PathT<Property>;
 }
 
+/**
+ *
+ * @group Object
+ */
 export type PropertyT = PropertyKey;
 
+/**
+ *
+ * @group Object
+ */
 export type PathT<Property extends PropertyT> = Property extends ""
   ? []
   : Property extends number

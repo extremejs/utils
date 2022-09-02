@@ -1,5 +1,6 @@
 /**
  * It will filter out the falsey values from the provided `array`.
+ * @group Array
  * @since 1.0.0
  * @param array
  * @example
@@ -10,6 +11,10 @@ export default function compact<Value>(array: Value[]): Array<CompactT<Value>> {
   return array.filter(Boolean) as Array<CompactT<Value>>;
 }
 
+/**
+ *
+ * @group Array
+ */
 export type CompactT<Value> = Value extends ""
   ? never
   : Value extends 0

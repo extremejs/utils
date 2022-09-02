@@ -1,5 +1,6 @@
 /**
  * It will convert all elements in the `array` into a string separated by the `separator`.
+ * @group Array
  * @since 1.0.0
  * @param array
  * @param [separator=""]

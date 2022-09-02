@@ -1,5 +1,6 @@
 /**
  * It will check whether the `string` starts with the given `searchString`.
+ * @group String
  * @since 1.0.0
  * @param string
  * @param searchString

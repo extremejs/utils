@@ -1,5 +1,6 @@
 /**
  * Returns the `typeof` result of `value`.
+ * @group Other
  * @since 1.0.0
  * @param value
  * @example
@@ -12,6 +13,7 @@ export default function typeOf<Value>(value: Value): JSTypeT {
 
 /**
  * All `typeof` results.
+ * @group Other
  */
 export const TYPE = {
   BIGINT   : "bigint",
@@ -24,4 +26,8 @@ export const TYPE = {
   UNDEFINED: "undefined",
 } as const;
 
+/**
+ *
+ * @group Other
+ */
 export type JSTypeT = typeof TYPE[keyof typeof TYPE];

@@ -4,6 +4,7 @@ import { TYPE } from "./type-of.js";
 
 /**
  * It will determine whether the provided `value` is a number or not.
+ * @group Number
  * @since 1.0.0
  * @param value
  * @example

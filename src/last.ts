@@ -1,5 +1,6 @@
 /**
  * It will return the last element of the `value`.
+ * @group Collection
  * @since 1.0.0
  * @param value
  * @example
@@ -13,6 +14,10 @@ export default function last<Value extends unknown[] | string>(value: Value): La
   return value[value.length - 1] as LastT<Value>;
 }
 
+/**
+ *
+ * @group Collection
+ */
 export type LastT<Value extends unknown[] | string> = Value extends string
   ? string | undefined
   : Value extends never[]

@@ -7,6 +7,7 @@ import upperCase from "./upper-case.js";
 
 /**
  * It will convert the given `string` to [camel case](https://en.wikipedia.org/wiki/CamelCase).
+ * @group String
  * @since 1.0.0
  * @param string
  * @example

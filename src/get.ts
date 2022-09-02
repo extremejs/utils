@@ -2,6 +2,7 @@ import toPath, { PathT, PropertyT } from "./to-path.js";
 
 /**
  * It will return the desired `value` based on the provided `property`.
+ * @group Object
  * @since 1.0.0
  * @param value
  * @param property
@@ -29,9 +30,17 @@ export default function get<
     .reduce<any>((previousValue, currentValue) => previousValue?.[currentValue], value) ?? fallback;
 }
 
+/**
+ *
+ * @group Object
+ */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type RecordT = Record<string, any>;
 
+/**
+ *
+ * @group Object
+ */
 export type CalculatedPathT<Value> = Value extends Array<infer Element>
   ? [`${ number }`, ...CalculatedPathT<Element>] | [`${ number }`]
   : Value extends RecordT
@@ -40,6 +49,10 @@ export type CalculatedPathT<Value> = Value extends Array<infer Element>
       }[keyof Value]
     : [];
 
+/**
+ *
+ * @group Object
+ */
 export type CalculatedPropertyT<Path extends unknown[]> = Path extends []
   ? never
   : Path extends [infer First]
@@ -52,6 +65,10 @@ export type CalculatedPropertyT<Path extends unknown[]> = Path extends []
         : never
       : never;
 
+/**
+ *
+ * @group Object
+ */
 export type ValueAtT<Value, Path extends unknown[]> = Path extends [infer First]
   ? First extends keyof Value
     ? Value[First]

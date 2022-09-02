@@ -1,5 +1,6 @@
 /**
  * It will split `string` by `separator`.
+ * @group String
  * @since 1.0.0
  * @param string
  * @param [separator=""]

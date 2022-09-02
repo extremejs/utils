@@ -1,5 +1,6 @@
 /**
  * It will create a new array concatenating the input `array` with any additional arrays and/or values.
+ * @group Array
  * @since 1.0.0
  * @param array
  * @param items

@@ -4,6 +4,7 @@ import lowerCase from "./lower-case.js";
 
 /**
  * It will convert the given `string` to [snake case](https://en.wikipedia.org/wiki/Snake_case).
+ * @group String
  * @since 1.0.0
  * @param string
  * @example

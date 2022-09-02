@@ -1,5 +1,6 @@
 /**
  * It will determine whether the provided `value` is null or not.
+ * @group Other
  * @since 1.0.0
  * @param value
  * @example

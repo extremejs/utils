@@ -4,6 +4,7 @@ import { TYPE } from "./type-of.js";
 
 /**
  * It will determine whether the provided `value` is a symbol or not.
+ * @group Symbol
  * @since 1.0.0
  * @param value
  * @example

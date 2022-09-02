@@ -2,6 +2,7 @@ import isInstanceOf from "./is-instance-of.js";
 
 /**
  * It will determine whether the provided `value` is an Error or not.
+ * @group Error
  * @since 1.0.0
  * @param value
  * @example

@@ -3,6 +3,7 @@ import upperFirst from "./upper-first.js";
 
 /**
  * It will convert the first character of the `string` to uppercase and the remaining to lowercase.
+ * @group String
  * @since 1.0.0
  * @param string
  * @example

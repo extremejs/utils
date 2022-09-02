@@ -2,6 +2,7 @@ import isInstanceOf from "./is-instance-of.js";
 
 /**
  * It will determine whether the provided `value` is a RegExp object or not.
+ * @group RegExp
  * @since 1.0.0
  * @param value
  * @example

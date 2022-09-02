@@ -1,5 +1,6 @@
 /**
  * It will return the first element of the `value`.
+ * @group Collection
  * @since 1.0.0
  * @param value
  * @example
@@ -13,6 +14,10 @@ export default function first<Value extends unknown[] | string>(value: Value): F
   return value[0] as FirstT<Value>;
 }
 
+/**
+ *
+ * @group Collection
+ */
 export type FirstT<Value extends unknown[] | string> = Value extends string
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   ? Value extends `${ infer First }${ infer Rest }`

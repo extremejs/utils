@@ -1,5 +1,6 @@
 /**
  * It will determine whether the provided `value` is an array or not.
+ * @group Array
  * @since 1.0.0
  * @param value
  * @example

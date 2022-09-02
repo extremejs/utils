@@ -2,6 +2,7 @@ import slice from "./slice.js";
 
 /**
  * It will return all but the last element of the `value`.
+ * @group Collection
  * @since 1.0.0
  * @param value
  * @example
@@ -15,6 +16,10 @@ export default function head<Value extends unknown[] | string>(value: Value): He
   return slice(value, 0, -1) as HeadT<Value>;
 }
 
+/**
+ *
+ * @group Collection
+ */
 export type HeadT<Value extends unknown[] | string> = Value extends string
   ? string
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

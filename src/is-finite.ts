@@ -1,5 +1,6 @@
 /**
  * It will determine whether the provided `value` is a finite number or not.
+ * @group Number
  * @since 1.0.0
  * @param value
  * @example

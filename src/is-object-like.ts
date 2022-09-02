@@ -6,6 +6,7 @@ import { TYPE } from "./type-of.js";
 /**
  * Checks if `value` is object-like.
  * A value is object-like if it's not `null`/`undefined` and has a `typeof` result of `object`.
+ * @group Object
  * @since 1.0.0
  * @param value
  * @example

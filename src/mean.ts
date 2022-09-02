@@ -2,6 +2,7 @@ import sum from "./sum.js";
 
 /**
  * It will calculate the mean of the provided `numbers`.
+ * @group Array
  * @since 1.0.0
  * @param numbers
  * @example

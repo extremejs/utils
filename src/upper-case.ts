@@ -1,5 +1,6 @@
 /**
  * It will convert the given `string` to uppercase.
+ * @group String
  * @since 1.0.0
  * @param string
  * @example
