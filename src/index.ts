@@ -9,6 +9,7 @@ export { default as first, type FirstT } from "./first.js";
 export { default as get, type RecordT, type CalculatedPropertyT, type CalculatedPathT, type ValueAtT } from "./get.js";
 export { default as head, type HeadT } from "./head.js";
 export { default as isArray } from "./is-array.js";
+export { default as isArrayBuffer } from "./is-array-buffer.js";
 export { default as isArrayLike } from "./is-array-like.js";
 export { default as isArrayLikeObject } from "./is-array-like-object.js";
 export { default as isBoolean } from "./is-boolean.js";
