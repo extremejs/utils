@@ -27,6 +27,7 @@ export { default as isNumber } from "./is-number.js";
 export { default as isObject } from "./is-object.js";
 export { default as isObjectLike } from "./is-object-like.js";
 export { default as isPlainObject } from "./is-plain-object.js";
+export { default as isPositive } from "./is-positive.js";
 export { default as isRegExp } from "./is-reg-exp.js";
 export { default as isSafeInteger, MIN_SAFE_INTEGER, MAX_SAFE_INTEGER } from "./is-safe-integer.js";
 export { default as isSet } from "./is-set.js";
