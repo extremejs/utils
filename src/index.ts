@@ -38,7 +38,7 @@ export { default as isSet } from "./is-set.js";
 export { default as isString } from "./is-string.js";
 export { default as isSymbol } from "./is-symbol.js";
 export { default as isTypeOf } from "./is-type-of.js";
-export { default as isTypedArray } from "./is-typed-array.js";
+export { default as isTypedArray, type TypedArrayT } from "./is-typed-array.js";
 export { default as isUndefined } from "./is-undefined.js";
 export { default as isWeakMap } from "./is-weak-map.js";
 export { default as isWeakSet } from "./is-weak-set.js";
