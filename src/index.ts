@@ -18,6 +18,7 @@ export { default as isFinite } from "./is-finite.js";
 export { default as isFunction, type FunctionT } from "./is-function.js";
 export { default as isInstanceOf, type ConstructorT, type InstanceT } from "./is-instance-of.js";
 export { default as isInteger } from "./is-integer.js";
+export { default as isLength } from "./is-length.js";
 export { default as isMap } from "./is-map.js";
 export { default as isNaN } from "./is-nan.js";
 export { default as isNil } from "./is-nil.js";
