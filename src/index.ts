@@ -10,6 +10,7 @@ export { default as get, type RecordT, type CalculatedPropertyT, type Calculated
 export { default as head, type HeadT } from "./head.js";
 export { default as isArray } from "./is-array.js";
 export { default as isArrayLike } from "./is-array-like.js";
+export { default as isArrayLikeObject } from "./is-array-like-object.js";
 export { default as isBoolean } from "./is-boolean.js";
 export { default as isBuffer } from "./is-buffer.js";
 export { default as isDate } from "./is-date.js";
