@@ -10,6 +10,18 @@
  * isSafeInteger(Number.MIN_VALUE);
  * // => false
  */
-export default function isSafeInteger(value: unknown): boolean {
+export default function isSafeInteger(value: unknown): value is number {
   return Number.isSafeInteger(value);
 }
+
+/**
+ *
+ * @group Number
+ */
+export const MIN_SAFE_INTEGER = Number.MIN_SAFE_INTEGER;
+
+/**
+ *
+ * @group Number
+ */
+export const MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER;

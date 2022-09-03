@@ -10,6 +10,6 @@
  * isInteger(2.2);
  * // => false
  */
-export default function isInteger(value: unknown): boolean {
+export default function isInteger(value: unknown): value is number {
   return Number.isInteger(value);
 }
