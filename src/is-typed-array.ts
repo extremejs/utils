@@ -1,18 +1,18 @@
 import isArrayLikeObject from "./is-array-like-object.js";
-import objectToString from "./object-to-string.js";
+import objectToStringTag from "./object-to-string-tag.js";
 
 const TYPED_ARRAYS = [
-  "[object Int8Array]",
-  "[object Uint8Array]",
-  "[object Uint8ClampedArray]",
-  "[object Int16Array]",
-  "[object Uint16Array]",
-  "[object Int32Array]",
-  "[object Uint32Array]",
-  "[object Float32Array]",
-  "[object Float64Array]",
-  "[object BigInt64Array]",
-  "[object BigUint64Array]",
+  "Int8Array",
+  "Uint8Array",
+  "Uint8ClampedArray",
+  "Int16Array",
+  "Uint16Array",
+  "Int32Array",
+  "Uint32Array",
+  "Float32Array",
+  "Float64Array",
+  "BigInt64Array",
+  "BigUint64Array",
 ];
 
 /**
@@ -29,7 +29,7 @@ const TYPED_ARRAYS = [
  */
 export default function isTypedArray<Value>(value: Value): Value extends TypedArrayT ? true : false {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return (isArrayLikeObject(value) && TYPED_ARRAYS.includes(objectToString(value))) as any;
+  return (isArrayLikeObject(value) && TYPED_ARRAYS.includes(objectToStringTag(value))) as any;
 }
 
 export type TypedArrayT = BigInt64Array | BigUint64Array | Float32Array | Float64Array
