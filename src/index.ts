@@ -16,6 +16,7 @@ export { default as isArrayLikeObject } from "./is-array-like-object.js";
 export { default as isBoolean } from "./is-boolean.js";
 export { default as isBuffer } from "./is-buffer.js";
 export { default as isDate } from "./is-date.js";
+export { default as isElement } from "./is-element.js";
 export { default as isError } from "./is-error.js";
 export { default as isEven } from "./is-even.js";
 export { default as isFinite } from "./is-finite.js";
