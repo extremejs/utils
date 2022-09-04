@@ -7,6 +7,7 @@ export { default as endsWith } from "./ends-with.js";
 export { default as eq } from "./eq.js";
 export { default as first, type FirstT } from "./first.js";
 export { default as get, type RecordT, type CalculatedPropertyT, type CalculatedPathT, type ValueAtT } from "./get.js";
+export { default as hasOwn } from "./has-own.js";
 export { default as head, type HeadT } from "./head.js";
 export { default as isArguments } from "./is-arguments.js";
 export { default as isArray } from "./is-array.js";
