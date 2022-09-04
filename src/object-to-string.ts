@@ -1,3 +1,5 @@
+import { OBJECT_PROTOTYPE } from "./internals/index.js";
+
 /**
  * Converts `value` to a string using `Object.prototype.toString`.
  * @group Other
@@ -11,7 +13,7 @@
  * // => "[object Number]"
  */
 export default function objectToString(value: unknown): `[object ${ ObjectStringTagT }]` {
-  return Object.prototype.toString.call(value) as never;
+  return OBJECT_PROTOTYPE.toString.call(value) as never;
 }
 
 export const OBJECT_STRING_TAG = {
