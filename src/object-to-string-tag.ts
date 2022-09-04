@@ -1,4 +1,4 @@
-import objectToString from "./object-to-string.js";
+import objectToString, { ObjectStringTagT } from "./object-to-string.js";
 import slice from "./slice.js";
 
 /**
@@ -13,6 +13,6 @@ import slice from "./slice.js";
  * objectToStringTag(2);
  * // => "Number"
  */
-export default function objectToStringTag(value: unknown): string {
-  return slice(objectToString(value), 8, -1);
+export default function objectToStringTag(value: unknown): ObjectStringTagT {
+  return slice(objectToString(value), 8, -1) as never;
 }

@@ -1,5 +1,6 @@
 import isObjectLike from "./is-object-like.js";
 import objectToStringTag from "./object-to-string-tag.js";
+import { OBJECT_STRING_TAG } from "./object-to-string.js";
 
 /**
  * Checks if `value` is likely an `arguments` object.
@@ -15,5 +16,5 @@ import objectToStringTag from "./object-to-string-tag.js";
  */
 export default function isArguments<Value>(value: Value): Value extends IArguments ? true : false {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  return (isObjectLike(value) && objectToStringTag(value) === "Arguments") as any;
+  return (isObjectLike(value) && objectToStringTag(value) === OBJECT_STRING_TAG.ARGUMENTS) as any;
 }

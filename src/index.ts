@@ -51,7 +51,7 @@ export { default as mean } from "./mean.js";
 export { default as meanByFn } from "./mean-by-fn.js";
 export { default as meanByProperty } from "./mean-by-property.js";
 export { default as noop } from "./noop.js";
-export { default as objectToString } from "./object-to-string.js";
+export { default as objectToString, OBJECT_STRING_TAG, type ObjectStringTagT } from "./object-to-string.js";
 export { default as objectToStringTag } from "./object-to-string-tag.js";
 export { default as prototypeOf } from "./prototype-of.js";
 export { default as repeat } from "./repeat.js";

@@ -13,9 +13,9 @@ it("should determine whether the provided value is a safe integer or not", () =>
 });
 
 it("should return minimum safe integer", () => {
-  expect(MIN_SAFE_INTEGER).toBe(-9_007_199_254_740_991);
+  expect(MIN_SAFE_INTEGER).toBe(Number.MIN_SAFE_INTEGER);
 });
 
 it("should return maximum safe integer", () => {
-  expect(MAX_SAFE_INTEGER).toBe(9_007_199_254_740_991);
+  expect(MAX_SAFE_INTEGER).toBe(Number.MAX_SAFE_INTEGER);
 });
