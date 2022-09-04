@@ -13,7 +13,9 @@ if (existsSync(DIR)) {
   writeFileSync(resolve(DIR, "esm", PACKAGE_FILENAME), JSON.stringify({ type: "module" }), ENCODING);
 }
 
-const files = readdirSync(resolve(CWD, "src")).map(file => file.replace(/\.ts$/, ""))
+const files = readdirSync(resolve(CWD, "src"))
+  .filter(file => file.endsWith(".ts"))
+  .map(file => file.replace(/\.ts$/, ""))
   .filter(file => file !== "index")
   .sort();
 
