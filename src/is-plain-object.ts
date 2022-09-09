@@ -1,4 +1,4 @@
-import { RecordT } from "./get.js";
+import { RecordT } from "./internals/index.js";
 import isNull from "./is-null.js";
 import isObjectLike from "./is-object-like.js";
 import prototypeOf from "./prototype-of.js";

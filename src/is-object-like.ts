@@ -1,4 +1,4 @@
-import { RecordT } from "./get.js";
+import { RecordT } from "./internals/index.js";
 import isNil from "./is-nil.js";
 import isTypeOf from "./is-type-of.js";
 import { TYPE } from "./type-of.js";

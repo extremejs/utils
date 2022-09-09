@@ -1,3 +1,4 @@
+import { RecordT } from "./internals/index.js";
 import toPath, { PathT, PropertyT } from "./to-path.js";
 
 /**
@@ -29,13 +30,6 @@ export default function get<
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     .reduce<any>((previousValue, currentValue) => previousValue?.[currentValue], value) ?? fallback;
 }
-
-/**
- *
- * @group Object
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export type RecordT = Record<string, any>;
 
 /**
  *
