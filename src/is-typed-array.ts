@@ -28,7 +28,9 @@ const TYPED_ARRAYS_TAGS: ObjectStringTagT[] = [
  * isTypedArray([]);
  * // => false
  */
-export default function isTypedArray<Value>(value: Value): Value extends TypedArrayT ? true : false {
+export default function isTypedArray<Value>(value: Value): unknown extends Value
+  ? boolean
+  : Value extends TypedArrayT ? true : false {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (isArrayLikeObject(value) && TYPED_ARRAYS_TAGS.includes(objectToStringTag(value))) as any;
 }

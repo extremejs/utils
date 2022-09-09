@@ -14,7 +14,9 @@ import { OBJECT_STRING_TAG } from "./object-to-string.js";
  * isArguments([1, 2, 3]);
  * // => false
  */
-export default function isArguments<Value>(value: Value): Value extends IArguments ? true : false {
+export default function isArguments<Value>(value: Value): unknown extends Value
+  ? boolean
+  : Value extends IArguments ? true : false {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (isObjectLike(value) && objectToStringTag(value) === OBJECT_STRING_TAG.ARGUMENTS) as any;
 }

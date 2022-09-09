@@ -26,7 +26,9 @@ export default function isArrayLike<Value>(value: Value): Value extends Function
   ? false
   : Value extends { length: number }
     ? true
-    : false {
+    : unknown extends Value
+      ? boolean
+      : false {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   return (isLength((value as any)?.length) && !isFunction(value)) as any;
 }

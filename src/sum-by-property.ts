@@ -1,4 +1,5 @@
-import get, { CalculatedPathT, CalculatedPropertyT, RecordT } from "./get.js";
+import get, { CalculatedPathT, CalculatedPropertyT } from "./get.js";
+import { RecordT } from "./internals/index.js";
 import sumByFn from "./sum-by-fn.js";
 
 /**
