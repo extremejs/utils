@@ -23,6 +23,7 @@ export { default as isError } from "./is-error.js";
 export { default as isEven } from "./is-even.js";
 export { default as isFinite } from "./is-finite.js";
 export { default as isFunction, type FunctionT } from "./is-function.js";
+export { default as isIndex } from "./is-index.js";
 export { default as isInstanceOf, type ConstructorT, type InstanceT } from "./is-instance-of.js";
 export { default as isInteger } from "./is-integer.js";
 export { default as isLength } from "./is-length.js";
