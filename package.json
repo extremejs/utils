@@ -3,15 +3,12 @@
   "version": "1.0.0-beta.16",
   "description": "ExtremeJS Utilities",
   "homepage": "https://extremejs.github.io/utils",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/extremejs/utils.git"
-  },
+  "author": "Ardalan Amini <ardalanamini22@gmail.com> (https://ardalanamini.com/)",
+  "license": "MIT",
+  "repository": "github:extremejs/utils",
   "bugs": {
     "url": "https://github.com/extremejs/utils/issues"
   },
-  "author": "Ardalan Amini <ardalanamini22@gmail.com> (https://ardalanamini.com/)",
-  "license": "MIT",
   "keywords": [
     "utilities",
     "utils",
