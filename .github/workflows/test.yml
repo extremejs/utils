@@ -85,3 +85,18 @@ jobs:
         with:
           env_vars: OS,ARCH,NODE_VERSION,REF
           fail_ci_if_error: true
+
+  test-summary:
+    name: Test Summary
+
+    needs:
+      - test
+
+    if: ${{ always() }}
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check test matrix status
+        if  : ${{ needs.test.result != 'success' }}
+        run : exit 1
