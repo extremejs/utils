@@ -49,6 +49,7 @@ export { default as isWeakMap } from "./is-weak-map.js";
 export { default as isWeakSet } from "./is-weak-set.js";
 export { default as join } from "./join.js";
 export { default as kebabCase } from "./kebab-case.js";
+export { default as keys } from "./keys.js";
 export { default as last, type LastT } from "./last.js";
 export { default as lowerCase } from "./lower-case.js";
 export { default as lowerFirst } from "./lower-first.js";
