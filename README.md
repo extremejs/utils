@@ -22,7 +22,8 @@ aiming to be high performance while having minimal size impact.
 ## Table of Content
 
 - [Installation](#installation)
-  - [NPM & GitHub Packages](#npm--github-packages)
+  - [NPM](#npm)
+  - [PNPM](#pnpm)
   - [Yarn](#yarn)
 - [Usage](#usage)
   - [Notes](#notes)
@@ -32,10 +33,16 @@ aiming to be high performance while having minimal size impact.
 
 ## Installation
 
-### NPM & GitHub Packages
+### NPM
 
 ```shell
 npm i @extremejs/utils
+```
+
+### PNPM
+
+```shell
+pnpm add @extremejs/utils
 ```
 
 ### Yarn
