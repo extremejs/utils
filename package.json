@@ -25,18 +25,18 @@
   ],
   "scripts": {
     "document": "typedoc",
-    "build": "npm run build:esm && npm run build:cjs",
+    "build": "pnpm build:esm && pnpm build:cjs",
     "build:watch": "nodemon",
     "build:esm": "tsc",
-    "build:esm:watch": "npm run build:esm -- --watch",
+    "build:esm:watch": "pnpm build:esm --watch",
     "build:cjs": "tsc -p tsconfig.cjs.json",
-    "build:cjs:watch": "npm run build:cjs -- --watch",
+    "build:cjs:watch": "pnpm build:cjs --watch",
     "lint": "eslint src __tests__ scripts",
-    "lint:fix": "npm run lint -- --fix",
+    "lint:fix": "pnpm lint --fix",
     "test": "node --no-compilation-cache --expose-gc node_modules/jest/bin/jest --logHeapUsage",
-    "test:coverage": "npm test -- --coverage",
-    "test:ci": "npm run test:coverage -- --ci --verbose --no-cache",
-    "prepack": "npm run build:pre && npm run build && npm run build:post",
+    "test:coverage": "pnpm test -- --coverage",
+    "test:ci": "pnpm test:coverage --ci --verbose --no-cache",
+    "prepack": "pnpm build:pre && pnpm build && pnpm build:post",
     "build:post": "ts-node -P tsconfig.cjs.json scripts/post-build.ts",
     "build:pre": "ts-node -P tsconfig.cjs.json scripts/pre-build.ts"
   },
@@ -44,8 +44,10 @@
     "access": "public"
   },
   "engines": {
-    "node": ">=16"
+    "node": ">=16",
+    "pnpm": ">=7.20.0"
   },
+  "packageManager": "pnpm@7.20.0",
   "sideEffects": false,
   "main": "build/cjs/index.js",
   "module": "build/esm/index.js",

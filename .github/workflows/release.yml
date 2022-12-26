@@ -69,17 +69,22 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Use PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
       - name: Use Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v3
         with:
-          cache: npm
+          cache: pnpm
           node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
-        run: npm ci --no-fund
+        run: pnpm i
 
       - name: Generate code documents
-        run: npm run document
+        run: pnpm document
 
       - name: Setup Pages
         uses: actions/configure-pages@v2
@@ -116,18 +121,24 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Use PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
       - name: Use Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v3
         with:
+          cache: pnpm
           node-version: ${{ env.NODE_VERSION }}
           registry-url: https://npm.pkg.github.com/
           scope: '@extremejs'
 
       - name: Install dependencies
-        run: npm ci --no-fund
+        run: pnpm i
 
       - name: Publish the package
-        run: npm publish --tag ${{ needs.release.outputs.release-id }}
+        run: pnpm publish --tag ${{ needs.release.outputs.release-id }}
         env:
           NODE_AUTH_TOKEN: ${{ github.token }}
 
@@ -150,17 +161,22 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Use PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
       - name: Use Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v3
         with:
-          cache: npm
+          cache: pnpm
           node-version: ${{ env.NODE_VERSION }}
           registry-url: https://registry.npmjs.org/
 
       - name: Install dependencies
-        run: npm ci --no-fund
+        run: pnpm i
 
       - name: Publish the package
-        run: npm publish --tag ${{ needs.release.outputs.release-id }}
+        run: pnpm publish --tag ${{ needs.release.outputs.release-id }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

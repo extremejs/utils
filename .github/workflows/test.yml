@@ -35,44 +35,35 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Set up node modules cache
-        id: node-modules-cache
-        uses: actions/cache@v3
+      - name: Use PNPM
+        uses: pnpm/action-setup@v2
         with:
-          path: '**/node_modules'
-          restore-keys: |
-            node-modules-cache-${{ runner.os }}-${{ runner.arch }}-${{ matrix.node-version }}-
-            node-modules-cache-${{ runner.os }}-${{ runner.arch }}-
-          key: node-modules-cache-${{ runner.os }}-${{ runner.arch }}-${{ matrix.node-version }}-${{ hashFiles('**/package-lock.json') }}
+          version: 7
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
-          cache: npm
+          cache: pnpm
           node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
-        if: ${{ steps.node-modules-cache.outputs.cache-hit != 'true' }}
-        run: npm i --no-fund
+        run: pnpm i
 
       - name: Check code styles
-        run: npm run lint
+        run: pnpm lint
 
-      - name: Build for ECMAScript
-        run: npm run build:esm
-
-      - name: Build for CommonJS
-        run: npm run build:cjs
+      - name: Build the project
+        run: pnpm build
 
       - name: Generate code documents
-        run: npm run document
+        run: pnpm document
 
       - name: Get number of CPU cores
         id: cpu-cores
         uses: SimenB/github-actions-cpu-cores@v1
 
       - name: Test the project
-        run: npm run test:ci -- --maxWorkers ${{ steps.cpu-cores.outputs.count }}
+        run: pnpm test:ci --maxWorkers ${{ steps.cpu-cores.outputs.count }}
 
       - name: Upload coverage to CodeCov
         uses: codecov/codecov-action@v3
