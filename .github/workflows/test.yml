@@ -1,8 +1,6 @@
 name: Test
 
 on:
-  schedule:
-    - cron: "0 0 1 * *"
   push:
     branches:
       - main
@@ -27,6 +25,7 @@ jobs:
           - 16
           - 17
           - 18
+          - 19
 
     runs-on: ${{ matrix.os }}
 
@@ -83,7 +82,7 @@ jobs:
     needs:
       - test
 
-    if: ${{ always() }}
+    if: ${{ always() && github.event_name == 'pull_request' }}
 
     runs-on: ubuntu-latest
 
