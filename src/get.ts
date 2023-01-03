@@ -1,5 +1,5 @@
-import { RecordT } from "./internals/index.js";
-import toPath, { PathT, PropertyT } from "./to-path.js";
+import { type RecordT } from "./internals/index.js";
+import toPath, { type PathT, type PropertyT } from "./to-path.js";
 
 /**
  * It will return the desired `value` based on the provided `property`.

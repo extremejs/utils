@@ -15,16 +15,4 @@ export default function compact<Value>(array: Value[]): Array<CompactT<Value>> {
  *
  * @group Array
  */
-export type CompactT<Value> = Value extends ""
-  ? never
-  : Value extends 0
-    ? never
-    : Value extends false
-      ? never
-      : Value extends null
-        ? never
-        : Value extends undefined
-          ? never
-          : Value extends typeof NaN
-            ? never
-            : Value;
+export type CompactT<Value> = Exclude<Value, typeof NaN | "" | 0 | false | null | undefined>;

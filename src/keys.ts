@@ -1,4 +1,4 @@
-import { hasOwn, prototypeKeys, RecordT } from "./internals/index.js";
+import { hasOwn, prototypeKeys, type RecordT } from "./internals/index.js";
 import isArguments from "./is-arguments.js";
 import isArrayLike from "./is-array-like.js";
 import isArray from "./is-array.js";

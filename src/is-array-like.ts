@@ -1,4 +1,4 @@
-import isFunction, { FunctionT } from "./is-function.js";
+import isFunction, { type FunctionT } from "./is-function.js";
 import isLength from "./is-length.js";
 
 /**

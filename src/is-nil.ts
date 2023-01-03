@@ -13,10 +13,6 @@
  * isNil(void 0);
  * // => true
  */
-export default function isNil<Value>(value: Value): Value extends null | undefined
-  ? true
-  : unknown extends Value
-    ? boolean
-    : false {
-  return (value == null) as never;
+export default function isNil(value: unknown): value is null | undefined {
+  return value == null;
 }

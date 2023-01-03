@@ -1,4 +1,4 @@
-import { RecordT } from "./internals/index.js";
+import { type RecordT } from "./internals/index.js";
 import isInstanceOf from "./is-instance-of.js";
 
 /**

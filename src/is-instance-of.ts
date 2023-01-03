@@ -1,4 +1,4 @@
-import { FunctionT } from "./is-function.js";
+import { type FunctionT } from "./is-function.js";
 
 /**
  * It will determine whether the provided `value` is an instance of the provided `constructor` or not.

@@ -1,4 +1,4 @@
-import objectToString, { ObjectStringTagT } from "./object-to-string.js";
+import objectToString, { type ObjectStringTagT } from "./object-to-string.js";
 import slice from "./slice.js";
 
 /**

@@ -1,5 +1,5 @@
 import OBJECT_PROTOTYPE from "./OBJECT_PROTOTYPE.js";
-import { RecordT } from "./typescript.js";
+import { type RecordT } from "./typescript.js";
 
 /**
  * Checks if `value` has the specified `key` as its own property based on `Object.prototype.hasOwnProperty` result.

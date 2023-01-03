@@ -69,12 +69,7 @@ module.exports = {
   // globalTeardown: undefined,
 
   // A set of global variables that need to be available in all test environments
-  globals: {
-    "ts-jest": {
-      tsconfig       : "tsconfig.jest.json",
-      isolatedModules: true,
-    },
-  },
+  // globals: {},
 
   /**
    * The maximum amount of workers used to run your tests. Can be specified as % or a number.
@@ -198,7 +193,15 @@ module.exports = {
   // testRunner: "jest-circus/runner",
 
   // A map from regular expressions to paths to transformers
-  // transform: undefined,
+  transform: {
+    "^.+\\.tsx?$": [
+      "ts-jest",
+      {
+        tsconfig       : "tsconfig.jest.json",
+        isolatedModules: true,
+      },
+    ],
+  },
 
   /**
    * An array of regexp pattern strings that are matched against all source file paths,

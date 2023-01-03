@@ -1,4 +1,4 @@
-import typeOf, { JSTypeT } from "./type-of.js";
+import typeOf, { type JSTypeT } from "./type-of.js";
 
 /**
  * Checks if the `typeof` result of `value` is equal to the provided `type`.

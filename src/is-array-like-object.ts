@@ -1,5 +1,5 @@
 import isArrayLike from "./is-array-like.js";
-import { FunctionT } from "./is-function.js";
+import { type FunctionT } from "./is-function.js";
 import isObjectLike from "./is-object-like.js";
 
 /**

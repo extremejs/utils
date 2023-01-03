@@ -18,10 +18,10 @@ export default function isSafeInteger(value: unknown): value is number {
  *
  * @group Number
  */
-export const MIN_SAFE_INTEGER = -9_007_199_254_740_991;
+export const MIN_SAFE_INTEGER = Number.MIN_SAFE_INTEGER;
 
 /**
  *
  * @group Number
  */
-export const MAX_SAFE_INTEGER = 9_007_199_254_740_991;
+export const MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER;
