@@ -3,7 +3,7 @@ import { readFile, writeFile } from "node:fs/promises";
 import { EOL } from "node:os";
 import { resolve } from "node:path";
 import { Command } from "commander";
-import { camelCase, compact, first, kebabCase } from "..";
+import { camelCase, compact, first, kebabCase } from "../src";
 
 const DIR = resolve(process.cwd());
 
