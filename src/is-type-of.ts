@@ -1,4 +1,4 @@
-import typeOf, { type JSTypeT } from "./type-of.js";
+import typeOf, { type TYPE } from "./type-of.js";
 
 /**
  * Checks if the `typeof` result of `value` is equal to the provided `type`.
@@ -10,6 +10,6 @@ import typeOf, { type JSTypeT } from "./type-of.js";
  * isTypeOf(1, "number");
  * // => true
  */
-export default function isTypeOf<Value>(value: Value, type: JSTypeT): boolean {
+export default function isTypeOf<Value>(value: Value, type: TYPE): boolean {
   return typeOf(value) === type;
 }

@@ -1,8 +1,8 @@
 import isArrayLikeObject from "./is-array-like-object.js";
 import objectToStringTag from "./object-to-string-tag.js";
-import { type ObjectStringTagT, OBJECT_STRING_TAG } from "./object-to-string.js";
+import { OBJECT_STRING_TAG } from "./object-to-string.js";
 
-const TYPED_ARRAYS_TAGS: ObjectStringTagT[] = [
+const TYPED_ARRAYS_TAGS: OBJECT_STRING_TAG[] = [
   OBJECT_STRING_TAG.INT_8_ARRAY,
   OBJECT_STRING_TAG.UINT_8_ARRAY,
   OBJECT_STRING_TAG.UINT_8_CLAMPED_ARRAY,
