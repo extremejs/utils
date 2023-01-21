@@ -38,7 +38,8 @@
     "test:ci": "pnpm test:coverage --ci --verbose --no-cache",
     "prepack": "pnpm build:pre && pnpm build && pnpm build:post",
     "build:post": "ts-node -P tsconfig.cjs.json scripts/post-build.ts",
-    "build:pre": "ts-node -P tsconfig.cjs.json scripts/pre-build.ts"
+    "build:pre": "ts-node -P tsconfig.cjs.json scripts/pre-build.ts",
+    "new": "ts-node -P tsconfig.cjs.json scripts/create-new-method.ts"
   },
   "publishConfig": {
     "access": "public"
@@ -74,6 +75,7 @@
     "@types/node": "^18.11.18",
     "@typescript-eslint/eslint-plugin": "^5.48.2",
     "@typescript-eslint/parser": "^5.48.2",
+    "commander": "^10.0.0",
     "eslint": "^8.32.0",
     "eslint-config-noir": "^1.4.0",
     "eslint-import-resolver-typescript": "^3.5.3",

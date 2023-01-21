@@ -13,6 +13,9 @@ devDependencies:
   '@typescript-eslint/parser':
     specifier: ^5.48.2
     version: 5.48.2(eslint@8.32.0)(typescript@4.9.4)
+  commander:
+    specifier: ^10.0.0
+    version: 10.0.0
   eslint:
     specifier: ^8.32.0
     version: 8.32.0
@@ -1351,6 +1354,11 @@ packages:
 
   /color-name@1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
+    dev: true
+
+  /commander@10.0.0:
+    resolution: {integrity: sha512-zS5PnTI22FIRM6ylNW8G4Ap0IEOyk62fhLSD0+uHRT9McRCLGpkVNvao4bjimpK/GShynyQkFFxHhwMcETmduA==}
+    engines: {node: '>=14'}
     dev: true
 
   /concat-map@0.0.1:
