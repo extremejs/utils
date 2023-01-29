@@ -1,19 +1,22 @@
-import { existsSync, writeFileSync, readdirSync, readFileSync } from "node:fs";
+import { existsSync } from "node:fs";
+import { readdir, readFile, writeFile } from "node:fs/promises";
+import { EOL } from "node:os";
 import { resolve } from "node:path";
-import { camelCase } from "@extremejs/utils";
+import { cwd } from "node:process";
+import { camelCase } from "../src/index.js";
 
-const CWD = process.cwd();
+const CWD = cwd();
 const DIR = resolve(CWD, "build");
 const PACKAGE_FILENAME = "package.json";
 const ENCODING = "utf8" as const;
 
 if (existsSync(DIR)) {
-  writeFileSync(resolve(DIR, "cjs", PACKAGE_FILENAME), JSON.stringify({ type: "commonjs" }), ENCODING);
+  await writeFile(resolve(DIR, "cjs", PACKAGE_FILENAME), JSON.stringify({ type: "commonjs" }), ENCODING);
 
-  writeFileSync(resolve(DIR, "esm", PACKAGE_FILENAME), JSON.stringify({ type: "module" }), ENCODING);
+  await writeFile(resolve(DIR, "esm", PACKAGE_FILENAME), JSON.stringify({ type: "module" }), ENCODING);
 }
 
-const files = readdirSync(resolve(CWD, "src"))
+const files = (await readdir(resolve(CWD, "src")))
   .filter(file => file.endsWith(".ts"))
   .map(file => file.replace(/\.ts$/, ""))
   .filter(file => file !== "index")
@@ -21,7 +24,7 @@ const files = readdirSync(resolve(CWD, "src"))
 
 const PACKAGE_FILE = resolve(CWD, PACKAGE_FILENAME);
 
-const pkg = JSON.parse(readFileSync(PACKAGE_FILE, ENCODING));
+const pkg = JSON.parse(await readFile(PACKAGE_FILE, ENCODING));
 
 for (const file of files) {
   const esmBase = `./build/esm/${ file }`;
@@ -47,4 +50,4 @@ for (const file of files) {
   if (!pkg.keywords.includes(keyword)) pkg.keywords.push(keyword);
 }
 
-writeFileSync(PACKAGE_FILE, `${ JSON.stringify(pkg, null, 2) }\n`, ENCODING);
+await writeFile(PACKAGE_FILE, `${ JSON.stringify(pkg, null, 2) }${ EOL }`, ENCODING);

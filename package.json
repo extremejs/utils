@@ -1,6 +1,7 @@
 {
   "name": "@extremejs/utils",
   "version": "1.0.0-beta.17",
+  "type": "module",
   "description": "ExtremeJS Utilities",
   "homepage": "https://extremejs.github.io/utils",
   "author": "Ardalan Amini <ardalanamini22@gmail.com> (https://ardalanamini.com/)",
@@ -37,9 +38,9 @@
     "test:coverage": "pnpm test -- --coverage",
     "test:ci": "pnpm test:coverage --ci --verbose --no-cache",
     "prepack": "pnpm build:pre && pnpm build && pnpm build:post",
-    "build:post": "ts-node -P tsconfig.cjs.json scripts/post-build.ts",
-    "build:pre": "ts-node -P tsconfig.cjs.json scripts/pre-build.ts",
-    "new": "ts-node -P tsconfig.cjs.json scripts/create-new-method.ts"
+    "build:post": "ts-node-esm scripts/post-build.ts",
+    "build:pre": "ts-node-esm scripts/pre-build.ts",
+    "new": "ts-node-esm scripts/create-new-method.ts"
   },
   "publishConfig": {
     "access": "public"

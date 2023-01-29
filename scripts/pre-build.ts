@@ -1,10 +1,12 @@
-import { rmSync, existsSync } from "node:fs";
+import { existsSync } from "node:fs";
+import { rm } from "node:fs/promises";
 import { resolve } from "node:path";
+import { cwd } from "node:process";
 
-const DIR = resolve(process.cwd(), "build");
+const DIR = resolve(cwd(), "build");
 
 if (existsSync(DIR)) {
-  rmSync(DIR, {
+  await rm(DIR, {
     recursive: true,
     force    : true,
   });

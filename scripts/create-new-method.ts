@@ -2,10 +2,11 @@ import { existsSync } from "node:fs";
 import { readFile, writeFile } from "node:fs/promises";
 import { EOL } from "node:os";
 import { resolve } from "node:path";
+import { argv, cwd, env } from "node:process";
 import { Command } from "commander";
-import { camelCase, compact, first, kebabCase } from "../src";
+import { camelCase, compact, first, kebabCase } from "../src/index.js";
 
-const DIR = resolve(process.cwd());
+const DIR = resolve(cwd());
 
 const SRC_DIR = resolve(DIR, "src");
 const TEST_DIR = resolve(DIR, "__tests__");
@@ -22,7 +23,7 @@ const SORTING_REGEX = /^export *.* from "\.\/(?<name>.+)\.js";$/;
     "-s, --since [since]",
     "the version the method will be available from",
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    first(process.env.npm_package_version!.split("-")),
+    first(env.npm_package_version!.split("-")),
   )
   .helpOption()
   .action(async (
@@ -99,7 +100,7 @@ export default function ${ METHOD_NAME }(): void {
 
     await writeFile(INDEX_FILEPATH, index, "utf8");
   })
-  .parse(process.argv);
+  .parse(argv);
 
 interface OptionsI {
   description: string;
