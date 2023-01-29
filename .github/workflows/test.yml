@@ -12,6 +12,39 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
+  build:
+    name: Build
+
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          cache: pnpm
+          node-version: 18
+
+      - name: Install dependencies
+        run: pnpm i
+
+      - name: Check code styles
+        run: pnpm lint
+
+      - name: Generate code documents
+        run: pnpm document
+
+      - name: Build the project
+        run: pnpm build
+
   test:
     name: Test
 
@@ -48,15 +81,6 @@ jobs:
       - name: Install dependencies
         run: pnpm i
 
-      - name: Check code styles
-        run: pnpm lint
-
-      - name: Build the project
-        run: pnpm build
-
-      - name: Generate code documents
-        run: pnpm document
-
       - name: Get number of CPU cores
         id: cpu-cores
         uses: SimenB/github-actions-cpu-cores@v1
@@ -80,6 +104,7 @@ jobs:
     name: Test Summary
 
     needs:
+      - build
       - test
 
     if: ${{ always() && github.event_name == 'pull_request' }}
@@ -87,6 +112,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check test matrix status
-        if  : ${{ needs.test.result != 'success' }}
+      - name: Check build/test matrix status
+        if  : ${{ needs.build.result != 'success' || needs.test.result != 'success' }}
         run : exit 1
