@@ -5,6 +5,7 @@ export { default as chunk } from "./chunk.js";
 export { default as compact, type CompactT } from "./compact.js";
 export { default as concat } from "./concat.js";
 export { default as drop } from "./drop.js";
+export { default as dropRight } from "./drop-right.js";
 export { default as endsWith } from "./ends-with.js";
 export { default as eq } from "./eq.js";
 export { default as first, type FirstT } from "./first.js";
