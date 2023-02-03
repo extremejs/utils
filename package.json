@@ -48,7 +48,7 @@
   "engines": {
     "node": ">= 16"
   },
-  "packageManager": "pnpm@7.25.1",
+  "packageManager": "pnpm@7.26.1",
   "sideEffects": false,
   "main": "build/cjs/index.js",
   "module": "build/esm/index.js",
