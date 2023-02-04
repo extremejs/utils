@@ -138,7 +138,7 @@ jobs:
         run: pnpm i
 
       - name: Publish the package
-        run: pnpm publish --tag ${{ needs.release.outputs.release-id }}
+        run: pnpm publish --no-git-checks --tag ${{ needs.release.outputs.release-id }}
         env:
           NODE_AUTH_TOKEN: ${{ github.token }}
 
@@ -177,6 +177,6 @@ jobs:
         run: pnpm i
 
       - name: Publish the package
-        run: pnpm publish --tag ${{ needs.release.outputs.release-id }}
+        run: pnpm publish --no-git-checks --tag ${{ needs.release.outputs.release-id }}
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
