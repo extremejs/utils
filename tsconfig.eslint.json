@@ -4,6 +4,7 @@
     "src",
     "__tests__",
     "scripts",
-    "jest.config.js"
+    "jest.config.js",
+    "commitlint.config.cjs"
   ]
 }
