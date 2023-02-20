@@ -60,6 +60,7 @@ export { default as lowerFirst } from "./lower-first.js";
 export { default as mean } from "./mean.js";
 export { default as meanByFn } from "./mean-by-fn.js";
 export { default as meanByProperty } from "./mean-by-property.js";
+export { default as min } from "./min.js";
 export { default as minByFn } from "./min-by-fn.js";
 export { default as multiply } from "./multiply.js";
 export { default as noop } from "./noop.js";
