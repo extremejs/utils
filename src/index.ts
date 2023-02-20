@@ -62,6 +62,7 @@ export { default as meanByFn } from "./mean-by-fn.js";
 export { default as meanByProperty } from "./mean-by-property.js";
 export { default as min } from "./min.js";
 export { default as minByFn } from "./min-by-fn.js";
+export { default as minByProperty } from "./min-by-property.js";
 export { default as multiply } from "./multiply.js";
 export { default as noop } from "./noop.js";
 export { default as objectToString, OBJECT_STRING_TAG } from "./object-to-string.js";
