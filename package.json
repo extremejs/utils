@@ -37,7 +37,6 @@
     "lint:fix": "pnpm lint --fix",
     "test": "node --no-compilation-cache --expose-gc node_modules/jest/bin/jest --logHeapUsage",
     "test:coverage": "pnpm test -- --coverage",
-    "test:ci": "pnpm test:coverage --ci --verbose --no-cache",
     "prepack": "pnpm build:pre && pnpm build && pnpm build:post",
     "build:post": "ts-node-esm scripts/post-build.ts",
     "build:pre": "ts-node-esm scripts/pre-build.ts",

@@ -11,6 +11,9 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
+env:
+  NODE_VERSION: 18
+
 jobs:
   build:
     name: Build
@@ -27,14 +30,18 @@ jobs:
         with:
           version: 7
 
-      - name: Use Node.js 18
+      - name: Use Node.js ${{ env.NODE_VERSION }}
         uses: actions/setup-node@v3
         with:
           cache: pnpm
-          node-version: 18
+          node-version: ${{ env.NODE_VERSION }}
 
       - name: Install dependencies
         run: pnpm i
+
+      - name: Check commit messages
+        if: ${{ github.event_name == 'pull_request' }}
+        run: pnpm commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
 
       - name: Check code styles
         run: pnpm lint
@@ -56,9 +63,7 @@ jobs:
           - windows-latest
         node-version:
           - 16
-          - 17
           - 18
-          - 19
 
     runs-on: ${{ matrix.os }}
 
@@ -86,19 +91,47 @@ jobs:
         uses: SimenB/github-actions-cpu-cores@v1
 
       - name: Test the project
-        run: pnpm test:ci --maxWorkers ${{ steps.cpu-cores.outputs.count }}
+        run: pnpm test --ci --verbose --no-cache --maxWorkers ${{ steps.cpu-cores.outputs.count }}
+
+  coverage:
+    name: Report Code Coverage
+
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use PNPM
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
+      - name: Use Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v3
+        with:
+          cache: pnpm
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: pnpm i
+
+      - name: Get number of CPU cores
+        id: cpu-cores
+        uses: SimenB/github-actions-cpu-cores@v1
+
+      - name: Collect code coverage
+        run: pnpm test:coverage --ci --no-cache --maxWorkers ${{ steps.cpu-cores.outputs.count }}
 
       - name: Upload coverage to CodeCov
         uses: codecov/codecov-action@v3
-        if: ${{ github.event_name != 'schedule' }}
-        env:
-          OS: ${{ runner.os }}
-          ARCH: ${{ runner.arch }}
-          NODE_VERSION: ${{ matrix.node-version }}
-          REF: ${{ github.ref_name }}
         with:
-          env_vars: OS,ARCH,NODE_VERSION,REF
+          env_vars: NODE_VERSION,REF
           fail_ci_if_error: true
+        env:
+          NODE_VERSION: ${{ env.NODE_VERSION }}
+          REF: ${{ github.ref_name }}
 
   test-summary:
     name: Test Summary
@@ -106,6 +139,7 @@ jobs:
     needs:
       - build
       - test
+      - coverage
 
     if: ${{ always() && github.event_name == 'pull_request' }}
 
@@ -113,5 +147,5 @@ jobs:
 
     steps:
       - name: Check build/test matrix status
-        if  : ${{ needs.build.result != 'success' || needs.test.result != 'success' }}
-        run : exit 1
+        if: ${{ needs.build.result != 'success' || needs.test.result != 'success' || needs.coverage.result != 'success' }}
+        run: exit 1
