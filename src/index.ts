@@ -1,4 +1,5 @@
 export { hasOwn, type RecordT } from "./internals/index.js";
+export { default as add } from "./add.js";
 export { default as camelCase } from "./camel-case.js";
 export { default as capitalize } from "./capitalize.js";
 export { default as chunk } from "./chunk.js";
