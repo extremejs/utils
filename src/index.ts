@@ -59,6 +59,7 @@ export { default as lowerCase } from "./lower-case.js";
 export { default as lowerFirst } from "./lower-first.js";
 export { default as max } from "./max.js";
 export { default as maxByFn } from "./max-by-fn.js";
+export { default as maxByProperty } from "./max-by-property.js";
 export { default as mean } from "./mean.js";
 export { default as meanByFn } from "./mean-by-fn.js";
 export { default as meanByProperty } from "./mean-by-property.js";
