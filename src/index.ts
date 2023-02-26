@@ -57,6 +57,7 @@ export { default as keys } from "./keys.js";
 export { default as last, type LastT } from "./last.js";
 export { default as lowerCase } from "./lower-case.js";
 export { default as lowerFirst } from "./lower-first.js";
+export { default as maxByFn } from "./max-by-fn.js";
 export { default as mean } from "./mean.js";
 export { default as meanByFn } from "./mean-by-fn.js";
 export { default as meanByProperty } from "./mean-by-property.js";
