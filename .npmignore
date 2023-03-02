@@ -1,10 +1,10 @@
 .idea/
 .vscode/
 .github/
-__tests__/
 coverage/
 docs/
 scripts/
+tests/
 jest.config.js
 nodemon.json
 typedoc.json

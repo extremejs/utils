@@ -33,7 +33,7 @@
     "build:esm:watch": "pnpm build:esm --watch",
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:cjs:watch": "pnpm build:cjs --watch",
-    "lint": "eslint src __tests__ scripts",
+    "lint": "eslint src tests scripts",
     "lint:fix": "pnpm lint --fix",
     "test": "node --no-compilation-cache --expose-gc node_modules/jest/bin/jest --logHeapUsage",
     "test:coverage": "pnpm test -- --coverage",

@@ -2,7 +2,7 @@
   "extends": "./tsconfig.json",
   "include": [
     "src",
-    "__tests__",
+    "tests",
     "scripts",
     "jest.config.js",
     "commitlint.config.cjs"

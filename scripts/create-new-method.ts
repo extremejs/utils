@@ -9,7 +9,7 @@ import { camelCase, compact, first, kebabCase } from "../src/index.js";
 const DIR = resolve(cwd());
 
 const SRC_DIR = resolve(DIR, "src");
-const TEST_DIR = resolve(DIR, "__tests__");
+const TEST_DIR = resolve(DIR, "tests");
 
 const SORTING_REGEX = /^export *.* from "\.\/(?<name>.+)\.js";$/;
 
@@ -42,7 +42,7 @@ const SORTING_REGEX = /^export *.* from "\.\/(?<name>.+)\.js";$/;
     const TEST_FILENAME = `${ FILENAME }.test.ts`;
     const TEST_FILEPATH = resolve(TEST_DIR, TEST_FILENAME);
 
-    if (existsSync(TEST_FILEPATH)) throw new Error(`Method already exists: "__tests__/${ TEST_FILENAME }"`);
+    if (existsSync(TEST_FILEPATH)) throw new Error(`Method already exists: "tests/${ TEST_FILENAME }"`);
 
     const METHOD_NAME = camelCase(name);
 
