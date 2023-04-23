@@ -6,7 +6,7 @@ import { slice } from "./slice.js";
  * @group Collection
  * @since 1.0.0
  * @param value
- * @param [n=1]
+ * @param n
  * @example
  * drop([0, 1, 2, 3, 4, 5], 2);
  * // => [0, 1, 2, 3]

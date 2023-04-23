@@ -6,7 +6,7 @@ import { slice } from "./slice.js";
  * @group Array
  * @since 1.0.0
  * @param array
- * @param [size=1]
+ * @param size
  * @example
  * chunk([1, 2, 3]);
  * // => [[1], [2], [3]]

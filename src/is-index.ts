@@ -10,7 +10,7 @@ const UINT_REGEX = /^(?:0|[1-9]\d*)$/;
  * @group Other
  * @since 1.0.0
  * @param value
- * @param [length=MAX_SAFE_INTEGER]
+ * @param length
  * @example
  * isIndex(0);
  * // => true

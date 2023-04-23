@@ -5,7 +5,7 @@
  * @param string
  * @param searchValue
  * @param replaceValue
- * @param [all=false]
+ * @param all
  * @example
  * replace("Hi Fred, I'm Fred!", "Fred", "Barney");
  * // => "Hi Barney, I'm Fred!"

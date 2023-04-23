@@ -3,7 +3,7 @@
  * @group Array
  * @since 1.0.0
  * @param array
- * @param [separator=""]
+ * @param separator
  * @example
  * join([1, 2, 3]);
  * // => "123"

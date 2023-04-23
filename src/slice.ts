@@ -3,8 +3,8 @@
  * @group Collection
  * @since 1.0.0
  * @param value
- * @param [start=0]
- * @param [end=value.length]
+ * @param start
+ * @param end
  * @example
  * slice([0, 1, 2, 3, 4, 5], 2);
  * // => [2, 3, 4, 5]
@@ -18,6 +18,6 @@
  * slice("012345", 2, 4);
  * // => "23"
  */
-export function slice<Value extends unknown[] | string>(value: Value, start?: number, end?: number): Value {
+export function slice<Value extends unknown[] | string>(value: Value, start = 0, end = value.length): Value {
   return value.slice(start, end) as Value;
 }

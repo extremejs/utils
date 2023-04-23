@@ -3,7 +3,7 @@
  * @group String
  * @since 1.0.0
  * @param string
- * @param [separator=""]
+ * @param separator
  * @param limit
  * @example
  * split("012345");

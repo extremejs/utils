@@ -4,7 +4,7 @@
  * @since 1.0.0
  * @param string
  * @param searchString
- * @param [position=0]
+ * @param position
  * @example
  * startsWith("012345", "012");
  * // => true
@@ -15,6 +15,6 @@
  * startsWith("012345", "234", 2);
  * // => true
  */
-export function startsWith(string: string, searchString: string, position?: number): boolean {
+export function startsWith(string: string, searchString: string, position = 0): boolean {
   return string.startsWith(searchString, position);
 }
