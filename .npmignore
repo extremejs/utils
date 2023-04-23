@@ -1,6 +1,7 @@
 .idea/
 .vscode/
 .github/
+.husky/
 coverage/
 docs/
 scripts/
@@ -12,3 +13,4 @@ tsconfig*.json
 *.tsbuildinfo
 .gitattributes
 .eslintrc.yml
+commitlint.config.cjs
