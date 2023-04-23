@@ -1,9 +1,9 @@
-import { isTypeOf } from "@extremejs/utils";
+import { isTypeOf, TYPE } from "@extremejs/utils";
 
 it("should check if the typeof result of value is equal to the provided type", () => {
-  expect(isTypeOf("foo", "string")).toBe(true);
+  expect(isTypeOf("foo", TYPE.STRING)).toBe(true);
 
-  expect(isTypeOf(2, "number")).toBe(true);
+  expect(isTypeOf(2, TYPE.NUMBER)).toBe(true);
 
-  expect(isTypeOf(1, "boolean")).toBe(false);
+  expect(isTypeOf(1, TYPE.BOOLEAN)).toBe(false);
 });

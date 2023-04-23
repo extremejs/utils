@@ -29,9 +29,9 @@
     "document": "typedoc",
     "build": "pnpm build:esm && pnpm build:cjs",
     "build:watch": "nodemon",
-    "build:esm": "tsc",
+    "build:esm": "tsc -p tsconfig.build.json",
     "build:esm:watch": "pnpm build:esm --watch",
-    "build:cjs": "tsc -p tsconfig.cjs.json",
+    "build:cjs": "tsc -p tsconfig.build.cjs.json",
     "build:cjs:watch": "pnpm build:cjs --watch",
     "lint": "eslint src tests scripts",
     "lint:fix": "pnpm lint --fix",
@@ -43,32 +43,37 @@
     "new": "ts-node-esm scripts/create-new-method.ts"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "main": "build/cjs/index.js",
+    "module": "build/esm/index.js",
+    "types": "build/cjs/index.d.ts",
+    "exports": {
+      ".": {
+        "browser": {
+          "types": "./build/esm/index.d.ts",
+          "default": "./build/esm/index.js"
+        },
+        "import": {
+          "types": "./build/esm/index.d.ts",
+          "default": "./build/esm/index.js"
+        },
+        "default": {
+          "types": "./build/cjs/index.d.ts",
+          "default": "./build/cjs/index.js"
+        }
+      },
+      "./package.json": "./package.json"
+    }
   },
   "engines": {
     "node": ">= 16"
   },
   "packageManager": "pnpm@8.3.1",
   "sideEffects": false,
-  "main": "build/cjs/index.js",
-  "module": "build/esm/index.js",
+  "main": "src/index.ts",
   "jsnext:main": "build/esm/index.js",
-  "types": "build/cjs/index.d.ts",
   "exports": {
-    ".": {
-      "browser": {
-        "types": "./build/esm/index.d.ts",
-        "default": "./build/esm/index.js"
-      },
-      "import": {
-        "types": "./build/esm/index.d.ts",
-        "default": "./build/esm/index.js"
-      },
-      "default": {
-        "types": "./build/cjs/index.d.ts",
-        "default": "./build/cjs/index.js"
-      }
-    },
+    ".": "./src/index.ts",
     "./package.json": "./package.json"
   },
   "devDependencies": {

@@ -30,7 +30,7 @@ for (const file of files) {
   const esmBase = `./build/esm/${ file }`;
   const cjsBase = `./build/cjs/${ file }`;
 
-  pkg.exports[`./${ file }`] = {
+  pkg.publishConfig.exports[`./${ file }`] = {
     browser: {
       types  : `${ esmBase }.d.ts`,
       default: `${ esmBase }.js`,
