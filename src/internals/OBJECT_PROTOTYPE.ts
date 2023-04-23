@@ -1,1 +1,1 @@
-export default Object.prototype;
+export const OBJECT_PROTOTYPE = Object.prototype;

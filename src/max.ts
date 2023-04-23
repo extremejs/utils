@@ -1,4 +1,4 @@
-import maxByFn from "./max-by-fn.js";
+import { maxByFn } from "./max-by-fn.js";
 
 /**
  * Computes the `maximum` of the `numbers`.
@@ -10,6 +10,6 @@ import maxByFn from "./max-by-fn.js";
  * max([1, 2, 3]);
  * // => 3
  */
-export default function max(numbers: number[]): number {
+export function max(numbers: number[]): number {
   return maxByFn(numbers, number => number);
 }

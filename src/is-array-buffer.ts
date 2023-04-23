@@ -1,4 +1,4 @@
-import isInstanceOf from "./is-instance-of.js";
+import { isInstanceOf } from "./is-instance-of.js";
 
 /**
  * Checks if `value` is an `ArrayBuffer` object.
@@ -12,6 +12,6 @@ import isInstanceOf from "./is-instance-of.js";
  * isArrayBuffer(new Array(2));
  * // => false
  */
-export default function isArrayBuffer(value: unknown): value is ArrayBuffer {
+export function isArrayBuffer(value: unknown): value is ArrayBuffer {
   return isInstanceOf(value, ArrayBuffer);
 }

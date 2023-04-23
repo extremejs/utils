@@ -10,7 +10,7 @@
  * isSafeInteger(Number.MIN_VALUE);
  * // => false
  */
-export default function isSafeInteger(value: unknown): value is number {
+export function isSafeInteger(value: unknown): value is number {
   return Number.isSafeInteger(value);
 }
 

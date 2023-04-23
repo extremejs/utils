@@ -15,6 +15,6 @@
  * split("0,1,2,3,4,5", ",", 2);
  * // => ["0", "1"]
  */
-export default function split(string: string, separator: RegExp | string = "", limit?: number): string[] {
+export function split(string: string, separator: RegExp | string = "", limit?: number): string[] {
   return string.split(separator, limit);
 }

@@ -14,7 +14,7 @@
  * // => "Hi Barney, I'm Barney too!"
  */
 // eslint-disable-next-line max-params
-export default function replace(
+export function replace(
   string: string,
   searchValue: RegExp | string,
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

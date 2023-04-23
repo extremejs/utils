@@ -1,6 +1,6 @@
-import isArrayLike from "./is-array-like.js";
+import { isArrayLike } from "./is-array-like.js";
 import { type FunctionT } from "./is-function.js";
-import isObjectLike from "./is-object-like.js";
+import { isObjectLike } from "./is-object-like.js";
 
 /**
  * This method is similar to `isArrayLike`,
@@ -21,7 +21,7 @@ import isObjectLike from "./is-object-like.js";
  * isArrayLikeObject(() => 0);
  * // => false
  */
-export default function isArrayLikeObject<Value>(value: Value): Value extends FunctionT
+export function isArrayLikeObject<Value>(value: Value): Value extends FunctionT
   ? false
   : Value extends { length: number }
     ? true

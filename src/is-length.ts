@@ -1,4 +1,4 @@
-import isSafeInteger from "./is-safe-integer.js";
+import { isSafeInteger } from "./is-safe-integer.js";
 
 /**
  * Checks if `value` is a valid array-like length.
@@ -18,6 +18,6 @@ import isSafeInteger from "./is-safe-integer.js";
  * isLength("2");
  * // => false
  */
-export default function isLength(value: unknown): value is number {
+export function isLength(value: unknown): value is number {
   return isSafeInteger(value) && value >= 0;
 }

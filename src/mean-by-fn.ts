@@ -1,4 +1,4 @@
-import sumByFn from "./sum-by-fn.js";
+import { sumByFn } from "./sum-by-fn.js";
 
 /**
  * It will iterate through each of the provided `values` array,
@@ -16,6 +16,6 @@ import sumByFn from "./sum-by-fn.js";
  * meanByFn([{ a: 1 }, { a: 2 }, { a: 3 }], ({ a }) => a);
  * // => 2
  */
-export default function meanByFn<Value>(values: Value[], iteratee: (value: Value) => number): number {
+export function meanByFn<Value>(values: Value[], iteratee: (value: Value) => number): number {
   return sumByFn(values, iteratee) / values.length;
 }

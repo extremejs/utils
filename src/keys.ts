@@ -1,11 +1,11 @@
 import { hasOwn, prototypeKeys, type RecordT } from "./internals/index.js";
-import isArguments from "./is-arguments.js";
-import isArrayLike from "./is-array-like.js";
-import isArray from "./is-array.js";
-import isBuffer from "./is-buffer.js";
-import isIndex from "./is-index.js";
-import isPrototype from "./is-prototype.js";
-import isTypedArray from "./is-typed-array.js";
+import { isArguments } from "./is-arguments.js";
+import { isArrayLike } from "./is-array-like.js";
+import { isArray } from "./is-array.js";
+import { isBuffer } from "./is-buffer.js";
+import { isIndex } from "./is-index.js";
+import { isPrototype } from "./is-prototype.js";
+import { isTypedArray } from "./is-typed-array.js";
 
 /**
  * Returns `value`'s keys.
@@ -29,7 +29,7 @@ import isTypedArray from "./is-typed-array.js";
  * keys("hi")
  * // => ["0", "1"]
  */
-export default function keys(value: unknown): PropertyKey[] {
+export function keys(value: unknown): PropertyKey[] {
   if (isArrayLike(value)) {
     const isArr = isArray(value);
     const isArg = !isArr && isArguments(value);

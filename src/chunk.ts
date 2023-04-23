@@ -1,4 +1,4 @@
-import slice from "./slice.js";
+import { slice } from "./slice.js";
 
 /**
  * It will create an array of elements, split into groups the length of `size`.
@@ -14,7 +14,7 @@ import slice from "./slice.js";
  * chunk([1, 2, 3, 4, 5], 2);
  * // => [[1, 2], [3, 4], [5]]
  */
-export default function chunk<Value>(array: Value[], size = 1): Value[][] {
+export function chunk<Value>(array: Value[], size = 1): Value[][] {
   return Array.from(
     { length: Math.ceil(array.length / size) },
     (value, index) => {

@@ -14,6 +14,6 @@
  * fill([1, 2, 3], 0, 1, 2); // => [1, 0, 3]
  */
 // eslint-disable-next-line max-params
-export default function fill<Value>(array: Value[], value: Value, start?: number, end?: number): Value[] {
+export function fill<Value>(array: Value[], value: Value, start?: number, end?: number): Value[] {
   return array.fill(value, start, end);
 }

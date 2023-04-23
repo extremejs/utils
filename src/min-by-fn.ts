@@ -14,7 +14,7 @@
  * minByFn([{ a: 1 }, { a: 2 }, { a: 3 }], ({ a }) => a);
  * // => 1
  */
-export default function minByFn<Value>(values: Value[], iteratee: (value: Value) => number): number {
+export function minByFn<Value>(values: Value[], iteratee: (value: Value) => number): number {
   return values.reduce(
     (previousValue, currentValue) => Math.min(previousValue, iteratee(currentValue)),
     Infinity,

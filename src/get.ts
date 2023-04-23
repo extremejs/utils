@@ -1,5 +1,5 @@
 import { type RecordT } from "./internals/index.js";
-import toPath, { type PathT, type PropertyT } from "./to-path.js";
+import { type PathT, type PropertyT, toPath } from "./to-path.js";
 
 /**
  * It will return the desired `value` based on the provided `property`.
@@ -21,7 +21,7 @@ import toPath, { type PathT, type PropertyT } from "./to-path.js";
  * get({ a: { b: [{ c: { d: 1 } }] } }, "a.b.0.c.d", 3);
  * // => 3
  */
-export default function get<
+export function get<
   Value extends RecordT,
   Property extends CalculatedPropertyT<CalculatedPathT<Value>>,
   Fallback extends ValueAtT<Value, PathT<Property>> | null | undefined,

@@ -1,6 +1,6 @@
-import first from "./first.js";
-import lowerCase from "./lower-case.js";
-import tail from "./tail.js";
+import { first } from "./first.js";
+import { lowerCase } from "./lower-case.js";
+import { tail } from "./tail.js";
 
 /**
  * It will convert the first character of the `string` to lowercase.
@@ -17,6 +17,6 @@ import tail from "./tail.js";
  * lowerFirst('fred');
  * // => 'fred'
  */
-export default function lowerFirst<Value extends string>(string: Value): Uncapitalize<Value> {
+export function lowerFirst<Value extends string>(string: Value): Uncapitalize<Value> {
   return (lowerCase(first(string) ?? "") + tail(string)) as Uncapitalize<Value>;
 }

@@ -1,6 +1,6 @@
-import get, { type CalculatedPathT, type CalculatedPropertyT } from "./get.js";
+import { type CalculatedPathT, type CalculatedPropertyT, get } from "./get.js";
 import { type RecordT } from "./internals/index.js";
-import sumByFn from "./sum-by-fn.js";
+import { sumByFn } from "./sum-by-fn.js";
 
 /**
  * It will iterate through each of the provided `values` array
@@ -13,7 +13,7 @@ import sumByFn from "./sum-by-fn.js";
  * sumByProperty([{ a: 1 }, { a: 2 }, { a: 3 }], "a");
  * // => 6
  */
-export default function sumByProperty<Value extends RecordT>(
+export function sumByProperty<Value extends RecordT>(
   values: Value[],
   property: CalculatedPropertyT<CalculatedPathT<Value>>,
 ): number {

@@ -1,5 +1,5 @@
-import isArrayLikeObject from "./is-array-like-object.js";
-import objectToStringTag from "./object-to-string-tag.js";
+import { isArrayLikeObject } from "./is-array-like-object.js";
+import { objectToStringTag } from "./object-to-string-tag.js";
 import { OBJECT_STRING_TAG } from "./object-to-string.js";
 
 const TYPED_ARRAYS_TAGS: OBJECT_STRING_TAG[] = [
@@ -28,7 +28,7 @@ const TYPED_ARRAYS_TAGS: OBJECT_STRING_TAG[] = [
  * isTypedArray([]);
  * // => false
  */
-export default function isTypedArray<Value>(value: Value): unknown extends Value
+export function isTypedArray<Value>(value: Value): unknown extends Value
   ? boolean
   : Value extends TypedArrayT ? true : false {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

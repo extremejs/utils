@@ -1,6 +1,6 @@
 import { type RecordT } from "./internals/index.js";
-import isNil from "./is-nil.js";
-import isTypeOf from "./is-type-of.js";
+import { isNil } from "./is-nil.js";
+import { isTypeOf } from "./is-type-of.js";
 import { TYPE } from "./type-of.js";
 
 /**
@@ -22,6 +22,6 @@ import { TYPE } from "./type-of.js";
  * isObjectLike(null);
  * // => false
  */
-export default function isObjectLike(value: unknown): value is RecordT {
+export function isObjectLike(value: unknown): value is RecordT {
   return !isNil(value) && isTypeOf(value, TYPE.OBJECT);
 }

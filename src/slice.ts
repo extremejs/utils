@@ -18,6 +18,6 @@
  * slice("012345", 2, 4);
  * // => "23"
  */
-export default function slice<Value extends unknown[] | string>(value: Value, start?: number, end?: number): Value {
+export function slice<Value extends unknown[] | string>(value: Value, start?: number, end?: number): Value {
   return value.slice(start, end) as Value;
 }

@@ -12,10 +12,14 @@ import { OBJECT_PROTOTYPE } from "./internals/index.js";
  * objectToString(2);
  * // => "[object Number]"
  */
-export default function objectToString(value: unknown): `[object ${ OBJECT_STRING_TAG }]` {
+export function objectToString(value: unknown): `[object ${ OBJECT_STRING_TAG }]` {
   return OBJECT_PROTOTYPE.toString.call(value) as never;
 }
 
+/**
+ *
+ * @group Other
+ */
 export enum OBJECT_STRING_TAG {
   ARRAY = "Array",
   ARRAY_BUFFER = "ArrayBuffer",

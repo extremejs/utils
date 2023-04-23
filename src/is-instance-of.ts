@@ -10,7 +10,7 @@ import { type FunctionT } from "./is-function.js";
  * isInstanceOf(new Map, Map);
  * // => true
  */
-export default function isInstanceOf<Value, Constructor extends ConstructorT | FunctionT>(
+export function isInstanceOf<Value, Constructor extends ConstructorT | FunctionT>(
   value: Value,
   constructor: Constructor,
 ): value is InstanceT<Constructor> {

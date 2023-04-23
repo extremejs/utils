@@ -24,7 +24,7 @@
  * eq(NaN, NaN);
  * // => true
  */
-export default function eq(value: unknown, other: unknown): boolean {
+export function eq(value: unknown, other: unknown): boolean {
   // eslint-disable-next-line no-self-compare
   return value === other || (value !== value && other !== other);
 }

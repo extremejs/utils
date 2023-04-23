@@ -1,5 +1,5 @@
-import isInstanceOf from "./is-instance-of.js";
-import isTypeOf from "./is-type-of.js";
+import { isInstanceOf } from "./is-instance-of.js";
+import { isTypeOf } from "./is-type-of.js";
 import { TYPE } from "./type-of.js";
 
 /**
@@ -14,6 +14,6 @@ import { TYPE } from "./type-of.js";
  * isBoolean(3);
  * // => false
  */
-export default function isBoolean(value: unknown): value is boolean {
+export function isBoolean(value: unknown): value is boolean {
   return isTypeOf(value, TYPE.BOOLEAN) || isInstanceOf(value, Boolean);
 }

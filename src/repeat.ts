@@ -14,6 +14,6 @@
  * repeat("abc", 0);
  * // => ""
  */
-export default function repeat(string: string, count: number): string {
+export function repeat(string: string, count: number): string {
   return string.repeat(count);
 }

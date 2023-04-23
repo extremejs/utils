@@ -1,5 +1,5 @@
 import { MAX_SAFE_INTEGER } from "./is-safe-integer.js";
-import isTypeOf from "./is-type-of.js";
+import { isTypeOf } from "./is-type-of.js";
 import { TYPE } from "./type-of.js";
 
 /** Used to detect unsigned integer values. */
@@ -24,7 +24,7 @@ const UINT_REGEX = /^(?:0|[1-9]\d*)$/;
  * isIndex("foo");
  * // => false
  */
-export default function isIndex(value: unknown, length = MAX_SAFE_INTEGER): boolean {
+export function isIndex(value: unknown, length = MAX_SAFE_INTEGER): boolean {
   return !!length
     && (
       isTypeOf(value, TYPE.NUMBER)

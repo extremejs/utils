@@ -1,5 +1,5 @@
-import isObjectLike from "./is-object-like.js";
-import objectToStringTag from "./object-to-string-tag.js";
+import { isObjectLike } from "./is-object-like.js";
+import { objectToStringTag } from "./object-to-string-tag.js";
 import { OBJECT_STRING_TAG } from "./object-to-string.js";
 
 /**
@@ -14,7 +14,7 @@ import { OBJECT_STRING_TAG } from "./object-to-string.js";
  * isArguments([1, 2, 3]);
  * // => false
  */
-export default function isArguments<Value>(value: Value): unknown extends Value
+export function isArguments<Value>(value: Value): unknown extends Value
   ? boolean
   : Value extends IArguments ? true : false {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

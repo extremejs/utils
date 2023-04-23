@@ -8,6 +8,6 @@
  * add(5, 2);
  * // => 7
  */
-export default function add(augend: number, addend: number): number {
+export function add(augend: number, addend: number): number {
   return augend + addend;
 }

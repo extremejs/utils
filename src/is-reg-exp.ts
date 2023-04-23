@@ -1,4 +1,4 @@
-import isInstanceOf from "./is-instance-of.js";
+import { isInstanceOf } from "./is-instance-of.js";
 
 /**
  * It will determine whether the provided `value` is a RegExp object or not.
@@ -12,7 +12,6 @@ import isInstanceOf from "./is-instance-of.js";
  * isRegExp(2);
  * // => false
  */
-export default function isRegExp(value: unknown): value is RegExp {
-  // TODO: Use "node:util" for node environment.
+export function isRegExp(value: unknown): value is RegExp {
   return isInstanceOf(value, RegExp);
 }

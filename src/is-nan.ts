@@ -13,6 +13,6 @@
  * isNaN(undefined);
  * // => false
  */
-export default function isNaN(value: unknown): boolean {
+export function isNaN(value: unknown): boolean {
   return Number.isNaN(value);
 }

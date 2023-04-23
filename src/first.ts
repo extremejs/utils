@@ -10,7 +10,7 @@
  * first("012345");
  * // => "0"
  */
-export default function first<Value extends unknown[] | string>(value: Value): FirstT<Value> {
+export function first<Value extends unknown[] | string>(value: Value): FirstT<Value> {
   return value[0] as FirstT<Value>;
 }
 

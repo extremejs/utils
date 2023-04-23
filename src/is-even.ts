@@ -10,6 +10,6 @@
  * isEven(3);
  * // => false
  */
-export default function isEven(number: number): boolean {
+export function isEven(number: number): boolean {
   return number % 2 === 0;
 }

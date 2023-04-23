@@ -1,5 +1,5 @@
 /**
- * Divide two numbers..
+ * Divide two numbers.
  * @group Math
  * @since 1.0.0
  * @param dividend The first number in a division.
@@ -9,6 +9,6 @@
  * divide(5, 2);
  * // => 2.5
  */
-export default function divide(dividend: number, divisor: number): number {
+export function divide(dividend: number, divisor: number): number {
   return dividend / divisor;
 }

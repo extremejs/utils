@@ -8,6 +8,6 @@
  * // => null
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function prototypeOf(value: unknown): any {
+export function prototypeOf(value: unknown): any {
   return Object.getPrototypeOf(value);
 }

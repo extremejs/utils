@@ -13,6 +13,6 @@
  * upperCase("__foo_bar__");
  * // => "__FOO_BAR__"
  */
-export default function upperCase<Value extends string>(string: Value): Uppercase<Value> {
+export function upperCase<Value extends string>(string: Value): Uppercase<Value> {
   return string.toUpperCase() as Uppercase<Value>;
 }

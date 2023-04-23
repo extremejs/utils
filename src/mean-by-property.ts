@@ -1,6 +1,6 @@
 import { type CalculatedPathT, type CalculatedPropertyT } from "./get.js";
 import { type RecordT } from "./internals/index.js";
-import sumByProperty from "./sum-by-property.js";
+import { sumByProperty } from "./sum-by-property.js";
 
 /**
  * It will iterate through each of the provided `values` array
@@ -14,7 +14,7 @@ import sumByProperty from "./sum-by-property.js";
  * meanByProperty([{ a: 1 }, { a: 2 }, { a: 3 }], "a");
  * // => 2
  */
-export default function meanByProperty<Value extends RecordT>(
+export function meanByProperty<Value extends RecordT>(
   values: Value[],
   property: CalculatedPropertyT<CalculatedPathT<Value>>,
 ): number {

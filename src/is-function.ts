@@ -1,4 +1,4 @@
-import isTypeOf from "./is-type-of.js";
+import { isTypeOf } from "./is-type-of.js";
 import { TYPE } from "./type-of.js";
 
 /**
@@ -13,7 +13,7 @@ import { TYPE } from "./type-of.js";
  * isFunction(2);
  * // => false
  */
-export default function isFunction(value: unknown): value is FunctionT {
+export function isFunction(value: unknown): value is FunctionT {
   return isTypeOf(value, TYPE.FUNCTION);
 }
 

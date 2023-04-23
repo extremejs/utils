@@ -1,4 +1,4 @@
-import sum from "./sum.js";
+import { sum } from "./sum.js";
 
 /**
  * It will calculate the mean of the provided `numbers`.
@@ -9,6 +9,6 @@ import sum from "./sum.js";
  * mean([1, 2, 3]);
  * // => 2
  */
-export default function meanByFn(numbers: number[]): number {
+export function mean(numbers: number[]): number {
   return sum(numbers) / numbers.length;
 }

@@ -1,5 +1,5 @@
-import isFunction, { type FunctionT } from "./is-function.js";
-import isLength from "./is-length.js";
+import { type FunctionT, isFunction } from "./is-function.js";
+import { isLength } from "./is-length.js";
 
 /**
  * Checks if `value` is array-like.
@@ -22,7 +22,7 @@ import isLength from "./is-length.js";
  * isArrayLike(() => 0);
  * // => false
  */
-export default function isArrayLike<Value>(value: Value): Value extends FunctionT
+export function isArrayLike<Value>(value: Value): Value extends FunctionT
   ? false
   : Value extends { length: number }
     ? true

@@ -1,4 +1,4 @@
-import isInstanceOf from "./is-instance-of.js";
+import { isInstanceOf } from "./is-instance-of.js";
 
 /**
  * It will determine whether the provided `value` is a Date or not.
@@ -12,7 +12,6 @@ import isInstanceOf from "./is-instance-of.js";
  * isDate(2);
  * // => false
  */
-export default function isDate(value: unknown): value is Date {
-  // TODO: Use "node:util" for node environment.
+export function isDate(value: unknown): value is Date {
   return isInstanceOf(value, Date);
 }

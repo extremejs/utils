@@ -8,6 +8,6 @@
  * concat([1, 2], 3, [4], [[5]]);
  * // => [1, 2, 3, 4, [5]]
  */
-export default function concat<Value>(array: Value[], ...items: Array<ConcatArray<Value> | Value>): Value[] {
+export function concat<Value>(array: Value[], ...items: Array<ConcatArray<Value> | Value>): Value[] {
   return array.concat(...items);
 }

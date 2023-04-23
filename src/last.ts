@@ -10,7 +10,7 @@
  * last("012345");
  * // => "5"
  */
-export default function last<Value extends unknown[] | string>(value: Value): LastT<Value> {
+export function last<Value extends unknown[] | string>(value: Value): LastT<Value> {
   return value[value.length - 1] as LastT<Value>;
 }
 

@@ -1,5 +1,5 @@
-import lowerCase from "./lower-case.js";
-import upperFirst from "./upper-first.js";
+import { lowerCase } from "./lower-case.js";
+import { upperFirst } from "./upper-first.js";
 
 /**
  * It will convert the first character of the `string` to uppercase and the remaining to lowercase.
@@ -16,6 +16,6 @@ import upperFirst from "./upper-first.js";
  * capitalize('frED');
  * // => 'Fred'
  */
-export default function capitalize<Value extends string>(string: Value): Capitalize<Lowercase<Value>> {
+export function capitalize<Value extends string>(string: Value): Capitalize<Lowercase<Value>> {
   return upperFirst(lowerCase(string));
 }

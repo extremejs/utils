@@ -55,6 +55,8 @@ yarn add @extremejs/utils
 
 ```typescript
 import { sumByFn } from "@extremejs/utils";
+// or
+import { sumByFn } from "@extremejs/utils/sum-by-fn";
 
 const sum = sumByFn([{ a: 1 }, { a: 2 }, { a: 3 }], ({ a }) => a);
 ```

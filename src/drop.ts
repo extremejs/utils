@@ -1,4 +1,4 @@
-import slice from "./slice.js";
+import { slice } from "./slice.js";
 
 /**
  * It will create a slice of `value` (array/string) with `n` elements dropped from the beginning.
@@ -16,6 +16,6 @@ import slice from "./slice.js";
  * drop("012345", 2);
  * // => "2345"
  */
-export default function drop<Value extends unknown[] | string>(value: Value, n = 1): Value {
+export function drop<Value extends unknown[] | string>(value: Value, n = 1): Value {
   return slice(value, n);
 }

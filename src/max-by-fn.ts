@@ -12,7 +12,7 @@
  * maxByFn([{ a: 1 }, { a: 2 }, { a: 3 }], ({ a }) => a);
  * // => 3
  */
-export default function maxByFn<Value>(values: Value[], iteratee: (value: Value) => number): number {
+export function maxByFn<Value>(values: Value[], iteratee: (value: Value) => number): number {
   return values.reduce(
     (previousValue, currentValue) => Math.max(previousValue, iteratee(currentValue)),
     -Infinity,

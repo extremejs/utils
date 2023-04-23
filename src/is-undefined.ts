@@ -13,7 +13,7 @@
  * isUndefined(null);
  * // => false
  */
-export default function isUndefined(value: unknown): value is undefined {
+export function isUndefined(value: unknown): value is undefined {
   // eslint-disable-next-line no-undefined
   return value === undefined;
 }

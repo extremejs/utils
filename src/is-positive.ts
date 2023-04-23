@@ -16,6 +16,6 @@
  * isPositive(-2);
  * // => false
  */
-export default function isPositive(number: number): boolean {
+export function isPositive(number: number): boolean {
   return number === 0 ? 1 / number === Infinity : number > 0;
 }

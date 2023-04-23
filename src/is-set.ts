@@ -1,4 +1,4 @@
-import isInstanceOf from "./is-instance-of.js";
+import { isInstanceOf } from "./is-instance-of.js";
 
 /**
  * It will determine whether the provided `value` is a Set object or not.
@@ -12,7 +12,6 @@ import isInstanceOf from "./is-instance-of.js";
  * isSet(new WeakSet);
  * // => false
  */
-export default function isSet(value: unknown): value is Set<unknown> {
-  // TODO: Use "node:util" for node environment.
+export function isSet(value: unknown): value is Set<unknown> {
   return isInstanceOf(value, Set);
 }

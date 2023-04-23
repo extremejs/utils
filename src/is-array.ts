@@ -10,6 +10,6 @@
  * isArray(3);
  * // => false
  */
-export default function isArray(value: unknown): value is unknown[] {
+export function isArray(value: unknown): value is unknown[] {
   return Array.isArray(value);
 }

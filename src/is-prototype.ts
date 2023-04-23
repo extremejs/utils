@@ -1,5 +1,5 @@
 import { OBJECT_PROTOTYPE } from "./internals/index.js";
-import isFunction from "./is-function.js";
+import { isFunction } from "./is-function.js";
 
 /**
  * Checks if `value` is likely a prototype object.
@@ -10,7 +10,7 @@ import isFunction from "./is-function.js";
  * isPrototype(Object.prototype);
  * // => true
  */
-export default function isPrototype(value: unknown): boolean {
+export function isPrototype(value: unknown): boolean {
   const constructor = value?.constructor;
 
   const prototype = (isFunction(constructor) && constructor.prototype) || OBJECT_PROTOTYPE;

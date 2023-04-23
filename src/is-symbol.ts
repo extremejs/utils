@@ -1,5 +1,5 @@
-import isInstanceOf from "./is-instance-of.js";
-import isTypeOf from "./is-type-of.js";
+import { isInstanceOf } from "./is-instance-of.js";
+import { isTypeOf } from "./is-type-of.js";
 import { TYPE } from "./type-of.js";
 
 /**
@@ -14,6 +14,6 @@ import { TYPE } from "./type-of.js";
  * isSymbol(Symbol());
  * // => true
  */
-export default function isSymbol(value: unknown): value is symbol {
+export function isSymbol(value: unknown): value is symbol {
   return isTypeOf(value, TYPE.SYMBOL) || isInstanceOf(value, Symbol);
 }

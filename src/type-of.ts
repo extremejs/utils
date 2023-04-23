@@ -7,7 +7,7 @@
  * typeOf(1);
  * // => "number"
  */
-export default function typeOf<Value>(value: Value): TYPE {
+export function typeOf<Value>(value: Value): TYPE {
   return typeof value as TYPE;
 }
 

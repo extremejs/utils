@@ -15,6 +15,6 @@
  * endsWith("012345", "123", 4);
  * // => true
  */
-export default function endsWith(string: string, searchString: string, endPosition?: number): boolean {
+export function endsWith(string: string, searchString: string, endPosition?: number): boolean {
   return string.endsWith(searchString, endPosition);
 }

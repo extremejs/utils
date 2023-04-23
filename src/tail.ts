@@ -1,4 +1,4 @@
-import slice from "./slice.js";
+import { slice } from "./slice.js";
 
 /**
  * It will return all but the first element of the `value`.
@@ -12,7 +12,7 @@ import slice from "./slice.js";
  * tail("012345");
  * // => "12345"
  */
-export default function tail<Value extends unknown[] | string>(value: Value): TailT<Value> {
+export function tail<Value extends unknown[] | string>(value: Value): TailT<Value> {
   return slice(value, 1) as TailT<Value>;
 }
 

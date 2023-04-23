@@ -1,7 +1,7 @@
 import { type RecordT } from "./internals/index.js";
-import isNull from "./is-null.js";
-import isObjectLike from "./is-object-like.js";
-import prototypeOf from "./prototype-of.js";
+import { isNull } from "./is-null.js";
+import { isObjectLike } from "./is-object-like.js";
+import { prototypeOf } from "./prototype-of.js";
 
 /**
  * Checks if `value` is a plain object,
@@ -22,7 +22,7 @@ import prototypeOf from "./prototype-of.js";
  * isPlainObject(Object.create(null));
  * // => true
  */
-export default function isPlainObject(value: unknown): value is RecordT {
+export function isPlainObject(value: unknown): value is RecordT {
   if (!isObjectLike(value)) return false;
 
   if (isNull(prototypeOf(value))) return true;

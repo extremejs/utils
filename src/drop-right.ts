@@ -1,5 +1,5 @@
-import isArray from "./is-array.js";
-import slice from "./slice.js";
+import { isArray } from "./is-array.js";
+import { slice } from "./slice.js";
 
 /**
  * It will create a slice of `value` (array/string) with `n` elements dropped from the end.
@@ -17,7 +17,7 @@ import slice from "./slice.js";
  * drop("012345", 2);
  * // => "0123"
  */
-export default function dropRight<Value extends unknown[] | string>(value: Value, n = 1): Value {
+export function dropRight<Value extends unknown[] | string>(value: Value, n = 1): Value {
   const length = value.length;
 
   if (n >= length) {

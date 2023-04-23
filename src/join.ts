@@ -11,6 +11,6 @@
  * join([1, 2, 3], ",");
  * // => "1,2,3"
  */
-export default function join(array: unknown[], separator = ""): string {
+export function join(array: unknown[], separator = ""): string {
   return array.join(separator);
 }

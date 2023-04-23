@@ -1,6 +1,6 @@
 import { LETTER_CASE_REGEX } from "./internals/index.js";
-import join from "./join.js";
-import lowerCase from "./lower-case.js";
+import { join } from "./join.js";
+import { lowerCase } from "./lower-case.js";
 
 /**
  * It will convert the given `string` to [kebab case](https://en.wikipedia.org/wiki/Letter_case#Special_case_styles).
@@ -23,7 +23,7 @@ import lowerCase from "./lower-case.js";
  * kebabCase("IAmListeningToFMWhileLoadingDifferentURLOnMyBrowserAndAlsoEditingSomeXMLAndHTML");
  * // => "i-am-listening-to-fm-while-loading-different-url-on-my-browser-and-also-editing-some-xml-and-html"
  */
-export default function kebabCase(string: string): string {
+export function kebabCase(string: string): string {
   return join((string.match(LETTER_CASE_REGEX) ?? [])
     .map(lowerCase), "-");
 }

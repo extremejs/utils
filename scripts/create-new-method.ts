@@ -4,7 +4,7 @@ import { EOL } from "node:os";
 import { resolve } from "node:path";
 import { argv, cwd, env } from "node:process";
 import { Command } from "commander";
-import { camelCase, compact, first, kebabCase } from "../src/index.js";
+import { camelCase, compact, first, kebabCase } from "@extremejs/utils";
 
 const DIR = resolve(cwd());
 
@@ -71,7 +71,7 @@ it.todo("${ METHOD_NAME }");
  * ${ METHOD_NAME }();
  * // => undefined
  */
-export default function ${ METHOD_NAME }(): void {
+export function ${ METHOD_NAME }(): void {
   // TODO: Implement.
 }
 `,
@@ -88,7 +88,7 @@ export default function ${ METHOD_NAME }(): void {
 
     const INTERNALS = !internal && INDEX_LINES.shift();
 
-    INDEX_LINES.push(`export { default as ${ METHOD_NAME } } from "./${ FILENAME }.js";`);
+    INDEX_LINES.push(`export * from "./${ FILENAME }.js";`);
 
     INDEX_LINES.sort((a, b) => (a.replace(SORTING_REGEX, "$1") > b.replace(SORTING_REGEX, "$1") ? 1 : -1));
 

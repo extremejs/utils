@@ -13,6 +13,6 @@
  * lowerCase("__FOO_BAR__");
  * // => "__foo_bar__"
  */
-export default function lowerCase<Value extends string>(string: Value): Lowercase<Value> {
+export function lowerCase<Value extends string>(string: Value): Lowercase<Value> {
   return string.toLowerCase() as Lowercase<Value>;
 }

@@ -1,4 +1,4 @@
-import isInstanceOf from "./is-instance-of.js";
+import { isInstanceOf } from "./is-instance-of.js";
 
 /**
  * It will determine whether the provided `value` is a Map object or not.
@@ -12,7 +12,6 @@ import isInstanceOf from "./is-instance-of.js";
  * isMap(new WeakMap);
  * // => false
  */
-export default function isMap(value: unknown): value is Map<unknown, unknown> {
-  // TODO: Use "node:util" for node environment.
+export function isMap(value: unknown): value is Map<unknown, unknown> {
   return isInstanceOf(value, Map);
 }

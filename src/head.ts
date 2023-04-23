@@ -1,4 +1,4 @@
-import slice from "./slice.js";
+import { slice } from "./slice.js";
 
 /**
  * It will return all but the last element of the `value`.
@@ -12,7 +12,7 @@ import slice from "./slice.js";
  * head("012345");
  * // => "01234"
  */
-export default function head<Value extends unknown[] | string>(value: Value): HeadT<Value> {
+export function head<Value extends unknown[] | string>(value: Value): HeadT<Value> {
   return slice(value, 0, -1) as HeadT<Value>;
 }
 

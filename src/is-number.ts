@@ -1,5 +1,5 @@
-import isInstanceOf from "./is-instance-of.js";
-import isTypeOf from "./is-type-of.js";
+import { isInstanceOf } from "./is-instance-of.js";
+import { isTypeOf } from "./is-type-of.js";
 import { TYPE } from "./type-of.js";
 
 /**
@@ -14,6 +14,6 @@ import { TYPE } from "./type-of.js";
  * isNumber(2);
  * // => true
  */
-export default function isNumber(value: unknown): value is number {
+export function isNumber(value: unknown): value is number {
   return isTypeOf(value, TYPE.NUMBER) || isInstanceOf(value, Number);
 }

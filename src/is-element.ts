@@ -1,5 +1,5 @@
-import isObjectLike from "./is-object-like.js";
-import isPlainObject from "./is-plain-object.js";
+import { isObjectLike } from "./is-object-like.js";
+import { isPlainObject } from "./is-plain-object.js";
 
 /**
  * Checks if `value` is likely a `DOM` element.
@@ -13,6 +13,6 @@ import isPlainObject from "./is-plain-object.js";
  * isElement("<body>");
  * // => false
  */
-export default function isElement(value: unknown): value is Element {
+export function isElement(value: unknown): value is Element {
   return isObjectLike(value) && value.nodeType === 1 && !isPlainObject(value);
 }

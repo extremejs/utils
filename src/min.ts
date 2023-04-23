@@ -1,4 +1,4 @@
-import minByFn from "./min-by-fn.js";
+import { minByFn } from "./min-by-fn.js";
 
 /**
  * Computes the `minimum` of the `numbers`.
@@ -10,6 +10,6 @@ import minByFn from "./min-by-fn.js";
  * min([1, 2, 3]);
  * // => 1
  */
-export default function min(numbers: number[]): number {
+export function min(numbers: number[]): number {
   return minByFn(numbers, number => number);
 }

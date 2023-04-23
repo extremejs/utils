@@ -13,7 +13,7 @@
  * sumByFn([{ a: 1 }, { a: 2 }, { a: 3 }], ({ a }) => a);
  * // => 6
  */
-export default function sumByFn<Value>(values: Value[], iteratee: (value: Value) => number): number {
+export function sumByFn<Value>(values: Value[], iteratee: (value: Value) => number): number {
   return values.reduce(
     (previousValue, currentValue) => previousValue + iteratee(currentValue),
     0,

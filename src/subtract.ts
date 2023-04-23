@@ -1,5 +1,5 @@
 /**
- * Subtract two numbers..
+ * Subtract two numbers.
  * @group Math
  * @since 1.0.0
  * @param minuend The first number in a subtraction.
@@ -8,6 +8,6 @@
  * subtract(5, 2);
  * // => 3
  */
-export default function subtract(minuend: number, subtrahend: number): number {
+export function subtract(minuend: number, subtrahend: number): number {
   return minuend - subtrahend;
 }

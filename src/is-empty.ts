@@ -1,15 +1,15 @@
-import { prototypeKeys, hasOwn, type RecordT } from "./internals/index.js";
-import isArguments from "./is-arguments.js";
-import isArrayLike from "./is-array-like.js";
-import isArray from "./is-array.js";
-import isBuffer from "./is-buffer.js";
-import isFunction from "./is-function.js";
-import isMap from "./is-map.js";
-import isNil from "./is-nil.js";
-import isPrototype from "./is-prototype.js";
-import isSet from "./is-set.js";
-import isString from "./is-string.js";
-import isTypedArray from "./is-typed-array.js";
+import { hasOwn, prototypeKeys, type RecordT } from "./internals/index.js";
+import { isArguments } from "./is-arguments.js";
+import { isArrayLike } from "./is-array-like.js";
+import { isArray } from "./is-array.js";
+import { isBuffer } from "./is-buffer.js";
+import { isFunction } from "./is-function.js";
+import { isMap } from "./is-map.js";
+import { isNil } from "./is-nil.js";
+import { isPrototype } from "./is-prototype.js";
+import { isSet } from "./is-set.js";
+import { isString } from "./is-string.js";
+import { isTypedArray } from "./is-typed-array.js";
 
 /**
  * Checks if the provided `value` is an empty array, string, object, map, or set.
@@ -38,7 +38,7 @@ import isTypedArray from "./is-typed-array.js";
  *isEmpty({ a: 1 });
  * // => false
  */
-export default function isEmpty(value: unknown): boolean {
+export function isEmpty(value: unknown): boolean {
   if (isNil(value)) return true;
 
   if (
