@@ -10,6 +10,7 @@ export { default as drop } from "./drop.js";
 export { default as dropRight } from "./drop-right.js";
 export { default as endsWith } from "./ends-with.js";
 export { default as eq } from "./eq.js";
+export { default as fill } from "./fill.js";
 export { default as first, type FirstT } from "./first.js";
 export { default as get, type CalculatedPropertyT, type CalculatedPathT, type ValueAtT } from "./get.js";
 export { default as head, type HeadT } from "./head.js";
