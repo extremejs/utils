@@ -23,7 +23,7 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -73,7 +73,7 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Use PNPM
         uses: pnpm/action-setup@v2
@@ -104,7 +104,7 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Use PNPM
         uses: pnpm/action-setup@v2
