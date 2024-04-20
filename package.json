@@ -68,7 +68,7 @@
   "engines": {
     "node": ">= 16"
   },
-  "packageManager": "pnpm@8.3.1",
+  "packageManager": "pnpm@8.15.7",
   "sideEffects": false,
   "main": "src/index.ts",
   "jsnext:main": "build/esm/index.js",
