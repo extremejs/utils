@@ -3,7 +3,7 @@
   "compilerOptions": {
     "tsBuildInfoFile": "./build/.cjs.tsbuildinfo",
     "module": "CommonJS",
-    "moduleResolution": "Node16",
+    "moduleResolution": "Node",
     "outDir": "./build/cjs/"
   }
 }

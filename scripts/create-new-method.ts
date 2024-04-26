@@ -68,8 +68,7 @@ it.todo("${ METHOD_NAME }");
  * @group ${ group }
  * @since ${ since }
  * @example
- * ${ METHOD_NAME }();
- * // => undefined
+ * ${ METHOD_NAME }(); // => undefined
  */
 export function ${ METHOD_NAME }(): void {
   // TODO: Implement.

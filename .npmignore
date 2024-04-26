@@ -6,11 +6,11 @@ coverage/
 docs/
 scripts/
 tests/
-jest.config.js
+jest.config.ts
 nodemon.json
 typedoc.json
 tsconfig*.json
 *.tsbuildinfo
 .gitattributes
-.eslintrc.yml
-commitlint.config.cjs
+.eslintrc.yaml
+commitlint.config.ts

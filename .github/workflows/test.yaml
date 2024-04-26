@@ -12,7 +12,8 @@ concurrency:
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 env:
-  NODE_VERSION: 18
+  NODE_VERSION: 20
+  PNPM_VERSION: 9
 
 jobs:
   build:
@@ -23,17 +24,17 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Use PNPM
-        uses: pnpm/action-setup@v2
+      - name: Use PNPM ${{ env.PNPM_VERSION }}
+        uses: pnpm/action-setup@v3
         with:
-          version: 8
+          version: ${{ env.PNPM_VERSION }}
 
       - name: Use Node.js ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           cache: pnpm
           node-version: ${{ env.NODE_VERSION }}
@@ -64,24 +65,24 @@ jobs:
           - ubuntu-latest
           - windows-latest
         node-version:
-          - 16
           - 18
           - 20
+          - 22
 
     runs-on: ${{ matrix.os }}
 
     timeout-minutes: 15
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Use PNPM
-        uses: pnpm/action-setup@v2
+      - name: Use PNPM ${{ env.PNPM_VERSION }}
+        uses: pnpm/action-setup@v3
         with:
-          version: 8
+          version: ${{ env.PNPM_VERSION }}
 
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           cache: pnpm
           node-version: ${{ matrix.node-version }}
@@ -104,15 +105,15 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Use PNPM
-        uses: pnpm/action-setup@v2
+      - name: Use PNPM ${{ env.PNPM_VERSION }}
+        uses: pnpm/action-setup@v3
         with:
-          version: 8
+          version: ${{ env.PNPM_VERSION }}
 
       - name: Use Node.js ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           cache: pnpm
           node-version: ${{ env.NODE_VERSION }}
@@ -128,10 +129,11 @@ jobs:
         run: pnpm test:coverage --ci --no-cache --maxWorkers ${{ steps.cpu-cores.outputs.count }}
 
       - name: Upload coverage to CodeCov
-        uses: codecov/codecov-action@v3
+        uses: codecov/codecov-action@v4
         with:
           env_vars: NODE_VERSION,REF
           fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
         env:
           NODE_VERSION: ${{ env.NODE_VERSION }}
           REF: ${{ github.ref_name }}

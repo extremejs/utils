@@ -6,11 +6,12 @@ on:
       - 'v[0-9]+.[0-9]+.[0-9]+*'
 
 env:
-  NODE_VERSION: 18
+  NODE_VERSION: 20
+  PNPM_VERSION: 9
 
 jobs:
   test:
-    uses: ./.github/workflows/test.yml
+    uses: ./.github/workflows/test.yaml
 
   release:
     name: Create Release
@@ -32,11 +33,11 @@ jobs:
       release-id: ${{ steps.changelog.outputs.release-id }}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Changelog
         id: changelog
-        uses: ardalanamini/auto-changelog@v3
+        uses: ardalanamini/auto-changelog@v4
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
@@ -67,15 +68,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Use PNPM
-        uses: pnpm/action-setup@v2
+      - name: Use PNPM ${{ env.PNPM_VERSION }}
+        uses: pnpm/action-setup@v3
         with:
-          version: 8
+          version: ${{ env.PNPM_VERSION }}
 
       - name: Use Node.js ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           cache: pnpm
           node-version: ${{ env.NODE_VERSION }}
@@ -107,6 +108,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      id-token: write
 
     environment:
       name: gpr
@@ -119,15 +121,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Use PNPM
-        uses: pnpm/action-setup@v2
+      - name: Use PNPM ${{ env.PNPM_VERSION }}
+        uses: pnpm/action-setup@v3
         with:
-          version: 8
+          version: ${{ env.PNPM_VERSION }}
 
       - name: Use Node.js ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           cache: pnpm
           node-version: ${{ env.NODE_VERSION }}
@@ -148,6 +150,10 @@ jobs:
     needs:
       - release
 
+    permissions:
+      contents: read
+      id-token: write
+
     environment:
       name: npm
       url: https://www.npmjs.com/package/@${{ github.repository }}
@@ -159,15 +165,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - name: Use PNPM
-        uses: pnpm/action-setup@v2
+      - name: Use PNPM ${{ env.PNPM_VERSION }}
+        uses: pnpm/action-setup@v3
         with:
-          version: 8
+          version: ${{ env.PNPM_VERSION }}
 
       - name: Use Node.js ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           cache: pnpm
           node-version: ${{ env.NODE_VERSION }}
