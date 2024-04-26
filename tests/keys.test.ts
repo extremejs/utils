@@ -140,8 +140,9 @@ it("should coerce primitives to objects (test in IE 9)", () => {
 });
 
 it("should skip the constructor property on prototype objects", () => {
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  function Fn(): void {}
+  function Fn(): void {
+    /* empty */
+  }
 
   Fn.prototype.a = 1;
 

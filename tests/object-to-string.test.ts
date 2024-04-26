@@ -1,4 +1,4 @@
-import { OBJECT_STRING_TAG, objectToString, objectToStringTag, noop } from "@extremejs/utils";
+import { noop, OBJECT_STRING_TAG, objectToString, objectToStringTag } from "@extremejs/utils";
 
 it("should convert value to a string using Object.prototype.toString", () => {
   expect(objectToString({})).toBe("[object Object]");
@@ -12,8 +12,9 @@ test("OBJECT_STRING_TAG should have all the js tags", () => {
     return arguments;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  function *genFn(): Generator<void> {}
+  function *genFn(): Generator<void> {
+    /* empty */
+  }
 
   expect(OBJECT_STRING_TAG.ARRAY).toBe(objectToStringTag([]));
 

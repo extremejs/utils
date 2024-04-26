@@ -1,6 +1,6 @@
 {
   "restartable": "rs",
-  "exec": "npm run build",
+  "exec": "pnpm build",
   "watch": [
     "src/"
   ],

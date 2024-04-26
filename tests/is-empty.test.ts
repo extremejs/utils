@@ -28,8 +28,9 @@ describe("checks if the provided value is an empty array, string, object, map, o
   });
 
   it("should work with prototype objects", () => {
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    function fn(): void {}
+    function fn(): void {
+      /* empty */
+    }
 
     fn.prototype = { constructor: fn };
 
@@ -84,8 +85,9 @@ describe("checks if the provided value is an empty array, string, object, map, o
   });
 
   it("should not treat objects with negative lengths as array-like", () => {
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    function Fn(): void {}
+    function Fn(): void {
+      /* empty */
+    }
 
     Fn.prototype.length = -1;
 
@@ -95,8 +97,9 @@ describe("checks if the provided value is an empty array, string, object, map, o
   });
 
   it("should not treat objects with lengths larger than MAX_SAFE_INTEGER as array-like", () => {
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    function Fn(): void {}
+    function Fn(): void {
+      /* empty */
+    }
 
     Fn.prototype.length = MAX_SAFE_INTEGER + 1;
 

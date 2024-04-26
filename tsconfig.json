@@ -100,6 +100,6 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   },
-  "include": ["src", "tests", "scripts", "jest.config.js", "commitlint.config.cjs"],
-  "exclude": ["node_modules"]
+  "include": ["src", "tests", "scripts", "jest.config.ts", "commitlint.config.ts"],
+  "exclude": ["node_modules", "build", "docs"]
 }
