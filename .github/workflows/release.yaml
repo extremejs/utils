@@ -53,6 +53,7 @@ jobs:
       - release
 
     permissions:
+      actions: read
       contents: read
       pages: write
       id-token: write
@@ -97,7 +98,7 @@ jobs:
 
       - name: Deploy to GitHub Pages
         id: github-pages-deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
 
   publish-gpr:
     name: Publish to GitHub Packages
