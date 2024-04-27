@@ -1,6 +1,7 @@
-import { type CalculatedPathT, type CalculatedPropertyT, get } from "./get.js";
+import { type CalculatedPathT, type CalculatedPropertyT } from "./get.js";
 import { type RecordT } from "./internals/index.js";
 import { maxByFn } from "./max-by-fn.js";
+import { property as propertyUtil } from "./property.js";
 
 /**
  * Computes the `maximum` of the values of the `property` for each element in the array.
@@ -10,12 +11,11 @@ import { maxByFn } from "./max-by-fn.js";
  * @param property The property to get the value per element.
  * @returns The maximum value.
  * @example
- * minByProperty([{ a: 1 }, { a: 2 }, { a: 3 }], "a");
- * // => 3
+ * minByProperty([{ a: 1 }, { a: 2 }, { a: 3 }], "a"); // => 3
  */
 export function maxByProperty<Value extends RecordT>(
   values: Value[],
   property: CalculatedPropertyT<CalculatedPathT<Value>>,
 ): number {
-  return maxByFn(values, value => get(value, property, -Infinity as never));
+  return maxByFn(values, propertyUtil(property, -Infinity));
 }
