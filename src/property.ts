@@ -21,7 +21,7 @@ import { type PathT } from "./to-path.js";
 export function property<
   Property extends PropertyKey,
   Fallback,
->(path: Property, fallback?: Fallback): PropertyFnT<Property, Fallback> {
+>(path: Property, fallback?: Fallback): PropertyAccessorT<Property, Fallback> {
   return value => get(value, path as never, fallback as never) as never;
 }
 
@@ -29,7 +29,7 @@ export function property<
  *
  * @group Object
  */
-export type PropertyFnT<
+export type PropertyAccessorT<
   Property extends PropertyKey,
   Fallback,
 > = <Value extends RecordT>(value: Value) => Fallback | ValueAtT<Value, PathT<Property>>;
