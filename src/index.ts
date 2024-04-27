@@ -71,6 +71,7 @@ export * from "./multiply.js";
 export * from "./noop.js";
 export * from "./object-to-string.js";
 export * from "./object-to-string-tag.js";
+export * from "./property.js";
 export * from "./prototype-of.js";
 export * from "./repeat.js";
 export * from "./replace.js";
