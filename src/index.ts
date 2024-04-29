@@ -14,6 +14,7 @@ export * from "./fill.js";
 export * from "./first.js";
 export * from "./get.js";
 export * from "./head.js";
+export * from "./identity.js";
 export * from "./is-arguments.js";
 export * from "./is-array.js";
 export * from "./is-array-buffer.js";

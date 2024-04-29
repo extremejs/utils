@@ -1,3 +1,4 @@
+import { identity } from "./identity.js";
 import { maxByFn } from "./max-by-fn.js";
 
 /**
@@ -7,9 +8,8 @@ import { maxByFn } from "./max-by-fn.js";
  * @param numbers The array to iterate over.
  * @returns The maximum value.
  * @example
- * max([1, 2, 3]);
- * // => 3
+ * max([1, 2, 3]); // => 3
  */
 export function max(numbers: number[]): number {
-  return maxByFn(numbers, number => number);
+  return maxByFn(numbers, identity);
 }
