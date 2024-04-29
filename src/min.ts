@@ -1,3 +1,4 @@
+import { identity } from "./identity.js";
 import { minByFn } from "./min-by-fn.js";
 
 /**
@@ -7,9 +8,8 @@ import { minByFn } from "./min-by-fn.js";
  * @param numbers The array to iterate over.
  * @returns The minimum value.
  * @example
- * min([1, 2, 3]);
- * // => 1
+ * min([1, 2, 3]); // => 1
  */
 export function min(numbers: number[]): number {
-  return minByFn(numbers, number => number);
+  return minByFn(numbers, identity);
 }
