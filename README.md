@@ -5,7 +5,7 @@ aiming to be high performance while having minimal size impact.
 
 [![Test](https://github.com/extremejs/utils/actions/workflows/test.yaml/badge.svg)](https://github.com/extremejs/utils/actions/workflows/test.yaml)
 [![CodeCov](https://codecov.io/gh/extremejs/utils/branch/main/graph/badge.svg?token=1TKSPJICKI)](https://codecov.io/gh/extremejs/utils)
-[![Vulnerabilities](https://img.shields.io/snyk/vulnerabilities/github/extremejs/utils)](https://snyk.io/test/github/extremejs/utils)
+[![Security](https://snyk.io/test/github/extremejs/utils/badge.svg)](https://snyk.io/test/github/extremejs/utils)
 [![License](https://img.shields.io/github/license/extremejs/utils.svg)](https://github.com/extremejs/utils/blob/main/LICENSE)
 [![NPM Version](https://img.shields.io/npm/v/@extremejs/utils.svg)](https://www.npmjs.com/package/@extremejs/utils)
 [![NPM Monthly Downloads](https://img.shields.io/npm/dm/@extremejs/utils.svg)](https://www.npmjs.com/package/@extremejs/utils)
@@ -54,11 +54,13 @@ yarn add @extremejs/utils
 ## Usage
 
 ```typescript
-import { sumByFn } from "@extremejs/utils";
+import { sumByFn, sumByProperty } from "@extremejs/utils";
 // or
-import { sumByFn } from "@extremejs/utils/sum-by-fn";
+import { sumByFn, sumByProperty } from "@extremejs/utils/sum-by-fn";
 
-const sum = sumByFn([{ a: 1 }, { a: 2 }, { a: 3 }], ({ a }) => a);
+const sum1 = sumByFn([{ a: 1 }, { a: 2 }, { a: 3 }], ({ a }) => a); // => 6
+// or
+const sum2 = sumByProperty([{ a: 1 }, { a: 2 }, { a: 3 }], "a"); // => 6
 ```
 
 > API usage documents are available [here](https://extremejs.github.io/utils).
