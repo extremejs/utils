@@ -20,7 +20,7 @@ import { type PathT } from "./to-path.js";
  */
 export function property<
   Property extends PropertyKey,
-  Fallback,
+  Fallback = undefined,
 >(path: Property, fallback?: Fallback): PropertyAccessorT<Property, Fallback> {
   return value => get(value, path as never, fallback as never) as never;
 }

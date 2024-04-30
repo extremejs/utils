@@ -53,6 +53,7 @@ export * from "./is-typed-array.js";
 export * from "./is-undefined.js";
 export * from "./is-weak-map.js";
 export * from "./is-weak-set.js";
+export * from "./iteratee.js";
 export * from "./join.js";
 export * from "./kebab-case.js";
 export * from "./keys.js";
