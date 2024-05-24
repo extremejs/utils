@@ -219,5 +219,5 @@ export default {
 
   logHeapUsage: true,
 
-  workerIdleMemoryLimit: "512MB"
+  workerIdleMemoryLimit: "512MB",
 } satisfies Config;
