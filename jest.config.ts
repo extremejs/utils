@@ -190,7 +190,7 @@ export default {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    "^.+\\.[cm]?tsx?$": "@swc/jest",
+    "^.+\\.[cm]?[jt]sx?$": "@swc/jest",
   },
 
   /**
@@ -218,4 +218,6 @@ export default {
   // watchman: true,
 
   logHeapUsage: true,
+
+  workerIdleMemoryLimit: "512MB"
 } satisfies Config;
