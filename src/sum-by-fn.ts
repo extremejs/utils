@@ -1,5 +1,5 @@
 /**
- * It will iterate through each of the provided `values` array,
+ * It will iterate through each element of the provided `values` array,
  * by the provided `iteratee` function
  * and add the resulting numbers returned by the said `iteratee` function to produce the desired `sum`.
  * @group Array

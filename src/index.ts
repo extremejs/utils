@@ -83,6 +83,7 @@ export * from "./split.js";
 export * from "./starts-with.js";
 export * from "./subtract.js";
 export * from "./sum.js";
+export * from "./sum-by.js";
 export * from "./sum-by-fn.js";
 export * from "./sum-by-property.js";
 export * from "./tail.js";
