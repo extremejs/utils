@@ -54,13 +54,17 @@ yarn add @extremejs/utils
 ## Usage
 
 ```typescript
-import { sumByFn, sumByProperty } from "@extremejs/utils";
+import { sumByFn, sumByProperty, sumBy } from "@extremejs/utils";
 // or
-import { sumByFn, sumByProperty } from "@extremejs/utils/sum-by-fn";
+import { sumByFn, sumByProperty, sumBy } from "@extremejs/utils/sum-by-fn";
 
 const sum1 = sumByFn([{ a: 1 }, { a: 2 }, { a: 3 }], ({ a }) => a); // => 6
 // or
 const sum2 = sumByProperty([{ a: 1 }, { a: 2 }, { a: 3 }], "a"); // => 6
+// or
+const sum3 = sumBy([{ a: 1 }, { a: 2 }, { a: 3 }], ({ a }) => a); // => 6
+// or
+const sum4 = sumBy([{ a: 1 }, { a: 2 }, { a: 3 }], "a"); // => 6
 ```
 
 > API usage documents are available [here](https://extremejs.github.io/utils).
