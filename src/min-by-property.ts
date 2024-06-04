@@ -5,7 +5,7 @@ import { property as propertyUtil } from "./property.js";
 
 /**
  * Computes the `minimum` of the values of the `property` for each element in the array.
- * @group Array
+ * @group Math
  * @since 1.0.0
  * @param values The array to iterate over.
  * @param property The property to get the value per element.

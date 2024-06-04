@@ -3,7 +3,7 @@ import { minByFn } from "./min-by-fn.js";
 
 /**
  * Computes the `minimum` of the `numbers`.
- * @group Array
+ * @group Math
  * @since 1.0.0
  * @param numbers The array to iterate over.
  * @returns The minimum value.
