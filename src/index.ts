@@ -69,6 +69,7 @@ export * from "./mean-by.js";
 export * from "./mean-by-fn.js";
 export * from "./mean-by-property.js";
 export * from "./min.js";
+export * from "./min-by.js";
 export * from "./min-by-fn.js";
 export * from "./min-by-property.js";
 export * from "./multiply.js";
