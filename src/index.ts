@@ -61,6 +61,7 @@ export * from "./last.js";
 export * from "./lower-case.js";
 export * from "./lower-first.js";
 export * from "./max.js";
+export * from "./max-by.js";
 export * from "./max-by-fn.js";
 export * from "./max-by-property.js";
 export * from "./mean.js";
