@@ -11,7 +11,7 @@ import { property as propertyUtil } from "./property.js";
  * @param property The property to get the value per element.
  * @returns The maximum value.
  * @example
- * minByProperty([{ a: 1 }, { a: 2 }, { a: 3 }], "a"); // => 3
+ * maxByProperty([{ a: 1 }, { a: 2 }, { a: 3 }], "a"); // => 3
  */
 export function maxByProperty<Value extends RecordT>(
   values: Value[],
