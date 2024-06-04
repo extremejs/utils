@@ -10,11 +10,9 @@ import { sumByFn } from "./sum-by-fn.js";
  * @param values
  * @param iteratee
  * @example
- * meanByFn([1, 2, 3], number => number);
- * // => 2
+ * meanByFn([1, 2, 3], number => number); // => 2
  * @example
- * meanByFn([{ a: 1 }, { a: 2 }, { a: 3 }], ({ a }) => a);
- * // => 2
+ * meanByFn([{ a: 1 }, { a: 2 }, { a: 3 }], ({ a }) => a); // => 2
  */
 export function meanByFn<Value>(values: Value[], iteratee: (value: Value) => number): number {
   return sumByFn(values, iteratee) / values.length;

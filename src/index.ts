@@ -64,6 +64,7 @@ export * from "./max.js";
 export * from "./max-by-fn.js";
 export * from "./max-by-property.js";
 export * from "./mean.js";
+export * from "./mean-by.js";
 export * from "./mean-by-fn.js";
 export * from "./mean-by-property.js";
 export * from "./min.js";

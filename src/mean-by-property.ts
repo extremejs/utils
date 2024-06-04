@@ -11,8 +11,7 @@ import { sumByProperty } from "./sum-by-property.js";
  * @param values
  * @param property
  * @example
- * meanByProperty([{ a: 1 }, { a: 2 }, { a: 3 }], "a");
- * // => 2
+ * meanByProperty([{ a: 1 }, { a: 2 }, { a: 3 }], "a"); // => 2
  */
 export function meanByProperty<Value extends RecordT>(
   values: Value[],
