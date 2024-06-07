@@ -23,6 +23,7 @@
  *
  */
 
+import { OBJECT_CONSTRUCTOR } from "./constants/index.js";
 import { hasOwn } from "./has-own.js";
 
 /**
@@ -34,7 +35,10 @@ import { hasOwn } from "./has-own.js";
 export function prototypeKeys(value: unknown): PropertyKey[] {
   const result = [];
 
-  for (const key in Object(value)) if (hasOwn(value as never, key) && key !== "constructor") result.push(key);
+  // eslint-disable-next-line new-cap,curly
+  for (const key in OBJECT_CONSTRUCTOR(value)) {
+    if (hasOwn(value as never, key) && key !== "constructor") result.push(key);
+  }
 
   return result;
 }

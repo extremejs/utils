@@ -16,7 +16,6 @@ const SORTING_REGEX = /^export *.* from "\.\/(?<name>.+)\.js";$/;
 (new Command)
   .description("Create a new method.")
   .argument("name", "method's name")
-  .option("-i, --internal", "create an internal method", false)
   .option("-d, --description [description]", "method description", "TODO")
   .option("-g, --group [group]", "method group", "Other")
   .option(
@@ -28,14 +27,12 @@ const SORTING_REGEX = /^export *.* from "\.\/(?<name>.+)\.js";$/;
   .helpOption()
   .action(async (
     name,
-    { internal, description, group, since }: OptionsI,
+    { description, group, since }: OptionsI,
   ) => {
     const FILENAME = kebabCase(name);
 
-    const SRC = internal ? resolve(SRC_DIR, "internals") : SRC_DIR;
-
     const SRC_FILENAME = `${ FILENAME }.ts`;
-    const SRC_FILEPATH = resolve(SRC, SRC_FILENAME);
+    const SRC_FILEPATH = resolve(SRC_DIR, SRC_FILENAME);
 
     if (existsSync(SRC_FILEPATH)) throw new Error(`Method already exists: "src/${ SRC_FILENAME }"`);
 
@@ -48,16 +45,14 @@ const SORTING_REGEX = /^export *.* from "\.\/(?<name>.+)\.js";$/;
 
     // -------------------------< Create test file >-------------------------
 
-    if (!internal) {
-      await writeFile(
-        TEST_FILEPATH,
-        `import { ${ METHOD_NAME } } from "@extremejs/utils";
+    await writeFile(
+      TEST_FILEPATH,
+      `import { ${ METHOD_NAME } } from "@extremejs/utils";
 
 it.todo("${ METHOD_NAME }");
 `,
-        "utf8",
-      );
-    }
+      "utf8",
+    );
 
     // -------------------------< Create source file >-------------------------
 
@@ -79,13 +74,13 @@ export function ${ METHOD_NAME }(): void {
 
     // -------------------------< Update source index >-------------------------
 
-    const INDEX_FILEPATH = resolve(SRC, "index.ts");
+    const INDEX_FILEPATH = resolve(SRC_DIR, "index.ts");
 
     let index = await readFile(INDEX_FILEPATH, "utf8");
 
     const INDEX_LINES = compact(index.split(EOL));
 
-    const INTERNALS = !internal && INDEX_LINES.shift();
+    const CONSTANTS = INDEX_LINES.shift();
 
     INDEX_LINES.push(`export * from "./${ FILENAME }.js";`);
 
@@ -93,7 +88,7 @@ export function ${ METHOD_NAME }(): void {
 
     INDEX_LINES.push("");
 
-    if (INTERNALS) INDEX_LINES.unshift(INTERNALS);
+    if (CONSTANTS) INDEX_LINES.unshift(CONSTANTS);
 
     index = INDEX_LINES.join(EOL);
 
@@ -104,6 +99,5 @@ export function ${ METHOD_NAME }(): void {
 interface OptionsI {
   description: string;
   group: string;
-  internal: boolean;
   since: string;
 }

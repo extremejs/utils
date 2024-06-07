@@ -1,4 +1,4 @@
-import { type RecordT } from "./constants/index.js";
+import { OBJECT_CONSTRUCTOR, type RecordT } from "./constants/index.js";
 import { hasOwn } from "./has-own.js";
 import { isArguments } from "./is-arguments.js";
 import { isArrayLike } from "./is-array-like.js";
@@ -63,7 +63,8 @@ export function keys(value: unknown): PropertyKey[] {
     return result;
   }
 
-  if (!isPrototype(value)) return Object.keys(Object(value));
+  // eslint-disable-next-line new-cap
+  if (!isPrototype(value)) return OBJECT_CONSTRUCTOR.keys(OBJECT_CONSTRUCTOR(value));
 
   return prototypeKeys(value);
 }

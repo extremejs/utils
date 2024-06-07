@@ -1,4 +1,4 @@
-import { type RecordT } from "./constants/index.js";
+import { OBJECT_CONSTRUCTOR, type RecordT } from "./constants/index.js";
 import { isInstanceOf } from "./is-instance-of.js";
 
 /**
@@ -16,5 +16,5 @@ import { isInstanceOf } from "./is-instance-of.js";
  * isObject(null); // => false
  */
 export function isObject(value: unknown): value is RecordT {
-  return isInstanceOf(value, Object);
+  return isInstanceOf(value, OBJECT_CONSTRUCTOR);
 }

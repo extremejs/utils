@@ -1,3 +1,5 @@
+import { OBJECT_CONSTRUCTOR } from "./constants/index.js";
+
 /**
  * Returns the `Object.getPrototypeOf` result of `value`.
  * @group Other
@@ -8,5 +10,5 @@
  */
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function prototypeOf(value: unknown): any {
-  return Object.getPrototypeOf(value);
+  return OBJECT_CONSTRUCTOR.getPrototypeOf(value);
 }
