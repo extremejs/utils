@@ -1,5 +1,5 @@
+import { type RecordT } from "./constants/index.js";
 import { get, type ValueAtT } from "./get.js";
-import { type RecordT } from "./internals/index.js";
 import { type PathT } from "./to-path.js";
 
 /**

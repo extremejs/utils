@@ -1,4 +1,4 @@
-import { OBJECT_PROTOTYPE } from "./internals/index.js";
+import { OBJECT_PROTOTYPE } from "./constants/index.js";
 
 /**
  * Converts `value` to a string using `Object.prototype.toString`.

@@ -1,4 +1,4 @@
-import { type RecordT } from "./internals/index.js";
+import { type RecordT } from "./constants/index.js";
 import { type PathT, type PropertyT, toPath } from "./to-path.js";
 
 /**

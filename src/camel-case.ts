@@ -1,5 +1,5 @@
+import { LETTER_CASE_REGEX } from "./constants/index.js";
 import { first } from "./first.js";
-import { LETTER_CASE_REGEX } from "./internals/index.js";
 import { join } from "./join.js";
 import { lowerCase } from "./lower-case.js";
 import { tail } from "./tail.js";

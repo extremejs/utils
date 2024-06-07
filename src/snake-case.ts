@@ -1,4 +1,4 @@
-import { LETTER_CASE_REGEX } from "./internals/index.js";
+import { LETTER_CASE_REGEX } from "./constants/index.js";
 import { join } from "./join.js";
 import { lowerCase } from "./lower-case.js";
 

@@ -1,5 +1,5 @@
+import { type RecordT } from "./constants/index.js";
 import { type CalculatedPathT, type CalculatedPropertyT } from "./get.js";
-import { type RecordT } from "./internals/index.js";
 import { isFunction } from "./is-function.js";
 import { property, type PropertyAccessorT } from "./property.js";
 

@@ -1,4 +1,5 @@
-import { hasOwn, prototypeKeys, type RecordT } from "./internals/index.js";
+import { type RecordT } from "./constants/index.js";
+import { hasOwn } from "./has-own.js";
 import { isArguments } from "./is-arguments.js";
 import { isArrayLike } from "./is-array-like.js";
 import { isArray } from "./is-array.js";
@@ -10,6 +11,7 @@ import { isPrototype } from "./is-prototype.js";
 import { isSet } from "./is-set.js";
 import { isString } from "./is-string.js";
 import { isTypedArray } from "./is-typed-array.js";
+import { prototypeKeys } from "./prototype-keys.js";
 
 /**
  * Checks if the provided `value` is an empty array, string, object, map, or set.

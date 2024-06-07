@@ -1,4 +1,5 @@
-import { hasOwn, prototypeKeys, type RecordT } from "./internals/index.js";
+import { type RecordT } from "./constants/index.js";
+import { hasOwn } from "./has-own.js";
 import { isArguments } from "./is-arguments.js";
 import { isArrayLike } from "./is-array-like.js";
 import { isArray } from "./is-array.js";
@@ -6,6 +7,7 @@ import { isBuffer } from "./is-buffer.js";
 import { isIndex } from "./is-index.js";
 import { isPrototype } from "./is-prototype.js";
 import { isTypedArray } from "./is-typed-array.js";
+import { prototypeKeys } from "./prototype-keys.js";
 
 /**
  * Returns `value`'s keys.

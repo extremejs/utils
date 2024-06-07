@@ -1,5 +1,5 @@
+import { type RecordT } from "./constants/index.js";
 import { type CalculatedPathT, type CalculatedPropertyT } from "./get.js";
-import { type RecordT } from "./internals/index.js";
 import { property as propertyUtil } from "./property.js";
 import { sumByFn } from "./sum-by-fn.js";
 
