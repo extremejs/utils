@@ -7,11 +7,9 @@ import { isPlainObject } from "./is-plain-object.js";
  * @since 1.0.0
  * @param value
  * @example
- * isElement(document.body);
- * // => true
+ * isElement(document.body); // => true
  * @example
- * isElement("<body>");
- * // => false
+ * isElement("<body>"); // => false
  */
 export function isElement(value: unknown): value is Element {
   return isObjectLike(value) && value.nodeType === 1 && !isPlainObject(value);

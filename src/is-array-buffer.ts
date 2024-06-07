@@ -6,11 +6,9 @@ import { isInstanceOf } from "./is-instance-of.js";
  * @since 1.0.0
  * @param value
  * @example
- * isArrayBuffer(new ArrayBuffer(2));
- * // => true
+ * isArrayBuffer(new ArrayBuffer(2)); // => true
  * @example
- * isArrayBuffer(new Array(2));
- * // => false
+ * isArrayBuffer(new Array(2)); // => false
  */
 export function isArrayBuffer(value: unknown): value is ArrayBuffer {
   return isInstanceOf(value, ArrayBuffer);

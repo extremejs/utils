@@ -8,17 +8,14 @@ import { lowerCase } from "./lower-case.js";
  * @since 1.0.0
  * @param string
  * @example
- * kebabCase("camelCase");
- * // => "camel-case"
+ * kebabCase("camelCase"); // => "camel-case"
  * @example
- * kebabCase("some text");
- * // => "some-text"
+ * kebabCase("some text"); // => "some-text"
  * @example
  * kebabCase("some-mixed_string With spaces_underscores-and-hyphens");
  * // => "some-mixed-string-with-spaces-underscores-and-hyphens"
  * @example
- * kebabCase("AllThe-small Things");
- * // => "all-the-small-things"
+ * kebabCase("AllThe-small Things"); // => "all-the-small-things"
  * @example
  * kebabCase("IAmListeningToFMWhileLoadingDifferentURLOnMyBrowserAndAlsoEditingSomeXMLAndHTML");
  * // => "i-am-listening-to-fm-while-loading-different-url-on-my-browser-and-also-editing-some-xml-and-html"

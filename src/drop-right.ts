@@ -8,14 +8,11 @@ import { slice } from "./slice.js";
  * @param value
  * @param n
  * @example
- * drop([0, 1, 2, 3, 4, 5], 2);
- * // => [0, 1, 2, 3]
+ * drop([0, 1, 2, 3, 4, 5], 2); // => [0, 1, 2, 3]
  * @example
- * drop("012345");
- * // => "01234"
+ * drop("012345"); // => "01234"
  * @example
- * drop("012345", 2);
- * // => "0123"
+ * drop("012345", 2); // => "0123"
  */
 export function dropRight<Value extends unknown[] | string>(value: Value, n = 1): Value {
   const length = value.length;

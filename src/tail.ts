@@ -6,11 +6,9 @@ import { slice } from "./slice.js";
  * @since 1.0.0
  * @param value
  * @example
- * tail([0, 1, 2, 3, 4, 5]);
- * // => [1, 2, 3, 4, 5]
+ * tail([0, 1, 2, 3, 4, 5]); // => [1, 2, 3, 4, 5]
  * @example
- * tail("012345");
- * // => "12345"
+ * tail("012345"); // => "12345"
  */
 export function tail<Value extends unknown[] | string>(value: Value): TailT<Value> {
   return slice(value, 1) as TailT<Value>;

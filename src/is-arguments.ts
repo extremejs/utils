@@ -8,11 +8,9 @@ import { OBJECT_STRING_TAG } from "./object-to-string.js";
  * @since 1.0.0
  * @param value
  * @example
- * isArguments(function() { return arguments; }());
- * // => true
+ * isArguments(function() { return arguments; }()); // => true
  * @example
- * isArguments([1, 2, 3]);
- * // => false
+ * isArguments([1, 2, 3]); // => false
  */
 export function isArguments<Value>(value: Value): unknown extends Value
   ? boolean

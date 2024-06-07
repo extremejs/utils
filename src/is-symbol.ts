@@ -8,11 +8,9 @@ import { TYPE } from "./type-of.js";
  * @since 1.0.0
  * @param value
  * @example
- * isSymbol("foo");
- * // => false
+ * isSymbol("foo"); // => false
  * @example
- * isSymbol(Symbol());
- * // => true
+ * isSymbol(Symbol()); // => true
  */
 export function isSymbol(value: unknown): value is symbol {
   return isTypeOf(value, TYPE.SYMBOL) || isInstanceOf(value, Symbol);

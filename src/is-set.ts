@@ -6,11 +6,9 @@ import { isInstanceOf } from "./is-instance-of.js";
  * @since 1.0.0
  * @param value
  * @example
- * isSet(new Set);
- * // => true
+ * isSet(new Set); // => true
  * @example
- * isSet(new WeakSet);
- * // => false
+ * isSet(new WeakSet); // => false
  */
 export function isSet(value: unknown): value is Set<unknown> {
   return isInstanceOf(value, Set);

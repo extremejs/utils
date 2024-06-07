@@ -6,8 +6,7 @@
  * @param divisor The second number in a division.
  * @returns The quotient.
  * @example
- * divide(5, 2);
- * // => 2.5
+ * divide(5, 2); // => 2.5
  */
 export function divide(dividend: number, divisor: number): number {
   return dividend / divisor;

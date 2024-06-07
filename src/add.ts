@@ -5,8 +5,7 @@
  * @param augend The first number in an addition.
  * @param addend The second number in an addition.
  * @example
- * add(5, 2);
- * // => 7
+ * add(5, 2); // => 7
  */
 export function add(augend: number, addend: number): number {
   return augend + addend;

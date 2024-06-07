@@ -7,17 +7,13 @@ import { isInstanceOf } from "./is-instance-of.js";
  * @since 1.0.0
  * @param value
  * @example
- * isObject({});
- * // => true
+ * isObject({}); // => true
  * @example
- * isObject([1, 2, 3]);
- * // => true
+ * isObject([1, 2, 3]); // => true
  * @example
- * isObject(() => 0);
- * // => true
+ * isObject(() => 0); // => true
  * @example
- * isObject(null);
- * // => false
+ * isObject(null); // => false
  */
 export function isObject(value: unknown): value is RecordT {
   return isInstanceOf(value, Object);

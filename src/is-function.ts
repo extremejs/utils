@@ -7,11 +7,9 @@ import { TYPE } from "./type-of.js";
  * @since 1.0.0
  * @param value
  * @example
- * isFunction(() => 0);
- * // => true
+ * isFunction(() => 0); // => true
  * @example
- * isFunction(2);
- * // => false
+ * isFunction(2); // => false
  */
 export function isFunction(value: unknown): value is FunctionT {
   return isTypeOf(value, TYPE.FUNCTION);

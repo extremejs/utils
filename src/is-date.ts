@@ -6,11 +6,9 @@ import { isInstanceOf } from "./is-instance-of.js";
  * @since 1.0.0
  * @param value
  * @example
- * isDate(new Date());
- * // => true
+ * isDate(new Date()); // => true
  * @example
- * isDate(2);
- * // => false
+ * isDate(2); // => false
  */
 export function isDate(value: unknown): value is Date {
   return isInstanceOf(value, Date);

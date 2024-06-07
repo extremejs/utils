@@ -5,8 +5,7 @@
  * @param multiplier
  * @param multiplicand
  * @example
- * multiply(5, 2);
- * // => 10
+ * multiply(5, 2); // => 10
  */
 export function multiply(multiplier: number, multiplicand: number): number {
   return multiplier * multiplicand;

@@ -4,14 +4,11 @@
  * @since 1.0.0
  * @param string
  * @example
- * upperCase("--foo-bar--");
- * // => "--FOO-BAR--"
+ * upperCase("--foo-bar--"); // => "--FOO-BAR--"
  * @example
- * upperCase("fooBar");
- * // => "FOOBAR"
+ * upperCase("fooBar"); // => "FOOBAR"
  * @example
- * upperCase("__foo_bar__");
- * // => "__FOO_BAR__"
+ * upperCase("__foo_bar__"); // => "__FOO_BAR__"
  */
 export function upperCase<Value extends string>(string: Value): Uppercase<Value> {
   return string.toUpperCase() as Uppercase<Value>;

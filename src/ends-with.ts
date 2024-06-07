@@ -6,14 +6,11 @@
  * @param searchString
  * @param endPosition
  * @example
- * endsWith("012345", "345");
- * // => true
+ * endsWith("012345", "345"); // => true
  * @example
- * endsWith("012345", "34");
- * // => false
+ * endsWith("012345", "34"); // => false
  * @example
- * endsWith("012345", "123", 4);
- * // => true
+ * endsWith("012345", "123", 4); // => true
  */
 export function endsWith(string: string, searchString: string, endPosition = string.length): boolean {
   return string.endsWith(searchString, endPosition);

@@ -7,8 +7,7 @@ import { type FunctionT } from "./is-function.js";
  * @param value
  * @param constructor
  * @example
- * isInstanceOf(new Map, Map);
- * // => true
+ * isInstanceOf(new Map, Map); // => true
  */
 export function isInstanceOf<Value, Constructor extends ConstructorT | FunctionT>(
   value: Value,

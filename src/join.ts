@@ -5,11 +5,9 @@
  * @param array
  * @param separator
  * @example
- * join([1, 2, 3]);
- * // => "123"
+ * join([1, 2, 3]); // => "123"
  * @example
- * join([1, 2, 3], ",");
- * // => "1,2,3"
+ * join([1, 2, 3], ","); // => "1,2,3"
  */
 export function join(array: unknown[], separator = ""): string {
   return array.join(separator);

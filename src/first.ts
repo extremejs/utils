@@ -4,11 +4,9 @@
  * @since 1.0.0
  * @param value
  * @example
- * first([0, 1, 2, 3, 4, 5]);
- * // => 0
+ * first([0, 1, 2, 3, 4, 5]); // => 0
  * @example
- * first("012345");
- * // => "0"
+ * first("012345"); // => "0"
  */
 export function first<Value extends unknown[] | string>(value: Value): FirstT<Value> {
   return value[0] as FirstT<Value>;

@@ -7,14 +7,11 @@ import { slice } from "./slice.js";
  * @param value
  * @param n
  * @example
- * drop([0, 1, 2, 3, 4, 5], 2);
- * // => [2, 3, 4, 5]
+ * drop([0, 1, 2, 3, 4, 5], 2); // => [2, 3, 4, 5]
  * @example
- * drop("012345");
- * // => "12345"
+ * drop("012345"); // => "12345"
  * @example
- * drop("012345", 2);
- * // => "2345"
+ * drop("012345", 2); // => "2345"
  */
 export function drop<Value extends unknown[] | string>(value: Value, n = 1): Value {
   return slice(value, n);

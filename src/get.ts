@@ -9,17 +9,13 @@ import { type PathT, type PropertyT, toPath } from "./to-path.js";
  * @param property
  * @param fallback
  * @example
- * get({ a: { b: [{ c: { d: 1 } }] } }, "a.b.0.c.d");
- * // => 1
+ * get({ a: { b: [{ c: { d: 1 } }] } }, "a.b.0.c.d"); // => 1
  * @example
- * get({ a: { b: [{ c: { d: 2 } }] } }, "a.b[0][c].d");
- * // => 2
+ * get({ a: { b: [{ c: { d: 2 } }] } }, "a.b[0][c].d"); // => 2
  * @example
- * get({ a: { b: [{ c: { d: 1 } }] } }, "a.b.0.c.e");
- * // => undefined
+ * get({ a: { b: [{ c: { d: 1 } }] } }, "a.b.0.c.e"); // => undefined
  * @example
- * get({ a: { b: [{ c: { d: 1 } }] } }, "a.b.0.c.d", 3);
- * // => 3
+ * get({ a: { b: [{ c: { d: 1 } }] } }, "a.b.0.c.d", 3); // => 3
  */
 export function get<
   Value extends RecordT,

@@ -23,20 +23,15 @@ import { isTypedArray } from "./is-typed-array.js";
  * @since 1.0.0
  * @param value
  * @example
- *isEmpty(null);
- * // => true
+ *isEmpty(null); // => true
  * @example
- *isEmpty(true);
- * // => true
+ *isEmpty(true); // => true
  * @example
- *isEmpty(1);
- * // => true
+ *isEmpty(1); // => true
  * @example
- *isEmpty([1, 2, 3]);
- * // => false
+ *isEmpty([1, 2, 3]); // => false
  * @example
- *isEmpty({ a: 1 });
- * // => false
+ *isEmpty({ a: 1 }); // => false
  */
 export function isEmpty(value: unknown): boolean {
   if (isNil(value)) return true;

@@ -8,11 +8,9 @@ import { TYPE } from "./type-of.js";
  * @since 1.0.0
  * @param value
  * @example
- * isString("foo");
- * // => true
+ * isString("foo"); // => true
  * @example
- * isString(2);
- * // => false
+ * isString(2); // => false
  */
 export function isString(value: unknown): value is string {
   return isTypeOf(value, TYPE.STRING) || isInstanceOf(value, String);

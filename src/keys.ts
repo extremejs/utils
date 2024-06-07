@@ -13,8 +13,7 @@ import { isTypedArray } from "./is-typed-array.js";
  * @since 1.0.0
  * @param value
  * @example
- * keys({ a: 0, b: 1, c: 2 });
- * // => ["a", "b", "c"]
+ * keys({ a: 0, b: 1, c: 2 }); // => ["a", "b", "c"]
  * @example
  * function Foo() {
  *   this.a = 1
@@ -23,11 +22,9 @@ import { isTypedArray } from "./is-typed-array.js";
  *
  * Foo.prototype.c = 3
  *
- * keys(new Foo)
- * // => ["a", "b"] (iteration order is not guaranteed)
+ * keys(new Foo) // => ["a", "b"] (iteration order is not guaranteed)
  * @example
- * keys("hi")
- * // => ["0", "1"]
+ * keys("hi") // => ["0", "1"]
  */
 export function keys(value: unknown): PropertyKey[] {
   if (isArrayLike(value)) {

@@ -6,17 +6,13 @@ import { isString } from "./is-string.js";
  * @since 1.0.0
  * @param property
  * @example
- * toPath(0);
- * // => [0]
+ * toPath(0); // => [0]
  * @example
- * toPath(Symbol());
- * // => [Symbol()]
+ * toPath(Symbol()); // => [Symbol()]
  * @example
- * toPath("a.b[0].c[d]");
- * // => ["a", "b", "0", "c", "d"]
+ * toPath("a.b[0].c[d]"); // => ["a", "b", "0", "c", "d"]
  * @example
- * toPath("a.b.0.c.d");
- * // => ["a", "b", "0", "c", "d"]
+ * toPath("a.b.0.c.d"); // => ["a", "b", "0", "c", "d"]
  */
 export function toPath<Property extends PropertyT>(property: Property): PathT<Property> {
   if (isString(property)) return property.replaceAll(/\[(?<key>[^.[\]]+)]/g, ".$1").split(".") as PathT<Property>;

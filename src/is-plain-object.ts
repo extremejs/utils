@@ -10,17 +10,13 @@ import { prototypeOf } from "./prototype-of.js";
  * @since 1.0.0
  * @param value
  * @example
- * isPlainObject(new Foo);
- * // => false
+ * isPlainObject(new Foo); // => false
  * @example
- * isPlainObject([1, 2, 3]);
- * // => false
+ * isPlainObject([1, 2, 3]); // => false
  * @example
- * isPlainObject({ 'x': 0, 'y': 0 });
- * // => true
+ * isPlainObject({ 'x': 0, 'y': 0 }); // => true
  * @example
- * isPlainObject(Object.create(null));
- * // => true
+ * isPlainObject(Object.create(null)); // => true
  */
 export function isPlainObject(value: unknown): value is RecordT {
   if (!isObjectLike(value)) return false;

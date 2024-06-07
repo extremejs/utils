@@ -12,17 +12,13 @@ const UINT_REGEX = /^(?:0|[1-9]\d*)$/;
  * @param value
  * @param length
  * @example
- * isIndex(0);
- * // => true
+ * isIndex(0); // => true
  * @example
- * isIndex(10);
- * // => true
+ * isIndex(10); // => true
  * @example
- * isIndex("10");
- * // => true
+ * isIndex("10"); // => true
  * @example
- * isIndex("foo");
- * // => false
+ * isIndex("foo"); // => false
  */
 export function isIndex(value: unknown, length = MAX_SAFE_INTEGER): boolean {
   return !!length

@@ -5,8 +5,7 @@
  * @param array
  * @param items
  * @example
- * concat([1, 2], 3, [4], [[5]]);
- * // => [1, 2, 3, 4, [5]]
+ * concat([1, 2], 3, [4], [[5]]); // => [1, 2, 3, 4, [5]]
  */
 export function concat<Value>(array: Value[], ...items: Array<ConcatArray<Value> | Value>): Value[] {
   return array.concat(...items);

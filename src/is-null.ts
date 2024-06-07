@@ -4,14 +4,11 @@
  * @since 1.0.0
  * @param value
  * @example
- * isNull(null);
- * // => true
+ * isNull(null); // => true
  * @example
- * isNull(undefined);
- * // => false
+ * isNull(undefined); // => false
  * @example
- * isNull(void 0);
- * // => false
+ * isNull(void 0); // => false
  */
 export function isNull(value: unknown): value is null {
   return value === null;

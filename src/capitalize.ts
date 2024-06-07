@@ -7,14 +7,11 @@ import { upperFirst } from "./upper-first.js";
  * @since 1.0.0
  * @param string
  * @example
- * capitalize('fred');
- * // => 'Fred'
+ * capitalize('fred'); // => 'Fred'
  * @example
- * capitalize('FRED');
- * // => 'Fred'
+ * capitalize('FRED'); // => 'Fred'
  * @example
- * capitalize('frED');
- * // => 'Fred'
+ * capitalize('frED'); // => 'Fred'
  */
 export function capitalize<Value extends string>(string: Value): Capitalize<Lowercase<Value>> {
   return upperFirst(lowerCase(string));

@@ -7,11 +7,9 @@ import { isInstanceOf } from "./is-instance-of.js";
  * @since 1.0.0
  * @param value
  * @example
- * isWeakSet(new WeakSet);
- * // => true
+ * isWeakSet(new WeakSet); // => true
  * @example
- * isWeakSet(new Set);
- * // => false
+ * isWeakSet(new Set); // => false
  */
 export function isWeakSet(value: unknown): value is WeakSet<RecordT> {
   return isInstanceOf(value, WeakSet);

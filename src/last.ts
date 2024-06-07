@@ -4,11 +4,9 @@
  * @since 1.0.0
  * @param value
  * @example
- * last([0, 1, 2, 3, 4, 5]);
- * // => 5
+ * last([0, 1, 2, 3, 4, 5]); // => 5
  * @example
- * last("012345");
- * // => "5"
+ * last("012345"); // => "5"
  */
 export function last<Value extends unknown[] | string>(value: Value): LastT<Value> {
   return value[value.length - 1] as LastT<Value>;

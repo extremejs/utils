@@ -3,7 +3,7 @@ import { sumByFn } from "./sum-by-fn.js";
 
 /**
  * It will add the provided `numbers` to produce the desired `sum`.
- * @group Array
+ * @group Math
  * @since 1.0.0
  * @param numbers
  * @example

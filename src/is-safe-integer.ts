@@ -4,11 +4,9 @@
  * @since 1.0.0
  * @param value
  * @example
- * isSafeInteger(2);
- * // => true
+ * isSafeInteger(2); // => true
  * @example
- * isSafeInteger(Number.MIN_VALUE);
- * // => false
+ * isSafeInteger(Number.MIN_VALUE); // => false
  */
 export function isSafeInteger(value: unknown): value is number {
   return Number.isSafeInteger(value);

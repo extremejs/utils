@@ -6,11 +6,9 @@ import { slice } from "./slice.js";
  * @since 1.0.0
  * @param value
  * @example
- * head([0, 1, 2, 3, 4, 5]);
- * // => [0, 1, 2, 3, 4]
+ * head([0, 1, 2, 3, 4, 5]); // => [0, 1, 2, 3, 4]
  * @example
- * head("012345");
- * // => "01234"
+ * head("012345"); // => "01234"
  */
 export function head<Value extends unknown[] | string>(value: Value): HeadT<Value> {
   return slice(value, 0, -1) as HeadT<Value>;

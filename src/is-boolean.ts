@@ -8,11 +8,9 @@ import { TYPE } from "./type-of.js";
  * @since 1.0.0
  * @param value
  * @example
- * isBoolean(false);
- * // => true
+ * isBoolean(false); // => true
  * @example
- * isBoolean(3);
- * // => false
+ * isBoolean(3); // => false
  */
 export function isBoolean(value: unknown): value is boolean {
   return isTypeOf(value, TYPE.BOOLEAN) || isInstanceOf(value, Boolean);

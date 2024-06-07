@@ -4,7 +4,7 @@ import { sumByFn } from "./sum-by-fn.js";
 /**
  * It will iterate through each element of the provided `values` array
  * and add the result of invoking `iteratee` function/property for each element to produce the desired `sum`.
- * @group Array
+ * @group Math
  * @since 1.0.0
  * @param values The array to iterate over.
  * @param iteratee The function/property to get the value per element.

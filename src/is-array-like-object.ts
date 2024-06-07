@@ -9,17 +9,13 @@ import { isObjectLike } from "./is-object-like.js";
  * @since 1.0.0
  * @param value
  * @example
- * isArrayLikeObject([1, 2, 3]);
- * // => true
+ * isArrayLikeObject([1, 2, 3]); // => true
  * @example
- * isArrayLikeObject(document.body.children);
- * // => true
+ * isArrayLikeObject(document.body.children); // => true
  * @example
- * isArrayLikeObject("abc");
- * // => false
+ * isArrayLikeObject("abc"); // => false
  * @example
- * isArrayLikeObject(() => 0);
- * // => false
+ * isArrayLikeObject(() => 0); // => false
  */
 export function isArrayLikeObject<Value>(value: Value): Value extends FunctionT
   ? false

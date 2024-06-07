@@ -8,14 +8,11 @@ import { tail } from "./tail.js";
  * @since 1.0.0
  * @param string
  * @example
- * lowerFirst('Fred');
- * // => 'fred'
+ * lowerFirst('Fred'); // => 'fred'
  * @example
- * lowerFirst('FRED');
- * // => 'fRED'
+ * lowerFirst('FRED'); // => 'fRED'
  * @example
- * lowerFirst('fred');
- * // => 'fred'
+ * lowerFirst('fred'); // => 'fred'
  */
 export function lowerFirst<Value extends string>(string: Value): Uncapitalize<Value> {
   return (lowerCase(first(string) ?? "") + tail(string)) as Uncapitalize<Value>;

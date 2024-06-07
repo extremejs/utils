@@ -4,11 +4,9 @@
  * @since 1.0.0
  * @param value
  * @example
- * isBuffer(new Buffer(2));
- * // => true
+ * isBuffer(new Buffer(2)); // => true
  * @example
- * isBuffer(new Uint8Array(2));
- * // => false
+ * isBuffer(new Uint8Array(2)); // => false
  */
 export function isBuffer(value: unknown): value is Buffer {
   /* istanbul ignore next */

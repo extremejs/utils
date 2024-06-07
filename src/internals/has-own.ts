@@ -8,8 +8,7 @@ import { type RecordT } from "./typescript.js";
  * @param value
  * @param key
  * @example
- * hasOwn({ a: 2 }, "a");
- * // => true
+ * hasOwn({ a: 2 }, "a"); // => true
  */
 export function hasOwn(value: RecordT, key: PropertyKey): boolean {
   return OBJECT_PROTOTYPE.hasOwnProperty.call(value, key);

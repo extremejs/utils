@@ -7,11 +7,9 @@ import { slice } from "./slice.js";
  * @since 1.0.0
  * @param value
  * @example
- * objectToStringTag({});
- * // => "Object"
+ * objectToStringTag({}); // => "Object"
  * @example
- * objectToStringTag(2);
- * // => "Number"
+ * objectToStringTag(2); // => "Number"
  */
 export function objectToStringTag(value: unknown): OBJECT_STRING_TAG {
   return slice(objectToString(value), 8, -1) as never;

@@ -6,11 +6,9 @@ import { OBJECT_PROTOTYPE } from "./internals/index.js";
  * @since 1.0.0
  * @param value
  * @example
- * objectToString({});
- * // => "[object Object]"
+ * objectToString({}); // => "[object Object]"
  * @example
- * objectToString(2);
- * // => "[object Number]"
+ * objectToString(2); // => "[object Number]"
  */
 export function objectToString(value: unknown): `[object ${ OBJECT_STRING_TAG }]` {
   return OBJECT_PROTOTYPE.toString.call(value) as never;

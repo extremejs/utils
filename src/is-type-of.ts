@@ -7,8 +7,7 @@ import { type TYPE, typeOf } from "./type-of.js";
  * @param value
  * @param type
  * @example
- * isTypeOf(1, "number");
- * // => true
+ * isTypeOf(1, "number"); // => true
  */
 export function isTypeOf<Value>(value: Value, type: TYPE): boolean {
   return typeOf(value) === type;

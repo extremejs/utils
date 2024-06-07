@@ -6,11 +6,9 @@ import { isInstanceOf } from "./is-instance-of.js";
  * @since 1.0.0
  * @param value
  * @example
- * isRegExp(/abc/);
- * // => true
+ * isRegExp(/abc/); // => true
  * @example
- * isRegExp(2);
- * // => false
+ * isRegExp(2); // => false
  */
 export function isRegExp(value: unknown): value is RegExp {
   return isInstanceOf(value, RegExp);

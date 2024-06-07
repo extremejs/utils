@@ -11,14 +11,11 @@ import { upperCase } from "./upper-case.js";
  * @since 1.0.0
  * @param string
  * @example
- * camelCase("some_database_field_name");
- * // => "someDatabaseFieldName"
+ * camelCase("some_database_field_name"); // => "someDatabaseFieldName"
  * @example
- * camelCase("Some label that needs to be camelized");
- * // => "someLabelThatNeedsToBeCamelized"
+ * camelCase("Some label that needs to be camelized"); // => "someLabelThatNeedsToBeCamelized"
  * @example
- * camelCase("some-javaScript-property");
- * // => "someJavaScriptProperty"
+ * camelCase("some-javaScript-property"); // => "someJavaScriptProperty"
  * @example
  * camelCase("some-mixed_string with spaces_underscores-and-hyphens");
  * // => "someMixedStringWithSpacesUnderscoresAndHyphens"

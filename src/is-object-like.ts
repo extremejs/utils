@@ -10,17 +10,13 @@ import { TYPE } from "./type-of.js";
  * @since 1.0.0
  * @param value
  * @example
- * isObjectLike({});
- * // => true
+ * isObjectLike({}); // => true
  * @example
- * isObjectLike([1, 2, 3]);
- * // => true
+ * isObjectLike([1, 2, 3]); // => true
  * @example
- * isObjectLike(() => 0);
- * // => false
+ * isObjectLike(() => 0); // => false
  * @example
- * isObjectLike(null);
- * // => false
+ * isObjectLike(null); // => false
  */
 export function isObjectLike(value: unknown): value is RecordT {
   return !isNil(value) && isTypeOf(value, TYPE.OBJECT);

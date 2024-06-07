@@ -22,11 +22,9 @@ const TYPED_ARRAYS_TAGS: OBJECT_STRING_TAG[] = [
  * @since 1.0.0
  * @param value
  * @example
- * isTypedArray(new Uint8Array);
- * // => true
+ * isTypedArray(new Uint8Array); // => true
  * @example
- * isTypedArray([]);
- * // => false
+ * isTypedArray([]); // => false
  */
 export function isTypedArray<Value>(value: Value): unknown extends Value
   ? boolean

@@ -5,7 +5,7 @@ import { sumByFn } from "./sum-by-fn.js";
  * by the provided `iteratee` function
  * and add the resulting numbers returned by the said `iteratee` function to produce the `sum`,
  * to then be divided by the `values.length` to produce the desired `mean`.
- * @group Array
+ * @group Math
  * @since 1.0.0
  * @param values
  * @param iteratee

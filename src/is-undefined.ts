@@ -4,14 +4,11 @@
  * @since 1.0.0
  * @param value
  * @example
- * isUndefined(undefined);
- * // => true
+ * isUndefined(undefined); // => true
  * @example
- * isUndefined(void 0);
- * // => true
+ * isUndefined(void 0); // => true
  * @example
- * isUndefined(null);
- * // => false
+ * isUndefined(null); // => false
  */
 export function isUndefined(value: unknown): value is undefined {
   // eslint-disable-next-line no-undefined

@@ -8,14 +8,11 @@ import { upperCase } from "./upper-case.js";
  * @since 1.0.0
  * @param string
  * @example
- * upperFirst('fred');
- * // => 'Fred'
+ * upperFirst('fred'); // => 'Fred'
  * @example
- * upperFirst('FRED');
- * // => 'FRED'
+ * upperFirst('FRED'); // => 'FRED'
  * @example
- * upperFirst('frED');
- * // => 'FrED'
+ * upperFirst('frED'); // => 'FrED'
  */
 export function upperFirst<Value extends string>(string: Value): Capitalize<Value> {
   return (upperCase(first(string) ?? "") + tail(string)) as Capitalize<Value>;

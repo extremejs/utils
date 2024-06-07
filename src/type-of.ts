@@ -4,8 +4,7 @@
  * @since 1.0.0
  * @param value
  * @example
- * typeOf(1);
- * // => "number"
+ * typeOf(1); // => "number"
  */
 export function typeOf<Value>(value: Value): TYPE {
   return typeof value as TYPE;

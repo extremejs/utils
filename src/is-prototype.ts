@@ -7,8 +7,7 @@ import { isFunction } from "./is-function.js";
  * @since 1.0.0
  * @param value
  * @example
- * isPrototype(Object.prototype);
- * // => true
+ * isPrototype(Object.prototype); // => true
  */
 export function isPrototype(value: unknown): boolean {
   const constructor = value?.constructor;

@@ -10,17 +10,13 @@ import { isLength } from "./is-length.js";
  * @since 1.0.0
  * @param value
  * @example
- * isArrayLike([1, 2, 3]);
- * // => true
+ * isArrayLike([1, 2, 3]); // => true
  * @example
- * isArrayLike(document.body.children);
- * // => true
+ * isArrayLike(document.body.children); // => true
  * @example
- * isArrayLike("abc");
- * // => true
+ * isArrayLike("abc"); // => true
  * @example
- * isArrayLike(() => 0);
- * // => false
+ * isArrayLike(() => 0); // => false
  */
 export function isArrayLike<Value>(value: Value): Value extends FunctionT
   ? false

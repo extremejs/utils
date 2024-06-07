@@ -6,14 +6,11 @@ import { isInstanceOf } from "./is-instance-of.js";
  * @since 1.0.0
  * @param value
  * @example
- * isError(new Error("error"));
- * // => true
+ * isError(new Error("error")); // => true
  * @example
- * isError(new RangeError("error"));
- * // => true
+ * isError(new RangeError("error")); // => true
  * @example
- * isError(2);
- * // => false
+ * isError(2); // => false
  */
 export function isError(value: unknown): value is Error {
   return isInstanceOf(value, Error);

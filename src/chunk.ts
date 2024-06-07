@@ -8,11 +8,9 @@ import { slice } from "./slice.js";
  * @param array
  * @param size
  * @example
- * chunk([1, 2, 3]);
- * // => [[1], [2], [3]]
+ * chunk([1, 2, 3]); // => [[1], [2], [3]]
  * @example
- * chunk([1, 2, 3, 4, 5], 2);
- * // => [[1, 2], [3, 4], [5]]
+ * chunk([1, 2, 3, 4, 5], 2); // => [[1, 2], [3, 4], [5]]
  */
 export function chunk<Value>(array: Value[], size = 1): Value[][] {
   return Array.from(

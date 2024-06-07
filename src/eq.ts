@@ -9,20 +9,15 @@
  * const object = { a: 1 };
  * const other = { a: 1 };
  *
- * eq(object, object);
- * // => true
+ * eq(object, object); // => true
  *
- * eq(object, other);
- * // => false
+ * eq(object, other); // => false
  * @example
- * eq('a', 'a');
- * // => true
+ * eq('a', 'a'); // => true
  * @example
- * eq('a', Object('a'));
- * // => false
+ * eq('a', Object('a')); // => false
  * @example
- * eq(NaN, NaN);
- * // => true
+ * eq(NaN, NaN); // => true
  */
 export function eq(value: unknown, other: unknown): boolean {
   // eslint-disable-next-line no-self-compare

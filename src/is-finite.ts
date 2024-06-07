@@ -4,11 +4,9 @@
  * @since 1.0.0
  * @param value
  * @example
- * isFinite(Infinity);
- * // => false
+ * isFinite(Infinity); // => false
  * @example
- * isFinite(3);
- * // => true
+ * isFinite(3); // => true
  */
 export function isFinite(value: unknown): value is number {
   return Number.isFinite(value);
