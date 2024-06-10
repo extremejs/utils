@@ -23,10 +23,10 @@
  *
  */
 
-import { OBJECT_PROTOTYPE, type RecordT } from "./constants/index.js";
+import { OBJECT_CONSTRUCTOR, type RecordT } from "./constants/index.js";
 
 /**
- * Checks if `value` has the specified `key` as its own property based on `Object.prototype.hasOwnProperty` result.
+ * Checks if `value` has the specified `key` as its own property based on `Object.hasOwn` result.
  * @group Object
  * @since 1.0.0
  * @param value
@@ -35,5 +35,5 @@ import { OBJECT_PROTOTYPE, type RecordT } from "./constants/index.js";
  * hasOwn({ a: 2 }, "a"); // => true
  */
 export function hasOwn(value: RecordT, key: PropertyKey): boolean {
-  return OBJECT_PROTOTYPE.hasOwnProperty.call(value, key);
+  return OBJECT_CONSTRUCTOR.hasOwn(value, key);
 }
