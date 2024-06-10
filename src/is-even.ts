@@ -6,7 +6,11 @@
  * @example
  * isEven(2); // => true
  * @example
+ * isEven(6.0); // => true
+ * @example
  * isEven(3); // => false
+ * @example
+ * isEven(2.2); // => false
  */
 export function isEven(number: number): boolean {
   return number % 2 === 0;

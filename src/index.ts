@@ -41,6 +41,7 @@ export * from "./is-null.js";
 export * from "./is-number.js";
 export * from "./is-object.js";
 export * from "./is-object-like.js";
+export * from "./is-odd.js";
 export * from "./is-plain-object.js";
 export * from "./is-positive.js";
 export * from "./is-prototype.js";

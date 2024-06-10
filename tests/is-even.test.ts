@@ -1,7 +1,9 @@
 import { isEven } from "@extremejs/utils";
 
-it("should determine whether the provided number is an even number or not", () => {
-  expect(isEven(2)).toBe(true);
+it.each([2, 4, 6.0])("should return true for %d", (number) => {
+  expect(isEven(number)).toBe(true);
+});
 
-  expect(isEven(3)).toBe(false);
+it.each([1, 3, 5.0, 2.2])("should return false for %d", (number) => {
+  expect(isEven(number)).toBe(false);
 });
