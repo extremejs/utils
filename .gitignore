@@ -106,6 +106,7 @@ dist
 # IDE
 .idea/
 .vscode/
+.fleet/
 
 # Build
 build/
