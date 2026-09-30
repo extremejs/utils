@@ -15,5 +15,7 @@ import { tail } from "./tail.js";
  * lowerFirst('fred'); // => 'fred'
  */
 export function lowerFirst<Value extends string>(string: Value): Uncapitalize<Value> {
+  // Keep the fallback for an empty string.
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion typescript/no-unnecessary-condition
   return (lowerCase(first(string) ?? "") + tail(string)) as Uncapitalize<Value>;
 }

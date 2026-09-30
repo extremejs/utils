@@ -1,4 +1,4 @@
-import { isTypeOf, TYPE } from "@extremejs/utils";
+import { TYPE, isTypeOf } from "@extremejs/utils";
 
 it("should check if the typeof result of value is equal to the provided type", () => {
   expect(isTypeOf("foo", TYPE.STRING)).toBe(true);

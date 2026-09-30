@@ -1,8 +1,9 @@
 import { isArguments } from "@extremejs/utils";
 
 it("should check if value is likely an arguments object", () => {
+  // oxlint-disable-next-line unicorn/consistent-function-scoping -- Keep test fixtures local to each test.
   function fn(): IArguments {
-    // eslint-disable-next-line prefer-rest-params
+    // oxlint-disable-next-line prefer-rest-params
     return arguments;
   }
 

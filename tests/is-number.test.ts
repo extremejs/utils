@@ -9,5 +9,6 @@ it("should determine whether the provided value is a number or not", () => {
 
   expect(isNumber(Number(3))).toBe(true);
 
+  // oxlint-disable-next-line unicorn/new-for-builtins -- Exercise the original constructor call and boxed value.
   expect(isNumber(new Number(4))).toBe(true);
 });

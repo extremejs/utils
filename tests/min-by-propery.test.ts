@@ -6,6 +6,6 @@ it("should return the minimum of the elements provided by the value at the speci
   expect(minByProperty([{ a: { b: 1 } }, { a: { b: 2 } }, { a: { b: 3 } }], "a.b"))
     .toBe(1);
 
-  expect(minByProperty([{ a: { b: 8 } }, { a: {} }, { }], "a.b"))
+  expect(minByProperty([{ a: { b: 8 } }, { a: {} }, {}], "a.b"))
     .toBe(8);
 });

@@ -10,7 +10,9 @@ it("should perform a SameValueZero comparison between two values to determine if
 
   expect(eq("a", "a")).toBe(true);
 
+  // oxlint-disable-next-line unicorn/new-for-builtins -- Exercise the original constructor call and boxed value.
   expect(eq("a", Object("a"))).toBe(false);
 
+  // oxlint-disable-next-line unicorn/prefer-number-properties -- Preserve the original test expression.
   expect(eq(NaN, NaN)).toBe(true);
 });

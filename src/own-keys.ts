@@ -1,4 +1,4 @@
-import { OBJECT_CONSTRUCTOR, type RecordT } from "./constants/index.js";
+import { type RecordT, OBJECT_CONSTRUCTOR } from "./constants/index.js";
 
 /**
  * Returns the direct properties of the `value` based on `Object.getOwnPropertyNames` result.

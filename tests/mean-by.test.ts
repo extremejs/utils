@@ -2,7 +2,7 @@ import { meanBy } from "@extremejs/utils";
 
 describe("with property as iteratee", () => {
   it("should return the NaN", () => {
-    expect(meanBy<{ a: number }>([], "a")).toBeNaN();
+    expect(meanBy<{ a: number; }>([], "a")).toBeNaN();
   });
 
   it("should return the mean of the provided direct property", () => {

@@ -1,3 +1,4 @@
+// oxlint-disable unicorn/no-zero-fractions
 import { isOdd } from "@extremejs/utils";
 
 it.each([1, 3, 5.0])("should return true for %d", (number) => {

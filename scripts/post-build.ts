@@ -1,5 +1,5 @@
 import { existsSync } from "node:fs";
-import { readdir, readFile, writeFile } from "node:fs/promises";
+import { readFile, readdir, writeFile } from "node:fs/promises";
 import { EOL } from "node:os";
 import { resolve } from "node:path";
 import { cwd } from "node:process";
@@ -16,11 +16,13 @@ if (existsSync(DIR)) {
   await writeFile(resolve(DIR, "esm", PACKAGE_FILENAME), JSON.stringify({ type: "module" }), ENCODING);
 }
 
-const files = (await readdir(resolve(CWD, "src")))
+let files = await readdir(resolve(CWD, "src"));
+
+files = files
   .filter(file => file.endsWith(".ts"))
   .map(file => file.replace(/\.ts$/, ""))
   .filter(file => file !== "index")
-  .sort();
+  .toSorted();
 
 const PACKAGE_FILE = resolve(CWD, PACKAGE_FILENAME);
 

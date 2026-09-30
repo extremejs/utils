@@ -11,7 +11,7 @@ describe("with property as iteratee", () => {
   });
 
   it("should return the minimum of the provided property while considering missing values as Infinity", () => {
-    expect(minBy([{ a: { b: 8 } }, { a: {} }, { }], "a.b"))
+    expect(minBy([{ a: { b: 8 } }, { a: {} }, {}], "a.b"))
       .toBe(8);
   });
 });

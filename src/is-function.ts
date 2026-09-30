@@ -19,5 +19,5 @@ export function isFunction(value: unknown): value is FunctionT {
  *
  * @group Function
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// oxlint-disable-next-line typescript/no-explicit-any
 export type FunctionT = (...args: any[]) => any;

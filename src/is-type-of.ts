@@ -9,6 +9,7 @@ import { type TYPE, typeOf } from "./type-of.js";
  * @example
  * isTypeOf(1, "number"); // => true
  */
+// oxlint-disable-next-line typescript/no-unnecessary-type-parameters -- Preserve the public generic signature.
 export function isTypeOf<Value>(value: Value, type: TYPE): boolean {
   return typeOf(value) === type;
 }

@@ -7,7 +7,7 @@ pre-commit:
   parallel: true
   jobs:
     - name: lint
-      run: pnpm lint:fix {staged_files}
+      run: pnpm lint:fix --format=stylish {staged_files}
       glob: "*.{js,mjs,cjs,jsx,ts,mts,cts,tsx}"
       stage_fixed: true
 

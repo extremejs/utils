@@ -15,8 +15,10 @@ import { isString } from "./is-string.js";
  * toPath("a.b.0.c.d"); // => ["a", "b", "0", "c", "d"]
  */
 export function toPath<Property extends PropertyT>(property: Property): PathT<Property> {
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve the existing generic return type.
   if (isString(property)) return property.replaceAll(/\[(?<key>[^.[\]]+)]/g, ".$1").split(".") as PathT<Property>;
 
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve the existing generic return type.
   return [property] as PathT<Property>;
 }
 

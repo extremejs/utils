@@ -11,6 +11,6 @@
  * isUndefined(null); // => false
  */
 export function isUndefined(value: unknown): value is undefined {
-  // eslint-disable-next-line no-undefined
+  // oxlint-disable-next-line no-undefined
   return value === undefined;
 }

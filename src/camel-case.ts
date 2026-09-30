@@ -21,7 +21,6 @@ import { upperCase } from "./upper-case.js";
  * // => "someMixedStringWithSpacesUnderscoresAndHyphens"
  */
 export function camelCase(string: string): string {
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
   string = join((string.match(LETTER_CASE_REGEX) ?? []).map(x => upperCase(first(x)!) + lowerCase(tail(x))));
 
   return lowerCase(first(string) ?? "") + tail(string);

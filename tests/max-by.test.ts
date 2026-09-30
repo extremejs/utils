@@ -11,7 +11,7 @@ describe("with property as iteratee", () => {
   });
 
   it("should return the maximum of the provided property while considering missing values as -Infinity", () => {
-    expect(maxBy([{ a: { b: 8 } }, { a: {} }, { }], "a.b"))
+    expect(maxBy([{ a: { b: 8 } }, { a: {} }, {}], "a.b"))
       .toBe(8);
   });
 });

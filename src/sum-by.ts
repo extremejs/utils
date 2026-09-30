@@ -1,4 +1,4 @@
-import { iteratee as iterateeUtil, type IterateeT } from "./iteratee.js";
+import { type IterateeT, iteratee as iterateeUtil } from "./iteratee.js";
 import { sumByFn } from "./sum-by-fn.js";
 
 /**
@@ -17,5 +17,6 @@ import { sumByFn } from "./sum-by-fn.js";
  * sumBy([{ a: 1 }, { a: 2 }, { a: 3 }], "a"); // => 6
  */
 export function sumBy<Value>(values: Value[], iteratee: IterateeT<Value>): number {
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve the existing generic return type.
   return sumByFn(values, iterateeUtil(iteratee, 0 as never) as never);
 }

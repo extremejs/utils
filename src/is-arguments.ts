@@ -15,6 +15,7 @@ import { OBJECT_STRING_TAG } from "./object-to-string.js";
 export function isArguments<Value>(value: Value): unknown extends Value
   ? boolean
   : Value extends IArguments ? true : false {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // Preserve the conditional generic result.
+  // oxlint-disable-next-line typescript/no-explicit-any typescript/no-unsafe-type-assertion
   return (isObjectLike(value) && objectToStringTag(value) === OBJECT_STRING_TAG.ARGUMENTS) as any;
 }

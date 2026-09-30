@@ -11,5 +11,6 @@ typedoc.json
 tsconfig*.json
 *.tsbuildinfo
 .gitattributes
-.eslintrc.yaml
+knip.config.ts
+oxlint.config.ts
 commitlint.config.ts

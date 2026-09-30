@@ -7,7 +7,7 @@ it("should check if value is likely a DOM element", () => {
 
   }
 
-  expect(isElement(new Element)).toBe(true);
+  expect(isElement(new Element())).toBe(true);
 
   expect(isElement("<body>")).toBe(false);
 });

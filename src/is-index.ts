@@ -26,12 +26,20 @@ export function isIndex(value: unknown, length = MAX_SAFE_INTEGER): boolean {
       isTypeOf(value, TYPE.NUMBER)
       || (
         !isTypeOf(value, TYPE.SYMBOL)
+
+        // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve JavaScript coercion of index values.
         && UINT_REGEX.test(value as string)
       )
     )
     && (
+
+      // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve JavaScript coercion of index values.
       (value as number) > -1
+
+      // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve JavaScript coercion of index values.
       && (value as number) % 1 === 0
+
+      // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve JavaScript coercion of index values.
       && (value as number) < length
     );
 }

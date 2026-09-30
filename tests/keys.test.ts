@@ -1,3 +1,4 @@
+// oxlint-disable unicorn/consistent-function-scoping
 import { keys } from "@extremejs/utils";
 import { PRIMITIVES, toArguments, toStrictArguments } from "./utils/index.js";
 
@@ -10,17 +11,17 @@ it("should return the string keyed property names of object", () => {
 });
 
 it("should not include inherited string keyed properties", () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // oxlint-disable-next-line typescript/no-explicit-any
   function fn(this: any): void {
     this.bar = "baz";
   }
 
   fn.prototype.foo = "bar";
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // oxlint-disable-next-line typescript/ban-ts-comment
   // @ts-expect-error
-  // eslint-disable-next-line new-cap
-  expect(keys(new fn)).toEqual(["bar"]);
+  // oxlint-disable-next-line new-cap
+  expect(keys(new fn())).toEqual(["bar"]);
 });
 
 it("should treat sparse arrays as dense", () => {
@@ -34,19 +35,19 @@ it("should treat sparse arrays as dense", () => {
 it("should return keys for custom properties on arrays", () => {
   const array = [1];
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // oxlint-disable-next-line typescript/no-explicit-any typescript/no-unsafe-type-assertion
   (array as any).a = 1;
 
   expect(keys(array)).toEqual(["0", "a"]);
 });
 
 it("should not include inherited string keyed properties of arrays", () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // oxlint-disable-next-line typescript/no-explicit-any typescript/no-unsafe-type-assertion
   (Array.prototype as any).a = 1;
 
   expect(keys([1])).toEqual(["0"]);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // oxlint-disable-next-line typescript/no-explicit-any typescript/no-unsafe-type-assertion
   delete (Array.prototype as any).a;
 });
 
@@ -63,12 +64,12 @@ it("should return keys for custom properties on arguments objects", () => {
   const values = [toArguments(1, 2, 3), toStrictArguments(1, 2, 3)];
 
   expect(values.map((value) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // oxlint-disable-next-line typescript/no-explicit-any typescript/no-unsafe-type-assertion
     (value as any).a = 1;
 
     const result = keys(value);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // oxlint-disable-next-line typescript/no-explicit-any typescript/no-unsafe-type-assertion
     delete (value as any).a;
 
     return result;
@@ -82,12 +83,12 @@ it("should not include inherited string keyed properties of arguments objects", 
   const values = [toArguments(1, 2, 3), toStrictArguments(1, 2, 3)];
 
   expect(values.map((value) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // oxlint-disable-next-line typescript/no-explicit-any typescript/no-unsafe-type-assertion
     (Object.prototype as any).a = 1;
 
     const result = keys(value);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // oxlint-disable-next-line typescript/no-explicit-any typescript/no-unsafe-type-assertion
     delete (Object.prototype as any).a;
 
     return result;
@@ -98,10 +99,12 @@ it("should not include inherited string keyed properties of arguments objects", 
 });
 
 it("should work with string objects", () => {
+  // oxlint-disable-next-line unicorn/new-for-builtins
   expect(keys(Object("abc"))).toEqual(["0", "1", "2"]);
 });
 
 it("should return keys for custom properties on string objects", () => {
+  // oxlint-disable-next-line unicorn/new-for-builtins
   const object = Object("a");
 
   object.a = 1;
@@ -110,12 +113,13 @@ it("should return keys for custom properties on string objects", () => {
 });
 
 it("should not include inherited string keyed properties of string objects", () => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // oxlint-disable-next-line typescript/no-explicit-any typescript/no-unsafe-type-assertion
   (String.prototype as any).a = 1;
 
+  // oxlint-disable-next-line unicorn/new-for-builtins -- Exercise the original constructor call and boxed value.
   expect(keys(Object("a"))).toEqual(["0"]);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // oxlint-disable-next-line typescript/no-explicit-any typescript/no-unsafe-type-assertion
   delete (String.prototype as any).a;
 });
 
@@ -130,12 +134,12 @@ it("should coerce primitives to objects (test in IE 9)", () => {
   expect(PRIMITIVES.map(keys))
     .toEqual(PRIMITIVES.map(value => (typeof value === "string" ? ["0"] : [])));
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // oxlint-disable-next-line typescript/no-explicit-any typescript/no-unsafe-type-assertion
   (Number.prototype as any).a = 1;
 
   expect(keys(0)).toEqual([]);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // oxlint-disable-next-line typescript/no-explicit-any typescript/no-unsafe-type-assertion
   delete (Number.prototype as any).a;
 });
 
@@ -144,8 +148,12 @@ it("should skip the constructor property on prototype objects", () => {
     /* empty */
   }
 
+  // oxlint-disable-next-line typescript/ban-ts-comment
+  // @ts-expect-error
   Fn.prototype.a = 1;
 
+  // oxlint-disable-next-line typescript/ban-ts-comment
+  // @ts-expect-error
   expect(keys(Fn.prototype)).toEqual(["a"]);
 
   Fn.prototype = {
@@ -155,7 +163,7 @@ it("should skip the constructor property on prototype objects", () => {
 
   expect(keys(Fn.prototype)).toEqual(["a"]);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // oxlint-disable-next-line typescript/no-explicit-any typescript/no-unsafe-type-assertion
   const Fake = { prototype: {} as any };
 
   Fake.prototype.constructor = Fake;
@@ -164,17 +172,15 @@ it("should skip the constructor property on prototype objects", () => {
 });
 
 it("should return an empty array when object is nullish", () => {
-  // eslint-disable-next-line no-undefined
-  const values = [null, undefined];
+  const values = [null, void 0];
 
   expect(values.map((value, index) => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // oxlint-disable-next-line typescript/no-explicit-any typescript/no-unsafe-type-assertion
     (Object.prototype as any).a = 1;
 
-    // eslint-disable-next-line no-undefined
-    const result = index ? keys(value) : keys(undefined);
+    const result = index ? keys(value) : keys(void 0);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // oxlint-disable-next-line typescript/no-explicit-any typescript/no-unsafe-type-assertion
     delete (Object.prototype as any).a;
 
     return result;

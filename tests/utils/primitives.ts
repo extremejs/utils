@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-undefined
-const PRIMITIVES = [null, undefined, false, true, 1, NaN, "a"];
+const PRIMITIVES = [null, void 0, false, true, 1, Number.NaN, "a"];
 
 export default PRIMITIVES;

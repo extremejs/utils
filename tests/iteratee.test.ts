@@ -26,22 +26,23 @@ describe("with property as iteratee", () => {
 
 describe("with function as iteratee", () => {
   it("should return value of the provided direct property", () => {
-    const fn = iteratee((value: { foo: string }) => value.foo);
+    const fn = iteratee((value: { foo: string; }) => value.foo);
     const obj = { foo: "bar" };
 
     expect(fn(obj)).toEqual(obj.foo);
   });
 
   it("should return value of the provided nested property", () => {
-    const fn = iteratee((value: { foo: { bar: string } }) => value.foo.bar);
+    const fn = iteratee((value: { foo: { bar: string; }; }) => value.foo.bar);
     const obj = { foo: { bar: "baz" } };
 
     expect(fn(obj)).toEqual(obj.foo.bar);
   });
 
   it("should ignore the fallback value", () => {
-    // eslint-disable-next-line
-    const fn = iteratee((value: { foo: any }) => value.foo.bar, "baz" as never);
+    // Exercise an ignored fallback with the original input.
+    // oxlint-disable-next-line typescript/no-explicit-any typescript/no-unsafe-type-assertion
+    const fn = iteratee((value: { foo: any; }) => value.foo.bar, "baz" as never);
     const obj = { foo: "bar" };
 
     expect(fn(obj)).toBeUndefined();

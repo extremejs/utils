@@ -6,6 +6,6 @@ it("should return the maximum of the elements provided by the value at the speci
   expect(maxByProperty([{ a: { b: 1 } }, { a: { b: 2 } }, { a: { b: 3 } }], "a.b"))
     .toBe(3);
 
-  expect(maxByProperty([{ a: { b: 8 } }, { a: {} }, { }], "a.b"))
+  expect(maxByProperty([{ a: { b: 8 } }, { a: {} }, {}], "a.b"))
     .toBe(8);
 });

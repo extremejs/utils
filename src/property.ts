@@ -1,5 +1,5 @@
 import { type RecordT } from "./constants/index.js";
-import { get, type ValueAtT } from "./get.js";
+import { type ValueAtT, get } from "./get.js";
 import { type PathT } from "./to-path.js";
 
 /**
@@ -22,6 +22,7 @@ export function property<
   Property extends PropertyKey,
   Fallback = undefined,
 >(path: Property, fallback?: Fallback): PropertyAccessorT<Property, Fallback> {
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve the existing generic return type.
   return value => get(value, path as never, fallback as never) as never;
 }
 

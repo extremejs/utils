@@ -3,8 +3,8 @@ import { readFile, writeFile } from "node:fs/promises";
 import { EOL } from "node:os";
 import { resolve } from "node:path";
 import { argv, cwd, env } from "node:process";
-import { Command } from "commander";
 import { camelCase, compact, first, kebabCase } from "@extremejs/utils";
+import { Command } from "commander";
 
 const DIR = resolve(cwd());
 
@@ -13,7 +13,7 @@ const TEST_DIR = resolve(DIR, "tests");
 
 const SORTING_REGEX = /^export *.* from "\.\/(?<name>.+)\.js";$/;
 
-(new Command)
+new Command()
   .description("Create a new method.")
   .argument("name", "method's name")
   .option("-d, --description [description]", "method description", "TODO")
@@ -21,7 +21,6 @@ const SORTING_REGEX = /^export *.* from "\.\/(?<name>.+)\.js";$/;
   .option(
     "-s, --since [since]",
     "the version the method will be available from",
-    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     first(env.npm_package_version!.split("-")),
   )
   .helpOption()
@@ -98,6 +97,6 @@ export function ${ METHOD_NAME }(): void {
 
 interface OptionsI {
   description: string;
-  group: string;
-  since: string;
+  group      : string;
+  since      : string;
 }

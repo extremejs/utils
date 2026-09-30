@@ -20,11 +20,12 @@ import { isLength } from "./is-length.js";
  */
 export function isArrayLike<Value>(value: Value): Value extends FunctionT
   ? false
-  : Value extends { length: number }
+  : Value extends { length: number; }
     ? true
     : unknown extends Value
       ? boolean
       : false {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // Preserve the conditional generic result.
+  // oxlint-disable-next-line typescript/no-explicit-any typescript/no-unsafe-type-assertion
   return (isLength((value as any)?.length) && !isFunction(value)) as any;
 }

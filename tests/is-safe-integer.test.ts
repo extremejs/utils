@@ -1,4 +1,4 @@
-import { isSafeInteger, MAX_SAFE_INTEGER, MIN_SAFE_INTEGER } from "@extremejs/utils";
+import { MAX_SAFE_INTEGER, MIN_SAFE_INTEGER, isSafeInteger } from "@extremejs/utils";
 
 it("should determine whether the provided value is a safe integer or not", () => {
   expect(isSafeInteger(2)).toBe(true);

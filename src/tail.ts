@@ -11,6 +11,7 @@ import { slice } from "./slice.js";
  * tail("012345"); // => "12345"
  */
 export function tail<Value extends unknown[] | string>(value: Value): TailT<Value> {
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve the existing generic return type.
   return slice(value, 1) as TailT<Value>;
 }
 
@@ -18,14 +19,17 @@ export function tail<Value extends unknown[] | string>(value: Value): TailT<Valu
  * @group Collection
  */
 export type TailT<Value extends unknown[] | string> = Value extends string
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+  // oxlint-disable-next-line typescript/no-unused-vars
   ? Value extends `${ infer First }${ infer Rest }`
     ? Rest
     : string
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+  // oxlint-disable-next-line typescript/no-unused-vars
   : Value extends [infer First]
     ? []
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+    // oxlint-disable-next-line typescript/no-unused-vars
     : Value extends [infer First, ...infer Rest]
       ? Rest
       : Value extends Array<infer First>

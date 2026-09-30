@@ -1,9 +1,9 @@
 function toStrictArguments(...args: unknown[]): IArguments;
 function toStrictArguments(): IArguments {
-  // eslint-disable-next-line strict
+  // oxlint-disable-next-line unicorn/prefer-module
   "use strict";
 
-  // eslint-disable-next-line prefer-rest-params
+  // oxlint-disable-next-line prefer-rest-params
   return arguments;
 }
 

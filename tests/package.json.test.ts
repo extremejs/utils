@@ -1,5 +1,5 @@
-import { name } from "@extremejs/utils/package.json";
+import pkg from "@extremejs/utils/package.json" with { type: "json" };
 
 it("should export package.json", () => {
-  expect(name).toBe("@extremejs/utils");
+  expect(pkg.name).toBe("@extremejs/utils");
 });

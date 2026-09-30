@@ -1,17 +1,16 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "rootDir": "./src"
+    "rootDir": "./src",
   },
-  "include": [
-    "src"
-  ],
+  "include": ["src"],
   "exclude": [
     "node_modules",
     "tests",
     "scripts",
     "jest.config.ts",
     "commitlint.config.ts",
-    "knip.config.ts"
-  ]
+    "knip.config.ts",
+    "oxlint.config.ts",
+  ],
 }

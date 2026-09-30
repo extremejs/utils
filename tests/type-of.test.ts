@@ -21,6 +21,6 @@ test("TYPE should have all the js types", () => {
 
   expect(TYPE.SYMBOL).toBe(typeof Symbol());
 
-  // eslint-disable-next-line no-undefined
+  // oxlint-disable-next-line no-undefined
   expect(TYPE.UNDEFINED).toBe(typeof undefined);
 });

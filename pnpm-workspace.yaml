@@ -4,6 +4,8 @@ minimumReleaseAge: 1440
 minimumReleaseAgeStrict: true
 
 allowBuilds:
+  '@parcel/watcher': false
   "@swc/core": false
   esbuild: false
   lefthook: false
+  unrs-resolver: false

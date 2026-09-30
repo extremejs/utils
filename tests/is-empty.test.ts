@@ -1,8 +1,8 @@
-import { isEmpty, MAX_SAFE_INTEGER } from "@extremejs/utils";
+// oxlint-disable unicorn/consistent-function-scoping
+import { MAX_SAFE_INTEGER, isEmpty } from "@extremejs/utils";
 
 describe("checks if the provided value is an empty array, string, object, map, or set", () => {
-  // eslint-disable-next-line no-undefined
-  it.each([[], {}, null, undefined, false, 0, NaN, "", Buffer.alloc(0)])("should return true for %p", (value) => {
+  it.each([[], {}, null, void 0, false, 0, Number.NaN, "", Buffer.alloc(0)])("should return true for %p", (value) => {
     expect(isEmpty(value)).toBe(true);
   });
 
@@ -15,9 +15,9 @@ describe("checks if the provided value is an empty array, string, object, map, o
   });
 
   it("should work with arguments objects", () => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // oxlint-disable-next-line typescript/no-unused-vars
     function fn(...args: unknown[]): IArguments {
-      // eslint-disable-next-line prefer-rest-params
+      // oxlint-disable-next-line prefer-rest-params
       return arguments;
     }
 
@@ -28,17 +28,19 @@ describe("checks if the provided value is an empty array, string, object, map, o
   });
 
   it("should work with prototype objects", () => {
-    function fn(): void {
+    function Fn(): void {
       /* empty */
     }
 
-    fn.prototype = { constructor: fn };
+    Fn.prototype = { constructor: Fn };
 
-    expect(isEmpty(fn.prototype)).toBe(true);
+    expect(isEmpty(Fn.prototype)).toBe(true);
 
-    fn.prototype.a = 2;
+    // oxlint-disable-next-line typescript/ban-ts-comment
+    // @ts-expect-error
+    Fn.prototype.a = 2;
 
-    expect(isEmpty(fn.prototype)).toBe(false);
+    expect(isEmpty(Fn.prototype)).toBe(false);
   });
 
   it("should work with jQuery/MooTools DOM query collections", () => {
@@ -51,13 +53,13 @@ describe("checks if the provided value is an empty array, string, object, map, o
       splice: Array.prototype.splice,
     };
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // oxlint-disable-next-line typescript/ban-ts-comment
     // @ts-expect-error
     expect(isEmpty(new Fn([]))).toBe(true);
   });
 
   it("should work with map", () => {
-    const map = new Map;
+    const map = new Map();
 
     expect(isEmpty(map)).toBe(true);
 
@@ -71,7 +73,7 @@ describe("checks if the provided value is an empty array, string, object, map, o
   });
 
   it("should work with set", () => {
-    const set = new Set;
+    const set = new Set();
 
     expect(isEmpty(set)).toBe(true);
 
@@ -91,9 +93,9 @@ describe("checks if the provided value is an empty array, string, object, map, o
 
     Fn.prototype.length = -1;
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // oxlint-disable-next-line typescript/ban-ts-comment
     // @ts-expect-error
-    expect(isEmpty(new Fn)).toBe(true);
+    expect(isEmpty(new Fn())).toBe(true);
   });
 
   it("should not treat objects with lengths larger than MAX_SAFE_INTEGER as array-like", () => {
@@ -103,9 +105,9 @@ describe("checks if the provided value is an empty array, string, object, map, o
 
     Fn.prototype.length = MAX_SAFE_INTEGER + 1;
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // oxlint-disable-next-line typescript/ban-ts-comment
     // @ts-expect-error
-    expect(isEmpty(new Fn)).toBe(true);
+    expect(isEmpty(new Fn())).toBe(true);
   });
 
   it("should not treat objects with non-number lengths as array-like", () => {

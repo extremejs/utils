@@ -7,6 +7,6 @@ it("should check if value is likely a prototype object", () => {
 
   expect(isPrototype(noop.prototype)).toBe(true);
 
-  // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
+  // oxlint-disable-next-line typescript/no-confusing-void-expression
   expect(isPrototype(noop())).toBe(false);
 });
