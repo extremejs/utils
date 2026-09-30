@@ -16,3 +16,6 @@ pre-commit:
 
     - name: type check
       run: pnpm typecheck
+
+    - name: deep code/dependency analysis
+      run: pnpm knip

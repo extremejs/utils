@@ -11,6 +11,7 @@
     "tests",
     "scripts",
     "jest.config.ts",
-    "commitlint.config.ts"
+    "commitlint.config.ts",
+    "knip.config.ts"
   ]
 }
