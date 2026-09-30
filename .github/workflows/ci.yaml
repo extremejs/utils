@@ -272,6 +272,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Check build/test matrix status
+      - name: Check ci status
         if: ${{ needs.knip.result != 'success' || needs.build.result != 'success' || needs.typecheck.result != 'success' || needs.lint.result != 'success' || needs.document.result != 'success' || needs.commitlint.result != 'success' || needs.test.result != 'success' || needs.coverage.result != 'success' }}
         run: exit 1

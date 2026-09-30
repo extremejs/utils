@@ -1,10 +1,8 @@
 {
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
+    "noEmit": true,
     "rootDir": ".",
-    "outDir": "./build/esm",
-    "incremental": true,
-    "tsBuildInfoFile": "./build/.esm.tsbuildinfo",
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "target": "esnext",
@@ -37,5 +35,5 @@
     "knip.config.ts",
     "oxlint.config.ts",
   ],
-  "exclude": ["node_modules", "build", "docs"],
+  "exclude": ["node_modules", "dist", "docs"],
 }

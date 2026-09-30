@@ -53,6 +53,8 @@ yarn add @extremejs/utils
 
 ## Usage
 
+This package provides ES modules only.
+
 ```typescript
 import { sumByFn, sumByProperty, sumBy } from "@extremejs/utils";
 // or

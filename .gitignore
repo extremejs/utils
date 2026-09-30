@@ -108,8 +108,5 @@ dist
 .vscode/
 .fleet/
 
-# Build
-build/
-
 # Document
 docs/
