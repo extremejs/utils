@@ -1,7 +1,6 @@
 .idea/
 .vscode/
 .github/
-.husky/
 coverage/
 docs/
 scripts/

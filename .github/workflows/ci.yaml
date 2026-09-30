@@ -41,6 +41,32 @@ jobs:
       - name: Build the project
         run: pnpm build
 
+  typecheck:
+    name: Type Check
+
+    runs-on: ubuntu-latest
+
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+
+      - name: Set up PNPM
+        uses: pnpm/action-setup@v6
+        with:
+          cache: true
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Type check the project
+        run: pnpm typecheck
+
   lint:
     name: Lint
 
@@ -219,5 +245,5 @@ jobs:
 
     steps:
       - name: Check build/test matrix status
-        if: ${{ needs.build.result != 'success' || needs.lint.result != 'success' || needs.document.result != 'success' || needs.commitlint.result != 'success' || needs.test.result != 'success' || needs.coverage.result != 'success' }}
+        if: ${{ needs.build.result != 'success' || needs.typecheck.result != 'success' || needs.lint.result != 'success' || needs.document.result != 'success' || needs.commitlint.result != 'success' || needs.test.result != 'success' || needs.coverage.result != 'success' }}
         run: exit 1
