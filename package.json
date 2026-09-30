@@ -36,7 +36,7 @@
     "lint": "eslint --ignore-path .gitignore . --cache --cache-location ./.cache/eslint/ .",
     "lint:fix": "pnpm lint --fix",
     "test": "node --expose-gc node_modules/jest/bin/jest -c jest.config.ts",
-    "test:coverage": "pnpm test -- --coverage",
+    "test:coverage": "pnpm test --coverage",
     "prepack": "pnpm build:pre && pnpm build && pnpm build:post",
     "build:post": "tsx scripts/post-build.ts",
     "build:pre": "tsx scripts/pre-build.ts",
@@ -66,8 +66,9 @@
       "./package.json": "./package.json"
     }
   },
+  "packageManager": "pnpm@12.6.0",
   "engines": {
-    "node": ">= 18.12.0"
+    "node": ">= 24.21.0"
   },
   "sideEffects": false,
   "main": "src/index.ts",

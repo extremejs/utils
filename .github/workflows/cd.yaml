@@ -1,24 +1,26 @@
-name: Release
+name: CD
 
 on:
   push:
     tags:
-      - 'v[0-9]+.[0-9]+.[0-9]+*'
+      - "v[0-9]+.[0-9]+.[0-9]+*"
 
-env:
-  NODE_VERSION: 20
-  PNPM_VERSION: 9
+permissions:
+  contents: read
 
 jobs:
-  test:
-    uses: ./.github/workflows/test.yaml
+  ci:
+    uses: ./.github/workflows/ci.yaml
     secrets: inherit
 
   release:
     name: Create Release
 
     needs:
-      - test
+      - ci
+
+    permissions:
+      contents: write
 
     environment:
       name: release
@@ -34,14 +36,14 @@ jobs:
       release-id: ${{ steps.changelog.outputs.release-id }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Changelog
         id: changelog
-        uses: ardalanamini/auto-changelog@v4
+        uses: ardalanamini/auto-changelog@v5
 
       - name: Create Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           body: |
             ${{ steps.changelog.outputs.changelog }}
@@ -64,42 +66,41 @@ jobs:
       url: ${{ steps.github-pages-deployment.outputs.page_url }}
 
     concurrency:
-      group: ${{ github.workflow }}-documents-${{ github.ref_name }}
+      group: ${{ github.workflow }}-documents
       cancel-in-progress: true
 
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - name: Use PNPM ${{ env.PNPM_VERSION }}
-        uses: pnpm/action-setup@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
         with:
-          version: ${{ env.PNPM_VERSION }}
+          node-version-file: .node-version
 
-      - name: Use Node.js ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@v4
+      - name: Set up PNPM
+        uses: pnpm/action-setup@v6
         with:
-          cache: pnpm
-          node-version: ${{ env.NODE_VERSION }}
+          cache: true
 
       - name: Install dependencies
-        run: pnpm i
+        run: pnpm install --frozen-lockfile
 
       - name: Generate code documents
         run: pnpm document
 
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
-          path: 'docs/'
+          path: docs/
 
       - name: Deploy to GitHub Pages
         id: github-pages-deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 
   publish-gpr:
     name: Publish to GitHub Packages
@@ -123,23 +124,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - name: Use PNPM ${{ env.PNPM_VERSION }}
-        uses: pnpm/action-setup@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
         with:
-          version: ${{ env.PNPM_VERSION }}
-
-      - name: Use Node.js ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@v4
-        with:
-          cache: pnpm
-          node-version: ${{ env.NODE_VERSION }}
+          node-version-file: .node-version
           registry-url: https://npm.pkg.github.com/
-          scope: '@extremejs'
+          scope: "@extremejs"
+
+      - name: Set up PNPM
+        uses: pnpm/action-setup@v6
+        with:
+          cache: true
 
       - name: Install dependencies
-        run: pnpm i
+        run: pnpm install --frozen-lockfile
 
       - name: Publish the package
         run: pnpm publish --no-git-checks --tag ${{ needs.release.outputs.release-id }}
@@ -167,24 +167,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - name: Use PNPM ${{ env.PNPM_VERSION }}
-        uses: pnpm/action-setup@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
         with:
-          version: ${{ env.PNPM_VERSION }}
-
-      - name: Use Node.js ${{ env.NODE_VERSION }}
-        uses: actions/setup-node@v4
-        with:
-          cache: pnpm
-          node-version: ${{ env.NODE_VERSION }}
+          node-version-file: .node-version
           registry-url: https://registry.npmjs.org/
 
+      - name: Set up PNPM
+        uses: pnpm/action-setup@v6
+        with:
+          cache: true
+
       - name: Install dependencies
-        run: pnpm i
+        run: pnpm install --frozen-lockfile
 
       - name: Publish the package
         run: pnpm publish --no-git-checks --tag ${{ needs.release.outputs.release-id }}
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
