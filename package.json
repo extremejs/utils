@@ -31,7 +31,7 @@
     "lint:fix": "pnpm lint --fix",
     "knip": "knip",
     "knip:prod": "pnpm knip --production --include files,unlisted,unresolved",
-    "test": "node --expose-gc node_modules/jest/bin/jest -c jest.config.ts",
+    "test": "vitest run",
     "test:coverage": "pnpm test --coverage",
     "document": "typedoc",
     "new": "tsx scripts/create-new-method.ts",
@@ -77,16 +77,13 @@
     "@commitlint/types": "21.2.3",
     "@pnpm/types": "1102.1.1",
     "@stylistic/eslint-plugin": "5.10.0",
-    "@swc/core": "1.16.12",
-    "@swc/jest": "0.2.39",
-    "@types/jest": "29.5.12",
     "@types/node": "26.6.3",
+    "@vitest/coverage-v8": "5.0.2",
     "commander": "^12.1.0",
     "eslint-plugin-import": "2.32.0",
     "eslint-plugin-perfectionist": "5.11.0",
     "eslint-plugin-unicorn": "74.0.0",
     "is-ci": "4.1.0",
-    "jest": "30.5.2",
     "knip": "6.38.0",
     "lefthook": "2.1.14",
     "oxlint": "1.86.0",
@@ -94,6 +91,7 @@
     "oxlint-tsgolint": "7.0.2003",
     "tsx": "4.23.15",
     "typedoc": "0.28.20",
-    "typescript": "7.0.2"
+    "typescript": "7.0.2",
+    "vitest": "5.0.2"
   }
 }

@@ -13,7 +13,7 @@ aiming to be high performance while having minimal size impact.
 [![NPM Bundle Size (Minified + GZip)](https://img.shields.io/bundlephobia/minzip/@extremejs/utils.svg)](https://bundlephobia.com/package/@extremejs/utils)
 [![NPM Bundle Size (Minified)](https://img.shields.io/bundlephobia/min/@extremejs/utils.svg)](https://bundlephobia.com/package/@extremejs/utils)
 [![Built with TypeScript](https://img.shields.io/npm/types/prototyped.js.svg)](https://www.typescriptlang.org)
-[![Tested With Jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://jestjs.io)
+[![Tested With Vitest](https://img.shields.io/badge/tested_with-vitest-6E9F18.svg)](https://vitest.dev)
 [![Open GitHub Issues](https://img.shields.io/github/issues-raw/extremejs/utils.svg)](https://github.com/extremejs/utils/issues)
 [![Open GitHub Pull Requests](https://img.shields.io/github/issues-pr-raw/extremejs/utils)](https://github.com/extremejs/utils/pulls)
 [![Github Stars](https://img.shields.io/github/stars/extremejs/utils.svg?style=social&label=Stars)](https://github.com/extremejs/utils)

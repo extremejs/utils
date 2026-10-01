@@ -2,11 +2,12 @@
 .vscode/
 .github/
 coverage/
+.vitest/
 docs/
 scripts/
 test/
 **/*.spec.ts
-jest.config.ts
+vitest.config.ts
 typedoc.json
 tsconfig*.json
 *.tsbuildinfo

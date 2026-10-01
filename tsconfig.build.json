@@ -14,7 +14,7 @@
     "test",
     "src/**/*.spec.ts",
     "scripts",
-    "jest.config.ts",
+    "vitest.config.ts",
     "commitlint.config.ts",
     "knip.config.ts",
     "oxlint.config.ts",
