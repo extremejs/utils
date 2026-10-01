@@ -37,6 +37,11 @@
     "prepack": "pnpm build:pre && pnpm build && pnpm build:post",
     "build:post": "tsx scripts/post-build.ts",
     "build:pre": "tsx scripts/pre-build.ts",
+    "release": "pnpm version --sign-git-tag --no-commit-hooks",
+    "release:major": "pnpm release major",
+    "release:minor": "pnpm release minor",
+    "release:patch": "pnpm release patch",
+    "release:push": "git push --follow-tags",
     "prepare": "is-ci || lefthook install"
   },
   "publishConfig": {
