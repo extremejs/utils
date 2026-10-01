@@ -39,8 +39,11 @@
     "build:pre": "tsx scripts/pre-build.ts",
     "release": "pnpm version --sign-git-tag --no-commit-hooks",
     "release:major": "pnpm release major",
+    "release:major:pre": "pnpm release premajor --preid",
     "release:minor": "pnpm release minor",
+    "release:minor:pre": "pnpm release preminor --preid",
     "release:patch": "pnpm release patch",
+    "release:patch:pre": "pnpm release prepatch --preid",
     "release:push": "git push --follow-tags",
     "prepare": "is-ci || lefthook install"
   },
