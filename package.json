@@ -38,6 +38,7 @@
     "build:post": "tsx scripts/post-build.ts",
     "build:pre": "tsx scripts/pre-build.ts",
     "release": "pnpm version --sign-git-tag --no-commit-hooks",
+    "release:pre": "pnpm release prerelease --preid",
     "release:major": "pnpm release major",
     "release:major:pre": "pnpm release premajor --preid",
     "release:minor": "pnpm release minor",
