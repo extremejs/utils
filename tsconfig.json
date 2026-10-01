@@ -30,7 +30,7 @@
   "include": [
     ".pnpmfile.mjs",
     "src",
-    "tests",
+    "test",
     "scripts",
     "jest.config.ts",
     "commitlint.config.ts",

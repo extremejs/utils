@@ -1,6 +1,6 @@
 // oxlint-disable unicorn/consistent-function-scoping
 import { keys } from "@extremejs/utils";
-import { PRIMITIVES, toArguments, toStrictArguments } from "../tests/utils/index.js";
+import { PRIMITIVES, toArguments, toStrictArguments } from "#test";
 
 it("should return the string keyed property names of object", () => {
   expect(keys({

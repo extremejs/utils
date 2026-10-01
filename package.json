@@ -68,6 +68,9 @@
     "./package.json": "./package.json",
     "./*": "./src/*.ts"
   },
+  "imports": {
+    "#test": "./test/index.ts"
+  },
   "devDependencies": {
     "@commitlint/cli": "21.2.3",
     "@commitlint/config-conventional": "21.2.3",

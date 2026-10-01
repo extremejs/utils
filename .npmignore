@@ -4,7 +4,7 @@
 coverage/
 docs/
 scripts/
-tests/
+test/
 **/*.spec.ts
 jest.config.ts
 typedoc.json
