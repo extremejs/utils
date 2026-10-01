@@ -1,4 +1,5 @@
 import { drop } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should drop the first element", () => {
   expect(drop([1, 2, 3])).toEqual([2, 3]);

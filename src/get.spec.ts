@@ -1,4 +1,5 @@
 import { get } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should return value of the provided property in an object", () => {
   expect(get({ a: { b: [{ c: { d: 1 } }] } }, "a.b.0.c.d")).toBe(1);

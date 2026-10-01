@@ -7,7 +7,7 @@
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "target": "esnext",
-    "types": ["node", "vitest/globals"],
+    "types": ["node"],
     "lib": ["esnext", "dom"],
     "sourceMap": true,
     "inlineSources": true,

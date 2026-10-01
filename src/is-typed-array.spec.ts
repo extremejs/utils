@@ -1,4 +1,5 @@
 import { isTypedArray } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should check if value is a typed array", () => {
   expect(isTypedArray(new Int8Array())).toBe(true);

@@ -1,5 +1,6 @@
 // oxlint-disable unicorn/no-zero-fractions
 import { isEven } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it.each([2, 4, 6.0])("should return true for %d", (number) => {
   expect(isEven(number)).toBe(true);

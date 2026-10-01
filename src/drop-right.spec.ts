@@ -1,4 +1,5 @@
 import { dropRight } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should drop the last element", () => {
   expect(dropRight([1, 2, 3])).toEqual([1, 2]);

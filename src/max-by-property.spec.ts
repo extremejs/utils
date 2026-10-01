@@ -1,4 +1,5 @@
 import { maxByProperty } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should return the maximum of the elements provided by the value at the specified property", () => {
   expect(maxByProperty([{ a: 1 }, { a: 2 }, { a: 3 }], "a")).toBe(3);

@@ -1,4 +1,5 @@
 import { isPrototype, noop } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should check if value is likely a prototype object", () => {
   expect(isPrototype(Object.prototype)).toBe(true);

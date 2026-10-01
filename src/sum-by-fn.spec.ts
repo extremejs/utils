@@ -1,4 +1,5 @@
 import { sumByFn } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should return the sum of the elements provided by the iteratee", () => {
   expect(sumByFn([1, 2, 3], number => number)).toBe(6);

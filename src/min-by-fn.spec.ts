@@ -1,4 +1,5 @@
 import { minByFn } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should return the minimum of the elements provided by the iteratee", () => {
   expect(minByFn([], number => number)).toBe(Infinity);

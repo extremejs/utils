@@ -1,4 +1,5 @@
 import { meanByFn } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should return the mean of the elements provided by the iteratee", () => {
   expect(meanByFn([], number => number)).toBeNaN();

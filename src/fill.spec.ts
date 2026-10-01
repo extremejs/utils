@@ -1,4 +1,5 @@
 import { fill } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should fill elements of array with value from start up to, but not including, end.", () => {
   expect(fill([1, 2, 3], 0)).toEqual([0, 0, 0]);

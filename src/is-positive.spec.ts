@@ -1,4 +1,5 @@
 import { isPositive } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should check if number is positive", () => {
   expect(isPositive(Infinity)).toBe(true);

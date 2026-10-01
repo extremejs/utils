@@ -1,4 +1,5 @@
 import { head } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should return all but the last element of the value", () => {
   expect(head([])).toEqual([]);

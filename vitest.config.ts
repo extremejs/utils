@@ -4,7 +4,6 @@ export default defineConfig({
   test: {
     name         : "ExtremeJS Utils",
     include      : ["src/**/*.spec.ts"],
-    globals      : true,
     fsModuleCache: true,
     logHeapUsage : true,
     isolate      : false,

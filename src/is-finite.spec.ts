@@ -1,4 +1,5 @@
 import { isFinite } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should determine whether the provided value is a finite number or not", () => {
   expect(isFinite(2)).toBe(true);

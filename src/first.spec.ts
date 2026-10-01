@@ -1,4 +1,5 @@
 import { first } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should return the first element of the value", () => {
   expect(first([])).toBeUndefined();

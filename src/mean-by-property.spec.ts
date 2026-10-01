@@ -1,4 +1,5 @@
 import { meanByProperty } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should return the mean of the elements provided by the value at the specified property", () => {
   expect(meanByProperty([{ a: 1 }, { a: 2 }, { a: 3 }], "a")).toBe(2);

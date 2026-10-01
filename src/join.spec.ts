@@ -1,4 +1,5 @@
 import { join } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should convert all elements in the array into a string separated by the separator", () => {
   expect(join([1, 2, 3])).toBe("123");

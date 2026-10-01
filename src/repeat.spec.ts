@@ -1,4 +1,5 @@
 import { repeat } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should repeat the given string, by count times", () => {
   expect(repeat("*", 3)).toBe("***");

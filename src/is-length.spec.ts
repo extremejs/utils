@@ -1,4 +1,5 @@
 import { isLength } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should check if value is a valid array-like length", () => {
   expect(isLength(2)).toBe(true);

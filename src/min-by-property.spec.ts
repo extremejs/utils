@@ -1,4 +1,5 @@
 import { minByProperty } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should return the minimum of the elements provided by the value at the specified property", () => {
   expect(minByProperty([{ a: 1 }, { a: 2 }, { a: 3 }], "a")).toBe(1);

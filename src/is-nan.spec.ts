@@ -1,4 +1,5 @@
 import { isNaN } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should determine whether the provided value is NaN or not", () => {
   expect(isNaN(Number.NaN)).toBe(true);

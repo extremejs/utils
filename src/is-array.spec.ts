@@ -1,4 +1,5 @@
 import { isArray } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should determine whether the value is an array or not", () => {
   expect(isArray([])).toBe(true);

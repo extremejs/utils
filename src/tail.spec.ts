@@ -1,4 +1,5 @@
 import { tail } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should return all but the first element of the value", () => {
   expect(tail([])).toEqual([]);

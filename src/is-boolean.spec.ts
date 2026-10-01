@@ -1,4 +1,5 @@
 import { isBoolean } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should determine whether the provided value is a boolean or not", () => {
   expect(isBoolean(false)).toBe(true);

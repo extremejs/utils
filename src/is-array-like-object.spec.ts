@@ -1,4 +1,5 @@
 import { isArrayLikeObject } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should check if value is an array-like object", () => {
   expect(isArrayLikeObject([1, 2, 3])).toBe(true);

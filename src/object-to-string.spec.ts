@@ -1,4 +1,5 @@
 import { OBJECT_STRING_TAG, noop, objectToString, objectToStringTag } from "@extremejs/utils";
+import { expect, it, test } from "vitest";
 
 it("should convert value to a string using Object.prototype.toString", () => {
   expect(objectToString({})).toBe("[object Object]");

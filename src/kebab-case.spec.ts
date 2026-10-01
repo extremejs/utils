@@ -1,4 +1,5 @@
 import { kebabCase } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should convert the given string to kebab case", () => {
   expect(kebabCase("camelCase")).toBe("camel-case");

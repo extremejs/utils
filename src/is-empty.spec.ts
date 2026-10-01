@@ -1,5 +1,6 @@
 // oxlint-disable unicorn/consistent-function-scoping
 import { MAX_SAFE_INTEGER, isEmpty } from "@extremejs/utils";
+import { describe, expect, it } from "vitest";
 
 describe("checks if the provided value is an empty array, string, object, map, or set", () => {
   it.each([[], {}, null, void 0, false, 0, Number.NaN, "", Buffer.alloc(0)])("should return true for %p", (value) => {

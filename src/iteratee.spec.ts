@@ -1,4 +1,5 @@
 import { iteratee } from "@extremejs/utils";
+import { describe, expect, it } from "vitest";
 
 describe("with property as iteratee", () => {
   it("should return value of the provided direct property", () => {

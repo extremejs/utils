@@ -1,4 +1,5 @@
 import { isArrayBuffer } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should check if value is an ArrayBuffer object", () => {
   expect(isArrayBuffer(new ArrayBuffer(2))).toBe(true);

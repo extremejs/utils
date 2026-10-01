@@ -1,4 +1,5 @@
 import { isElement } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should check if value is likely a DOM element", () => {
   class Element {

@@ -1,4 +1,5 @@
 import { isInteger } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should determine whether the provided value is an integer or not", () => {
   expect(isInteger(2)).toBe(true);

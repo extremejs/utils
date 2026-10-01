@@ -1,4 +1,5 @@
 import { meanBy } from "@extremejs/utils";
+import { describe, expect, it } from "vitest";
 
 describe("with property as iteratee", () => {
   it("should return the NaN", () => {

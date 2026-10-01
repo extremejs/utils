@@ -1,4 +1,5 @@
 import { maxByFn } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should return the maximum of the elements provided by the iteratee", () => {
   expect(maxByFn([], number => number)).toBe(-Infinity);

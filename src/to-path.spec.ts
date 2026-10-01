@@ -1,4 +1,5 @@
 import { toPath } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should return the path of a value in an object representing the property", () => {
   expect(toPath("a.b[0].c[d]")).toEqual(["a", "b", "0", "c", "d"]);

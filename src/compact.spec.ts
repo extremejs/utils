@@ -1,4 +1,5 @@
 import { compact } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should filter out the falsey values from the provided array", () => {
   expect(compact([

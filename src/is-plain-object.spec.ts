@@ -1,4 +1,5 @@
 import { isPlainObject } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should check if value is a plain object", () => {
   class Foo {}

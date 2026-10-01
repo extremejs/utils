@@ -1,4 +1,5 @@
 import { property } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should return value of the provided direct property", () => {
   const fn = property("foo");

@@ -1,4 +1,5 @@
 import { snakeCase } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should convert the given string to snake case", () => {
   expect(snakeCase("camelCase")).toBe("camel_case");

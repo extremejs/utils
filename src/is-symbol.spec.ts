@@ -1,4 +1,5 @@
 import { isSymbol } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should determine whether the provided value is a symbol or not", () => {
   expect(isSymbol(Symbol())).toBe(true);

@@ -1,4 +1,5 @@
 import { isArguments } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should check if value is likely an arguments object", () => {
   // oxlint-disable-next-line unicorn/consistent-function-scoping -- Keep test fixtures local to each test.

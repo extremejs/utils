@@ -1,4 +1,5 @@
 import { isDate } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should determine whether the provided value is a Date or not", () => {
   expect(isDate((new Date()))).toBe(true);

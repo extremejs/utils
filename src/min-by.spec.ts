@@ -1,4 +1,5 @@
 import { minBy } from "@extremejs/utils";
+import { describe, expect, it } from "vitest";
 
 describe("with property as iteratee", () => {
   it("should return the minimum of the provided direct property", () => {

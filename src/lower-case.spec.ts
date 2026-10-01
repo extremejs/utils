@@ -1,4 +1,5 @@
 import { lowerCase } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should convert the given string to lowercase", () => {
   expect(lowerCase("--Foo-Bar--")).toBe("--foo-bar--");

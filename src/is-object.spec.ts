@@ -1,4 +1,5 @@
 import { isObject } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should determine whether the provided value is an Object or not", () => {
   expect(isObject({})).toBe(true);

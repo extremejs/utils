@@ -1,4 +1,5 @@
 import { eq } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should perform a SameValueZero comparison between two values to determine if they are equivalent.", () => {
   const object = { a: 1 };

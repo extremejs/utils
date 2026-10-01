@@ -1,4 +1,5 @@
 import { isObjectLike } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should check if value is object-like", () => {
   expect(isObjectLike({})).toBe(true);

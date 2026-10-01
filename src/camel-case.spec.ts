@@ -1,4 +1,5 @@
 import { camelCase } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should convert the given string to camel case", () => {
   expect(camelCase("some_database_field_name")).toBe("someDatabaseFieldName");

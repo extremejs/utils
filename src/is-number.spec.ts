@@ -1,4 +1,5 @@
 import { isNumber } from "@extremejs/utils";
+import { expect, it } from "vitest";
 
 it("should determine whether the provided value is a number or not", () => {
   expect(isNumber("foo")).toBe(false);

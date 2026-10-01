@@ -1,4 +1,5 @@
 import { TYPE, typeOf } from "@extremejs/utils";
+import { expect, it, test } from "vitest";
 
 it("should return the typeof result of value", () => {
   expect(typeOf("foo")).toBe("string");
