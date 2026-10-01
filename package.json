@@ -61,6 +61,14 @@
     "node": ">= 24.21.0"
   },
   "sideEffects": false,
+  "files": [
+    "dist",
+    "src/**/*.ts",
+    "!src/**/*.spec.ts",
+    "README.md",
+    "LICENSE",
+    "package.json"
+  ],
   "main": "src/index.ts",
   "exports": {
     ".": "./src/index.ts",
