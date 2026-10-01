@@ -3,7 +3,7 @@
 Modern TypeScript utilities inspired by [lodash](https://lodash.com),
 aiming to be high performance while having minimal size impact.
 
-[![CI](https://github.com/extremejs/utils/actions/workflows/ci.yaml/badge.svg)](https://github.com/extremejs/utils/actions/workflows/ci.yaml)
+[![CI](https://github.com/extremejs/utils/actions/workflows/ci.yml/badge.svg)](https://github.com/extremejs/utils/actions/workflows/ci.yml)
 [![CodeCov](https://codecov.io/gh/extremejs/utils/branch/main/graph/badge.svg?token=1TKSPJICKI)](https://codecov.io/gh/extremejs/utils)
 [![Security](https://snyk.io/test/github/extremejs/utils/badge.svg)](https://snyk.io/test/github/extremejs/utils)
 [![License](https://img.shields.io/github/license/extremejs/utils.svg)](https://github.com/extremejs/utils/blob/main/LICENSE)
