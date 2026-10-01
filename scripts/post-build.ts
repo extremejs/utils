@@ -11,7 +11,7 @@ const ENCODING = "utf8" as const;
 let files = await readdir(resolve(CWD, "src"));
 
 files = files
-  .filter(file => file.endsWith(".ts"))
+  .filter(file => file.endsWith(".ts") && !file.endsWith(".spec.ts"))
   .map(file => file.replace(/\.ts$/, ""))
   .filter(file => file !== "index")
   .toSorted();

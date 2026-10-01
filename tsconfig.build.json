@@ -12,6 +12,7 @@
   "exclude": [
     "node_modules",
     "tests",
+    "src/**/*.spec.ts",
     "scripts",
     "jest.config.ts",
     "commitlint.config.ts",

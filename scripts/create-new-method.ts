@@ -9,7 +9,6 @@ import { Command } from "commander";
 const DIR = resolve(cwd());
 
 const SRC_DIR = resolve(DIR, "src");
-const TEST_DIR = resolve(DIR, "tests");
 
 const SORTING_REGEX = /^export *.* from "\.\/(?<name>.+)\.js";$/;
 
@@ -35,10 +34,10 @@ new Command()
 
     if (existsSync(SRC_FILEPATH)) throw new Error(`Method already exists: "src/${ SRC_FILENAME }"`);
 
-    const TEST_FILENAME = `${ FILENAME }.test.ts`;
-    const TEST_FILEPATH = resolve(TEST_DIR, TEST_FILENAME);
+    const TEST_FILENAME = `${ FILENAME }.spec.ts`;
+    const TEST_FILEPATH = resolve(SRC_DIR, TEST_FILENAME);
 
-    if (existsSync(TEST_FILEPATH)) throw new Error(`Method already exists: "tests/${ TEST_FILENAME }"`);
+    if (existsSync(TEST_FILEPATH)) throw new Error(`Method already exists: "src/${ TEST_FILENAME }"`);
 
     const METHOD_NAME = camelCase(name);
 
