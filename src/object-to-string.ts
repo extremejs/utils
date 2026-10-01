@@ -36,6 +36,7 @@ export enum OBJECT_STRING_TAG {
   FUNCTION = "Function",
   ASYNC_FUNCTION = "AsyncFunction",
   GENERATOR_FUNCTION = "GeneratorFunction",
+  ASYNC_GENERATOR_FUNCTION = "AsyncGeneratorFunction",
   PROMISE = "Promise",
   MAP = "Map",
   WEAK_MAP = "WeakMap",
