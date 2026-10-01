@@ -34,10 +34,10 @@
     "test": "node --expose-gc node_modules/jest/bin/jest -c jest.config.ts",
     "test:coverage": "pnpm test --coverage",
     "document": "typedoc",
+    "new": "tsx scripts/create-new-method.ts",
     "prepack": "pnpm build:pre && pnpm build && pnpm build:post",
     "build:post": "tsx scripts/post-build.ts",
     "build:pre": "tsx scripts/pre-build.ts",
-    "new": "tsx scripts/create-new-method.ts",
     "prepare": "is-ci || lefthook install"
   },
   "publishConfig": {
@@ -72,6 +72,7 @@
     "@commitlint/cli": "21.2.3",
     "@commitlint/config-conventional": "21.2.3",
     "@commitlint/types": "21.2.3",
+    "@pnpm/types": "1102.1.1",
     "@stylistic/eslint-plugin": "5.10.0",
     "@swc/core": "1.16.12",
     "@swc/jest": "0.2.39",
@@ -89,7 +90,7 @@
     "oxlint-config-noir": "1.0.7",
     "oxlint-tsgolint": "7.0.2003",
     "tsx": "4.23.15",
-    "typedoc": "^0.25.13",
+    "typedoc": "0.28.20",
     "typescript": "7.0.2"
   }
 }

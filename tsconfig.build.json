@@ -4,6 +4,7 @@
     "rootDir": "./src",
     "outDir": "./dist",
     "noEmit": false,
+    "allowJs": false,
     "incremental": true,
     "tsBuildInfoFile": ".tsbuildinfo",
   },
