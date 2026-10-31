@@ -6,7 +6,9 @@
  * @example
  * typeOf(1); // => "number"
  */
+// oxlint-disable-next-line typescript/no-unnecessary-type-parameters -- Preserve the public generic signature.
 export function typeOf<Value>(value: Value): TYPE {
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve the existing enum return type.
   return typeof value as TYPE;
 }
 

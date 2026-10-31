@@ -1,6 +1,6 @@
 import { OBJECT_STRING_TAG, isTypedArray, objectToString, objectToStringTag } from "@extremejs/utils";
-import * as moduleNamespace from "./object-to-string.js";
 import { expect, test } from "vitest";
+import * as moduleNamespace from "./object-to-string.js";
 
 function *generator(): Generator<void> {
   /* empty */
@@ -12,11 +12,11 @@ async function *asyncGenerator(): AsyncGenerator<void> {
 
 const segmenter = new Intl.Segmenter("en");
 
-const cases: [OBJECT_STRING_TAG, unknown][] = [
+const cases: Array<[OBJECT_STRING_TAG, unknown]> = [
   [OBJECT_STRING_TAG.ASYNC_GENERATOR_FUNCTION, asyncGenerator],
   [OBJECT_STRING_TAG.GENERATOR, generator()],
   [OBJECT_STRING_TAG.ASYNC_GENERATOR, asyncGenerator()],
-  [OBJECT_STRING_TAG.ITERATOR, Iterator.from({ next: () => ({ done: true, value: void 0 }) })],
+  [OBJECT_STRING_TAG.ITERATOR, Iterator.from({ next: () => ({ value: 0 }) })],
   [OBJECT_STRING_TAG.ITERATOR_HELPER, [1].values().take(1)],
   [OBJECT_STRING_TAG.ARRAY_ITERATOR, [].values()],
   [OBJECT_STRING_TAG.STRING_ITERATOR, "foo"[Symbol.iterator]()],

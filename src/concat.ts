@@ -8,5 +8,6 @@
  * concat([1, 2], 3, [4], [[5]]); // => [1, 2, 3, 4, [5]]
  */
 export function concat<Value>(array: Value[], ...items: Array<ConcatArray<Value> | Value>): Value[] {
+  // oxlint-disable-next-line unicorn/prefer-spread -- Preserve concat flattening and sparse array behavior.
   return array.concat(...items);
 }

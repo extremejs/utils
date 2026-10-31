@@ -10,6 +10,6 @@
  */
 export function isBuffer(value: unknown): value is Buffer {
   /* istanbul ignore next */
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  // oxlint-disable-next-line typescript/no-unnecessary-condition
   return Buffer?.isBuffer(value) ?? false;
 }

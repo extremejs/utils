@@ -11,15 +11,18 @@
  * @example
  * replace("Hi Fred, I'm Fred too!", "Fred", "Barney", true); // => "Hi Barney, I'm Barney too!"
  */
-// eslint-disable-next-line max-params
+// oxlint-disable-next-line max-params
 export function replace(
   string: string,
   searchValue: RegExp | string,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+  // oxlint-disable-next-line typescript/no-explicit-any
   replaceValue: string | ((substring: string, ...args: any[]) => string),
   all = false,
 ): string {
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion
   if (all) return string.replaceAll(searchValue, replaceValue as string);
 
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion
   return string.replace(searchValue, replaceValue as string);
 }

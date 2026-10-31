@@ -20,6 +20,6 @@
  * eq(NaN, NaN); // => true
  */
 export function eq(value: unknown, other: unknown): boolean {
-  // eslint-disable-next-line no-self-compare
+  // oxlint-disable-next-line no-self-compare
   return value === other || (value !== value && other !== other);
 }

@@ -19,9 +19,10 @@ import { isObjectLike } from "./is-object-like.js";
  */
 export function isArrayLikeObject<Value>(value: Value): Value extends FunctionT
   ? false
-  : Value extends { length: number }
+  : Value extends { length: number; }
     ? true
     : false {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // Preserve the conditional generic result.
+  // oxlint-disable-next-line typescript/no-explicit-any typescript/no-unsafe-type-assertion
   return (isObjectLike(value) && isArrayLike(value)) as any;
 }

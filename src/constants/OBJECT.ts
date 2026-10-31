@@ -33,12 +33,12 @@ export const OBJECT_CONSTRUCTOR: ObjectConstructor = Object;
  * Represents the Object prototype.
  * @group Object
  */
-// eslint-disable-next-line @typescript-eslint/ban-types
+// oxlint-disable-next-line typescript/no-wrapper-object-types
 export const OBJECT_PROTOTYPE: Object = OBJECT_CONSTRUCTOR.prototype;
 
 /**
  * Represents a generic record object with string keys and any values.
  * @group Object
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// oxlint-disable-next-line typescript/no-explicit-any
 export type RecordT = Record<string, any>;

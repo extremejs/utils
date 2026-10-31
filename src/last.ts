@@ -9,6 +9,8 @@
  * last("012345"); // => "5"
  */
 export function last<Value extends unknown[] | string>(value: Value): LastT<Value> {
+  // Preserve indexed access without calling a potentially overridden method.
+  // oxlint-disable-next-line unicorn/prefer-at typescript/no-unsafe-type-assertion
   return value[value.length - 1] as LastT<Value>;
 }
 
@@ -22,7 +24,8 @@ export type LastT<Value extends unknown[] | string> = Value extends string
     ? undefined
     : Value extends [infer Last]
       ? Last
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+      // oxlint-disable-next-line typescript/no-unused-vars
       : Value extends [...infer Head, infer Last]
         ? Last
         : Value extends Array<infer Last>

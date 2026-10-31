@@ -23,7 +23,8 @@ export function get<
   Fallback extends ValueAtT<Value, PathT<Property>> | null | undefined,
 >(value: Value, property: Property, fallback?: Fallback): Fallback | ValueAtT<Value, PathT<Property>> {
   return toPath(property)
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
+    // oxlint-disable-next-line typescript/no-explicit-any
     .reduce<any>((previousValue, currentValue) => previousValue?.[currentValue], value) ?? fallback;
 }
 

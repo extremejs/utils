@@ -12,5 +12,6 @@ import { slice } from "./slice.js";
  * objectToStringTag(2); // => "Number"
  */
 export function objectToStringTag(value: unknown): OBJECT_STRING_TAG {
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve the existing enum return type.
   return slice(objectToString(value), 8, -1) as never;
 }

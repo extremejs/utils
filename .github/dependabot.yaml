@@ -1,12 +1,13 @@
 version: 2
 
 updates:
-
   # Maintain dependencies for GitHub Actions
   - package-ecosystem: github-actions
+    cooldown:
+      default-days: 1
     directory: /
     schedule:
-      interval: monthly
+      interval: weekly
       day: monday
     commit-message:
       prefix: ci(deps)
@@ -14,15 +15,16 @@ updates:
       - ci
       - dependencies
       - triage
-    reviewers:
-      - extremejs/maintainers
 
   # Maintain dependencies for NPM
   - package-ecosystem: npm
+    cooldown:
+      default-days: 1
     directory: /
     schedule:
-      interval: monthly
+      interval: weekly
       day: monday
+    versioning-strategy: increase
     commit-message:
       prefix: build(deps)
       prefix-development: build(dev-deps)
@@ -30,6 +32,3 @@ updates:
       - npm
       - dependencies
       - triage
-    versioning-strategy: increase
-    reviewers:
-      - extremejs/maintainers

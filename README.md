@@ -3,7 +3,7 @@
 Modern TypeScript utilities inspired by [lodash](https://lodash.com),
 aiming to be high performance while having minimal size impact.
 
-[![Test](https://github.com/extremejs/utils/actions/workflows/test.yaml/badge.svg)](https://github.com/extremejs/utils/actions/workflows/test.yaml)
+[![CI](https://github.com/extremejs/utils/actions/workflows/ci.yml/badge.svg)](https://github.com/extremejs/utils/actions/workflows/ci.yml)
 [![CodeCov](https://codecov.io/gh/extremejs/utils/branch/main/graph/badge.svg?token=1TKSPJICKI)](https://codecov.io/gh/extremejs/utils)
 [![Security](https://snyk.io/test/github/extremejs/utils/badge.svg)](https://snyk.io/test/github/extremejs/utils)
 [![License](https://img.shields.io/github/license/extremejs/utils.svg)](https://github.com/extremejs/utils/blob/main/LICENSE)
@@ -13,7 +13,7 @@ aiming to be high performance while having minimal size impact.
 [![NPM Bundle Size (Minified + GZip)](https://img.shields.io/bundlephobia/minzip/@extremejs/utils.svg)](https://bundlephobia.com/package/@extremejs/utils)
 [![NPM Bundle Size (Minified)](https://img.shields.io/bundlephobia/min/@extremejs/utils.svg)](https://bundlephobia.com/package/@extremejs/utils)
 [![Built with TypeScript](https://img.shields.io/npm/types/prototyped.js.svg)](https://www.typescriptlang.org)
-[![Tested With Jest](https://img.shields.io/badge/tested_with-jest-99424f.svg)](https://jestjs.io)
+[![Tested With Vitest](https://img.shields.io/badge/tested_with-vitest-6E9F18.svg)](https://vitest.dev)
 [![Open GitHub Issues](https://img.shields.io/github/issues-raw/extremejs/utils.svg)](https://github.com/extremejs/utils/issues)
 [![Open GitHub Pull Requests](https://img.shields.io/github/issues-pr-raw/extremejs/utils)](https://github.com/extremejs/utils/pulls)
 [![Github Stars](https://img.shields.io/github/stars/extremejs/utils.svg?style=social&label=Stars)](https://github.com/extremejs/utils)
@@ -53,6 +53,8 @@ yarn add @extremejs/utils
 
 ## Usage
 
+This package provides ES modules only.
+
 ```typescript
 import { sumByFn, sumByProperty, sumBy } from "@extremejs/utils";
 // or
@@ -60,9 +62,9 @@ import { sumByFn, sumByProperty, sumBy } from "@extremejs/utils/sum-by-fn";
 
 const sum1 = sumByFn([{ a: 1 }, { a: 2 }, { a: 3 }], ({ a }) => a); // => 6
 // or
-const sum2 = sumByProperty([{ a: 1 }, { a: 2 }, { a: 3 }], "a"); // => 6
+const sum2 = sumBy([{ a: 1 }, { a: 2 }, { a: 3 }], ({ a }) => a); // => 6
 // or
-const sum3 = sumBy([{ a: 1 }, { a: 2 }, { a: 3 }], ({ a }) => a); // => 6
+const sum3 = sumByProperty([{ a: 1 }, { a: 2 }, { a: 3 }], "a"); // => 6
 // or
 const sum4 = sumBy([{ a: 1 }, { a: 2 }, { a: 3 }], "a"); // => 6
 ```

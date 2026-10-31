@@ -1,53 +1,29 @@
-import { existsSync } from "node:fs";
-import { readdir, readFile, writeFile } from "node:fs/promises";
+import { readFile, readdir, writeFile } from "node:fs/promises";
 import { EOL } from "node:os";
 import { resolve } from "node:path";
 import { cwd } from "node:process";
 import { camelCase } from "../src/index.js";
 
 const CWD = cwd();
-const DIR = resolve(CWD, "build");
 const PACKAGE_FILENAME = "package.json";
 const ENCODING = "utf8" as const;
 
-if (existsSync(DIR)) {
-  await writeFile(resolve(DIR, "cjs", PACKAGE_FILENAME), JSON.stringify({ type: "commonjs" }), ENCODING);
+let files = await readdir(resolve(CWD, "src"));
 
-  await writeFile(resolve(DIR, "esm", PACKAGE_FILENAME), JSON.stringify({ type: "module" }), ENCODING);
-}
-
-const files = (await readdir(resolve(CWD, "src")))
-  .filter(file => file.endsWith(".ts"))
+files = files
+  .filter(file => file.endsWith(".ts") && !file.endsWith(".spec.ts"))
   .map(file => file.replace(/\.ts$/, ""))
   .filter(file => file !== "index")
-  .sort();
+  .toSorted();
 
 const PACKAGE_FILE = resolve(CWD, PACKAGE_FILENAME);
 
 const pkg = JSON.parse(await readFile(PACKAGE_FILE, ENCODING));
 
-for (const file of files) {
-  const esmBase = `./build/esm/${ file }`;
-  const cjsBase = `./build/cjs/${ file }`;
+const keywords = new Set(pkg.keywords);
 
-  pkg.publishConfig.exports[`./${ file }`] = {
-    browser: {
-      types  : `${ esmBase }.d.ts`,
-      default: `${ esmBase }.js`,
-    },
-    import: {
-      types  : `${ esmBase }.d.ts`,
-      default: `${ esmBase }.js`,
-    },
-    default: {
-      types  : `${ cjsBase }.d.ts`,
-      default: `${ cjsBase }.js`,
-    },
-  };
+for (const file of files) keywords.add(camelCase(file));
 
-  const keyword = camelCase(file);
-
-  if (!pkg.keywords.includes(keyword)) pkg.keywords.push(keyword);
-}
+pkg.keywords = [...keywords];
 
 await writeFile(PACKAGE_FILE, `${ JSON.stringify(pkg, null, 2) }${ EOL }`, ENCODING);
