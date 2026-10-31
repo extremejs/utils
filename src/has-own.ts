@@ -23,7 +23,7 @@
  *
  */
 
-import { OBJECT_CONSTRUCTOR, type RecordT } from "./constants/index.js";
+import { type RecordT, OBJECT_CONSTRUCTOR } from "./constants/index.js";
 
 /**
  * Checks if `value` has the specified `key` as its own property based on `Object.hasOwn` result.

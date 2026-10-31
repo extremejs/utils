@@ -12,6 +12,7 @@ import { isFunction } from "./is-function.js";
 export function isPrototype(value: unknown): boolean {
   const constructor = value?.constructor;
 
+  // oxlint-disable-next-line typescript/prefer-nullish-coalescing -- Preserve fallback for all falsy prototype values.
   const prototype = (isFunction(constructor) && constructor.prototype) || OBJECT_PROTOTYPE;
 
   return value === prototype;

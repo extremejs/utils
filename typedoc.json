@@ -1,4 +1,5 @@
 {
+  "tsconfig": "tsconfig.build.json",
   "entryPoints": [
     "src/index.ts"
   ],

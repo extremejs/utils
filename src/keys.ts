@@ -1,4 +1,4 @@
-import { OBJECT_CONSTRUCTOR, type RecordT } from "./constants/index.js";
+import { type RecordT, OBJECT_CONSTRUCTOR } from "./constants/index.js";
 import { hasOwn } from "./has-own.js";
 import { isArguments } from "./is-arguments.js";
 import { isArrayLike } from "./is-array-like.js";
@@ -35,15 +35,20 @@ export function keys(value: unknown): PropertyKey[] {
     const isBuff = !isArr && !isArg && isBuffer(value);
     const isType = !isArr && !isArg && !isBuff && isTypedArray(value);
     const skipIndexes = isArr || isArg || isBuff || isType;
-    const length = (value as { length: number }).length;
-    const result = new Array(skipIndexes ? length : 0);
+
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion
+    const length = (value as { length: number; }).length;
+    const result = Array.from({ length: skipIndexes ? length : 0 });
 
     let index = skipIndexes ? -1 : length;
 
     while (++index < length) result[index] = `${ index }`;
 
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion
     for (const key in value as RecordT) {
       if (
+
+        // oxlint-disable-next-line typescript/no-unsafe-type-assertion
         hasOwn(value as RecordT, key)
         && !(
           skipIndexes && (
@@ -60,10 +65,10 @@ export function keys(value: unknown): PropertyKey[] {
       ) result.push(key);
     }
 
-    return result;
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion
+    return result as never;
   }
 
-  // eslint-disable-next-line new-cap
   if (!isPrototype(value)) return OBJECT_CONSTRUCTOR.keys(OBJECT_CONSTRUCTOR(value));
 
   return prototypeKeys(value);

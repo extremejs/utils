@@ -13,7 +13,7 @@
  * @example
  * fill([1, 2, 3], 0, 1, 2); // => [1, 0, 3]
  */
-// eslint-disable-next-line max-params
+// oxlint-disable-next-line max-params
 export function fill<Value>(array: Value[], value: Value, start = 0, end = array.length): Value[] {
   return array.fill(value, start, end);
 }

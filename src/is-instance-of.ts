@@ -9,6 +9,7 @@ import { type FunctionT } from "./is-function.js";
  * @example
  * isInstanceOf(new Map, Map); // => true
  */
+// oxlint-disable-next-line typescript/no-unnecessary-type-parameters -- Preserve the public generic signature.
 export function isInstanceOf<Value, Constructor extends ConstructorT | FunctionT>(
   value: Value,
   constructor: Constructor,
@@ -20,7 +21,7 @@ export function isInstanceOf<Value, Constructor extends ConstructorT | FunctionT
  *
  * @group Other
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// oxlint-disable-next-line typescript/no-explicit-any
 export type ConstructorT = new (...args: any[]) => any;
 
 /**

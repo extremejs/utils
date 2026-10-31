@@ -18,8 +18,10 @@ export function dropRight<Value extends unknown[] | string>(value: Value, n = 1)
   const length = value.length;
 
   if (n >= length) {
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve the existing generic return type.
     if (isArray(value)) return [] as never;
 
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve the existing generic return type.
     return "" as never;
   }
 

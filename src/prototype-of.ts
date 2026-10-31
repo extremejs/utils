@@ -8,7 +8,7 @@ import { OBJECT_CONSTRUCTOR } from "./constants/index.js";
  * @example
  * prototypeOf(Object.create(null)); // => null
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// oxlint-disable-next-line typescript/no-explicit-any
 export function prototypeOf(value: unknown): any {
   return OBJECT_CONSTRUCTOR.getPrototypeOf(value);
 }

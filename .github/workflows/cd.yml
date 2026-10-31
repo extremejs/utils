@@ -1,0 +1,187 @@
+name: CD
+
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+*"
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
+    secrets: inherit
+
+  release:
+    name: Create Release
+
+    needs:
+      - ci
+
+    permissions:
+      contents: write
+
+    environment:
+      name: release
+      url: https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}
+
+    concurrency:
+      group: ${{ github.workflow }}-release-${{ github.ref_name }}
+      cancel-in-progress: true
+
+    runs-on: ubuntu-latest
+
+    outputs:
+      release-id: ${{ steps.changelog.outputs.release-id }}
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Changelog
+        id: changelog
+        uses: ardalanamini/auto-changelog@v5
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v3
+        with:
+          body: |
+            ${{ steps.changelog.outputs.changelog }}
+          prerelease: ${{ steps.changelog.outputs.prerelease }}
+
+  publish-documents:
+    name: Publish Documents
+
+    needs:
+      - release
+
+    permissions:
+      actions: read
+      contents: read
+      pages: write
+      id-token: write
+
+    environment:
+      name: documents
+      url: ${{ steps.github-pages-deployment.outputs.page_url }}
+
+    concurrency:
+      group: ${{ github.workflow }}-documents
+      cancel-in-progress: true
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+
+      - name: Set up PNPM
+        uses: pnpm/action-setup@v6
+        with:
+          cache: true
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate code documents
+        run: pnpm document
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v6
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: docs/
+
+      - name: Deploy to GitHub Pages
+        id: github-pages-deployment
+        uses: actions/deploy-pages@v5
+
+  publish-gpr:
+    name: Publish to GitHub Packages
+
+    needs:
+      - release
+
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
+    environment:
+      name: gpr
+      url: https://github.com/${{ github.repository }}/pkgs/npm/utils
+
+    concurrency:
+      group: ${{ github.workflow }}-gpr-${{ github.ref_name }}
+      cancel-in-progress: true
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          registry-url: https://npm.pkg.github.com/
+          scope: "@extremejs"
+
+      - name: Set up PNPM
+        uses: pnpm/action-setup@v6
+        with:
+          cache: true
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Publish the package
+        run: pnpm publish --no-git-checks --tag ${{ needs.release.outputs.release-id }}
+        env:
+          NODE_AUTH_TOKEN: ${{ github.token }}
+
+  publish-npm:
+    name: Publish to NPM
+
+    needs:
+      - release
+
+    permissions:
+      contents: read
+      id-token: write
+
+    environment:
+      name: npm
+      url: https://www.npmjs.com/package/@${{ github.repository }}
+
+    concurrency:
+      group: ${{ github.workflow }}-npm-${{ github.ref_name }}
+      cancel-in-progress: true
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          registry-url: https://registry.npmjs.org/
+
+      - name: Set up PNPM
+        uses: pnpm/action-setup@v6
+        with:
+          cache: true
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Publish the package
+        run: pnpm publish --no-git-checks --tag ${{ needs.release.outputs.release-id }}

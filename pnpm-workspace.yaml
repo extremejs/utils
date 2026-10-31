@@ -1,0 +1,10 @@
+autoDedupe: true
+
+minimumReleaseAge: 1440
+minimumReleaseAgeStrict: true
+
+allowBuilds:
+  "@parcel/watcher": false
+  esbuild: false
+  lefthook: false
+  unrs-resolver: false

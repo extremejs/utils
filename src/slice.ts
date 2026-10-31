@@ -15,5 +15,6 @@
  * slice("012345", 2, 4); // => "23"
  */
 export function slice<Value extends unknown[] | string>(value: Value, start = 0, end = value.length): Value {
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve the existing generic return type.
   return value.slice(start, end) as Value;
 }

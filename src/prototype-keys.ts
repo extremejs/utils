@@ -35,8 +35,8 @@ import { hasOwn } from "./has-own.js";
 export function prototypeKeys(value: unknown): PropertyKey[] {
   const result = [];
 
-  // eslint-disable-next-line new-cap,curly
   for (const key in OBJECT_CONSTRUCTOR(value)) {
+    // oxlint-disable-next-line typescript/no-unsafe-type-assertion
     if (hasOwn(value as never, key) && key !== "constructor") result.push(key);
   }
 

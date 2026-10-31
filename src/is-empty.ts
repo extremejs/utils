@@ -39,19 +39,32 @@ export function isEmpty(value: unknown): boolean {
   if (isNil(value)) return true;
 
   if (
+
+    // Keep runtime checks despite conditional generic return types.
+    // oxlint-disable-next-line typescript/no-unnecessary-condition
     isArrayLike(value)
     && (
       isArray(value)
       || isString(value)
       || isFunction((value as RecordT).splice)
       || isBuffer(value)
+
+      // Keep runtime checks despite conditional generic return types.
+      // oxlint-disable-next-line typescript/no-unnecessary-condition
       || isTypedArray(value)
+
+      // Keep runtime checks despite conditional generic return types.
+      // oxlint-disable-next-line typescript/no-unnecessary-condition
       || isArguments(value)
     )
+
+  // oxlint-disable-next-line unicorn/explicit-length-check -- Preserve the existing truthiness check.
   ) return !(value as RecordT).length;
 
+  // oxlint-disable-next-line unicorn/explicit-length-check -- Preserve the existing truthiness check.
   if (isMap(value) || isSet(value)) return !value.size;
 
+  // oxlint-disable-next-line unicorn/explicit-length-check -- Preserve the existing truthiness check.
   if (isPrototype(value)) return !prototypeKeys(value).length;
 
   for (const key in value as RecordT) if (hasOwn(value as RecordT, key)) return false;

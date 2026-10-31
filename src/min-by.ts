@@ -1,4 +1,4 @@
-import { iteratee as iterateeUtil, type IterateeT } from "./iteratee.js";
+import { type IterateeT, iteratee as iterateeUtil } from "./iteratee.js";
 import { minByFn } from "./min-by-fn.js";
 
 /**
@@ -18,5 +18,6 @@ import { minByFn } from "./min-by-fn.js";
  * minBy([{ a: 1 }, { a: 2 }, { a: 3 }], "a"); // => 1
  */
 export function minBy<Value>(values: Value[], iteratee: IterateeT<Value>): number {
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve the existing generic return type.
   return minByFn(values, iterateeUtil(iteratee, Infinity as never) as never);
 }
