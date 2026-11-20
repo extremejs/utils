@@ -49,6 +49,21 @@ const cases: Array<[OBJECT_STRING_TAG, unknown]> = [
   [OBJECT_STRING_TAG.SEGMENTER_STRING_ITERATOR, segmenter.segment("foo")[Symbol.iterator]()],
 ];
 
+if (typeof Temporal !== "undefined") {
+  cases.push(
+    [OBJECT_STRING_TAG.TEMPORAL, Temporal],
+    [OBJECT_STRING_TAG.TEMPORAL_NOW, Temporal.Now],
+    [OBJECT_STRING_TAG.TEMPORAL_DURATION, Temporal.Duration.from("P1D")],
+    [OBJECT_STRING_TAG.TEMPORAL_INSTANT, Temporal.Instant.fromEpochMilliseconds(0)],
+    [OBJECT_STRING_TAG.TEMPORAL_PLAIN_DATE, Temporal.PlainDate.from("2026-01-01")],
+    [OBJECT_STRING_TAG.TEMPORAL_PLAIN_DATE_TIME, Temporal.PlainDateTime.from("2026-01-01T12:00")],
+    [OBJECT_STRING_TAG.TEMPORAL_PLAIN_MONTH_DAY, Temporal.PlainMonthDay.from("01-01")],
+    [OBJECT_STRING_TAG.TEMPORAL_PLAIN_TIME, Temporal.PlainTime.from("12:00")],
+    [OBJECT_STRING_TAG.TEMPORAL_PLAIN_YEAR_MONTH, Temporal.PlainYearMonth.from("2026-01")],
+    [OBJECT_STRING_TAG.TEMPORAL_ZONED_DATE_TIME, Temporal.ZonedDateTime.from("2026-01-01T12:00[UTC]")],
+  );
+}
+
 test.each(cases)("should recognize the standard %s tag", (tag, value) => {
   expect(tag).toBe(Object.prototype.toString.call(value).slice(8, -1));
   expect(objectToString(value)).toBe(`[object ${ tag }]`);

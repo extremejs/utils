@@ -34,5 +34,7 @@ export function isTypedArray<Value>(value: Value): unknown extends Value
   return (isArrayLikeObject(value) && TYPED_ARRAYS_TAGS.has(objectToStringTag(value))) as any;
 }
 
-export type TypedArrayT = BigInt64Array | BigUint64Array | Float16Array | Float32Array | Float64Array
-  | Int8Array | Int16Array | Int32Array | Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array;
+// Include Float16Array when the consumer's TypeScript libraries declare it.
+export type TypedArrayT = BigInt64Array | BigUint64Array | Float32Array | Float64Array
+  | Int8Array | Int16Array | Int32Array | Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array
+  | (typeof globalThis extends { Float16Array: { prototype: infer Instance; }; } ? Instance : never);
