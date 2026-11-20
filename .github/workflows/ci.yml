@@ -251,7 +251,9 @@ jobs:
     name: Test Summary
 
     needs:
+      - knip
       - build
+      - typecheck
       - lint
       - document
       - commitlint

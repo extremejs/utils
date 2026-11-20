@@ -10,6 +10,7 @@ const TYPED_ARRAYS_TAGS = new Set<OBJECT_STRING_TAG>([
   OBJECT_STRING_TAG.UINT_16_ARRAY,
   OBJECT_STRING_TAG.INT_32_ARRAY,
   OBJECT_STRING_TAG.UINT_32_ARRAY,
+  OBJECT_STRING_TAG.FLOAT_16_ARRAY,
   OBJECT_STRING_TAG.FLOAT_32_ARRAY,
   OBJECT_STRING_TAG.FLOAT_64_ARRAY,
   OBJECT_STRING_TAG.BIG_INT_64_ARRAY,
@@ -33,5 +34,7 @@ export function isTypedArray<Value>(value: Value): unknown extends Value
   return (isArrayLikeObject(value) && TYPED_ARRAYS_TAGS.has(objectToStringTag(value))) as any;
 }
 
+// Include Float16Array when the consumer's TypeScript libraries declare it.
 export type TypedArrayT = BigInt64Array | BigUint64Array | Float32Array | Float64Array
-  | Int8Array | Int16Array | Int32Array | Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array;
+  | Int8Array | Int16Array | Int32Array | Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array
+  | (typeof globalThis extends { Float16Array: { prototype: infer Instance; }; } ? Instance : never);
