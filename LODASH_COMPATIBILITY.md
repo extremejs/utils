@@ -184,7 +184,7 @@ The [Lodash Number API](https://lodash.com/docs/4.18.1#clamp) entries `clamp`, `
 
 ## String
 
-The [Lodash String category](https://lodash.com/docs/4.18.1#camelCase) is mapped below by capability. The table also includes `isString` from Lodash's Lang category because ExtremeJS groups it with its string utilities. The transformations and searches take a string as input. Lodash also accepts inputs that it can coerce to strings.
+The [Lodash String category](https://lodash.com/docs/4.18.1#camelCase) is mapped below by capability. See [Primitive and structural predicates](#primitive-and-structural-predicates) for `isString`. The transformations and searches take a string as input. Lodash also accepts inputs that it can coerce to strings.
 
 | Lodash invocation | ExtremeJS invocation | Coverage and migration notes |
 | --- | --- | --- |
@@ -196,7 +196,6 @@ The [Lodash String category](https://lodash.com/docs/4.18.1#camelCase) is mapped
 | `_.repeat(string, n)` | `repeat(string, count)` | **Covered** for repetition with an explicit count. Lodash defaults to one copy and returns an empty string for negative counts. ExtremeJS requires a count and throws for negative counts after truncation. |
 | `_.replace(string, pattern, replacement)` | `replace(string, searchValue, replaceValue, all)` | **Covered** for literal and regex patterns and string or callback replacements. ExtremeJS also has an `all` flag for literal replacement. To replace every occurrence of a nonempty literal in Lodash, pass an escaped global regex. |
 | `_.split(string, separator, limit)` | `split(string, separator, limit)` | **Covered** for splitting on explicit text or regular expressions. When the separator is omitted, ExtremeJS splits into UTF-16 code units and Lodash returns the whole string in an array. For an explicit empty separator, Lodash preserves Unicode symbols. |
-| `_.isString(value)` | `isString(value)` | **Covered** for primitive strings and same-realm boxed strings. Lodash also recognizes boxed strings from another realm. |
 
 `LETTER_CASE_REGEX` is an ExtremeJS-specific export for matching ASCII letter and digit runs. It underlies the local word case formatters. Lodash's `words` returns a token array with a different tokenizer and an optional caller-supplied pattern.
 
@@ -224,7 +223,6 @@ The Array and Collection section covers the string overloads of `first`, `last`,
 | [repeat](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L19299-L19353) | Covers explicit counts, empty input, fractional truncation, zero and NaN, and the negative-count difference. Migrating Lodash's omitted-count call requires passing `1` explicitly. Boxed and custom-coercing strings and nonnumeric counts are outside the signature. |
 | [replace](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L19357-L19367) | Covers the upstream literal and global regex examples, plus substitution tokens, replacer arguments, literal replace-all, and the global-flag requirement in all mode. |
 | [split](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L21126-L21171) and [uncommon symbols](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L24509-L24553) | Covers string and regex delimiters, capture insertion, limits, and empty input. Explicit delimiters preserve adjacent emoji. Omitted and empty separators and limits on Unicode symbol splitting are compared separately because their results differ. The uncommon-symbol assertions for padding, trimming, truncation, sizing, array conversion, and word extraction belong to those methods. |
-| [isString](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L11718-L11759) | Covers primitive and boxed strings, non-string values including null and undefined, and a boxed string from a separate realm. ExtremeJS requires a value argument, so the upstream missing-value check uses explicit `undefined` locally. |
 | [Shared empty inputs](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L26975-L27015) and [case coercion and wrappers](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L2310-L2341) | Empty strings are tested. Missing and nullish string inputs and custom string coercion are outside the transformation signatures. Wrapped mixed string and array calls and implicit or explicit chaining are deferred. The upstream `map` scenarios for `repeat` and `split` depend on Lodash's iteratee-call guard. Use a unary callback and supply the intended count or separator explicitly. |
 
 ### Maintainer decisions and follow-ups
@@ -232,7 +230,7 @@ The Array and Collection section covers the string overloads of `first`, `last`,
 - **Word casing.** Should word casing stay ASCII-based or gain a Unicode mode? Should contractions and ordinals retain their current token boundaries? Independently, review acronym runs followed by digits as a possible tokenizer bug. For example, `kebabCase("XML2Parser")` yields `"x-m-l-2-parser"` where Lodash yields `"xml-2-parser"`.
 - **First-letter casing and splitting.** Should the string APIs keep UTF-16 code-unit behavior or work on Unicode symbols for first-letter case conversion and empty-separator splitting? Should splitting with an omitted separator retain the local behavior?
 - **Repetition.** Should the explicit count and native range errors remain the repetition contract, or should an omitted count and negative counts eventually be accepted with Lodash's defaults?
-- **Split and string predicate types.** An unmatched optional regex capture can put `undefined` in the split result despite its `string[]` type. For example, `split("a;b", /(;)|(,)/)` returns `["a", ";", undefined, "b"]`. The `isString` type guard also narrows boxed strings to primitive `string`. Review these signatures as separate follow-ups.
+- **Split return type.** An unmatched optional regex capture can put `undefined` in the split result despite its `string[]` type. For example, `split("a;b", /(;)|(,)/)` returns `["a", ";", undefined, "b"]`.
 
 ### Benchmarks
 
@@ -295,3 +293,60 @@ Reading inherited values with `get` does not check whether a path exists when it
 Run `pnpm bench src/get.bench.ts` for one utility or `pnpm bench` for all. The paired workloads validate equal results before timing. They cover direct and nested reads, accessor creation plus one read, reused accessors, string path splitting, callback and property iteratees, direct own-key hits and misses, and ordinary and sparse key enumeration. The literal `hasOwn` workload includes building a single-segment path in the Lodash call. `ownKeys` uses a record whose own string names are all enumerable. `prototypeKeys` uses a constructor prototype with an enumerable constructor that both calls exclude.
 
 Lodash has no direct equivalent for `isPrototype`, or for the full `ownKeys` and `prototypeKeys` results outside the overlaps above. The pairs also exclude differing path and coercion rules, sparse existence checks, and missing capabilities whose results cannot be compared directly.
+
+## Primitive and structural predicates
+
+These entries cover predicate capabilities in the [Lodash Lang API](https://lodash.com/docs/4.18.1#eq). ExtremeJS requires explicit arguments. Supply `undefined` to reproduce an omitted argument where that call is relevant.
+
+| Lodash invocation | ExtremeJS invocation | Coverage and migration notes |
+| --- | --- | --- |
+| `_.eq(value, other)` | `eq(value, other)` | **Covered**. Both use SameValueZero, so signed zeros compare equal and `NaN` equals itself. Objects compare by identity. |
+| `_.isBoolean(value)`, `_.isNumber(value)`, `_.isString(value)`, `_.isSymbol(value)` | `isBoolean(value)`, `isNumber(value)`, `isString(value)`, `isSymbol(value)` | **Covered** for primitives and same-realm boxed values. ExtremeJS uses `instanceof` for the boxed case. Lodash also recognizes foreign wrappers. The local type guards narrow accepted boxes to their primitive types. |
+| `_.isNil(value)`, `_.isNull(value)`, `_.isUndefined(value)` | `isNil(value)`, `isNull(value)`, `isUndefined(value)` | **Covered**. These match either nullish value, only `null`, and only `undefined`, respectively. |
+| `_.isFinite(value)`, `_.isInteger(value)`, `_.isSafeInteger(value)`, `_.isLength(value)` | `isFinite(value)`, `isInteger(value)`, `isSafeInteger(value)`, `isLength(value)` | **Covered** for primitive numbers. Both reject boxed numbers and numeric strings. The safe-integer checks include both signed bounds. A length uses the inclusive interval from zero through `Number.MAX_SAFE_INTEGER`. |
+| `_.isNaN(value)` | `isNaN(value)` | **Covered** for primitive `NaN`. Lodash also accepts boxed `NaN`. |
+| `_.isFunction(value)` | `isFunction(value)` | **Covered**. ExtremeJS uses `typeof`. Lodash uses tags and can differ on async generators and values with a custom tag. |
+| `_.isArray(value)` | `isArray(value)` | **Covered**. Both recognize arrays across realms. |
+| `_.isArrayLike(value)`, `_.isArrayLikeObject(value)` | `isArrayLike(value)`, `isArrayLikeObject(value)` | **Covered**. Both read `length`, validate it as a length, and exclude ordinary functions. The object-only variants also exclude primitive strings. Lodash's tag-based function detection can change the result for values with custom tags. |
+| `_.isObject(value)` | `isObject(value)` | **Covered** for instances of the local `Object`, including functions. Lodash also recognizes objects with null prototypes and objects and functions from another realm. |
+| `_.isObjectLike(value)` | `isObjectLike(value)` | **Covered**. Both accept non-null objects, including null-prototype and cross-realm objects. Functions return `false`. |
+| `_.isPlainObject(value)` | `isPlainObject(value)` | **Covered** for ordinary records and null-prototype objects, including foreign records. ExtremeJS checks the prototype chain. Lodash also uses the object tag and checks the immediate prototype's constructor when there is a prototype. |
+| `_.isEmpty(value)` | `isEmpty(value)` | **Covered** for ordinary records, indexed values, and same-realm maps and sets. ExtremeJS recognizes boxed strings by length, while Lodash can fall back to their own keys. Lodash recognizes cross-realm maps and sets by size. |
+
+| Missing Lodash entries | Capability |
+| --- | --- |
+| `isEqual`, `isEqualWith` | Deep equality and customizable deep equality. |
+| `isMatch`, `isMatchWith` | Partial deep matching against a source object, optionally with a custom comparator. |
+| `conformsTo` | Matching properties against a source object of predicates. |
+| `isNative` | Identifying native functions. |
+
+The ExtremeJS-only numeric predicates `isEven`, `isOdd`, `isPositive`, and `isIndex` are documented in [Number](#number). [Object, Path, and Iteratee](#object-path-and-iteratee) covers `isPrototype`.
+
+### Upstream scenario decisions
+
+| Lodash 4.18.1 scenario source | Coverage and decision |
+| --- | --- |
+| [`eq`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L5476-L5495) | Covers signed zero, `NaN`, equality without coercion, and reference identity. The zero- and one-argument cases use two explicit `undefined` operands for the local signature. |
+| [`isBoolean`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L9155-L9203), [`isNumber`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L11293-L11340), [`isString`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L11718-L11764), and [`isSymbol`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L11768-L11817) | Covers primitive and boxed values, falsy and nonmatching inputs, and both outcomes for boxes from another realm. Numeric strings and BigInts exercise the number predicate's type boundary. |
+| [`isNil`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L11184-L11239), [`isNull`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L11243-L11289), and [`isUndefined`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L11889-L11942) | Covers the nullish truth tables, falsy and non-nullish values, and the accepted primitives from another realm. |
+| [`isFinite`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L10580-L10632), [integer predicates](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L10727-L10783), [`isLength`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L10787-L10809), and [`isNaN`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L11033-L11081) | Covers fractions, large integers, safe-integer and length limits, both signed zeros, infinities, numeric strings, and boxes. Tests primitive `NaN` across realms and asserts both outcomes for boxed `NaN`. |
+| [`isArray`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L8998-L9041) and [`isArrayLike`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L9098-L9151) | Covers arrays, arguments, length-only and indexed records, strings, cross-realm inputs, and nonmatching values. The pinned suite has no separate `isArrayLikeObject` module. Its cases adapt the same length and realm scenarios using the non-null object requirement. The tag cases show both outcomes for each array-like API. |
+| [`isFunction`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L10636-L10723) | Covers regular, async and generator functions, view and proxy constructors, foreign functions, and other values. Async generators and a function with a read-only custom tag show both outcomes. The browser-only DOM node list is outside the Node test environment. |
+| [`isObject`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L11344-L11411) and [`isObjectLike`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L11415-L11460) | Covers built-ins, functions, null-prototype objects, boxed values, primitives, and foreign objects. DOM elements from the current realm and a browser iframe require a browser. |
+| [`isPlainObject`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L11464-L11599) | Covers ordinary and null-prototype records, unusual properties, class instances, custom prototypes, foreign records, and tag handling, including preservation of an inherited tag. The DOM-element case needs a browser. The upstream `Math` and arguments expectations are tracked below pending a contract decision. |
+| [`isEmpty`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L9381-L9529) | Covers primitives, empty and populated collections, buffer and typed array lengths, arguments, prototype keys, splice collections, and invalid lengths. The tests use a record with `splice` for the jQuery-like protocol and compare an augmented boxed string separately. The populated foreign-map and foreign-set cases are pending a contract decision below. |
+| [Shared type checks](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L12067-L12113) | The prototype-only stand-ins are compared for Array and Function. Boolean, Number, and String need a branding decision below before testing stand-in acceptance as a guarantee. The legacy IE host object scenario requires its original host environment. |
+| [Wrapped results](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L26771-L26895) and the wrapper cases in the method suites | Implicit and explicit chaining are deferred. |
+
+### Maintainer decisions and follow-ups
+
+- **Boxed primitives.** Should the four guards recognize genuine wrappers across realms and narrow boxed inputs to their object types? ExtremeJS accepts prototype-only stand-ins for Boolean, Number, and String. Lodash rejects those stand-ins. Consider whether wrapper branding should replace prototype checks and whether `isNaN` should keep its primitive-only scope.
+- **Array-like and function types.** `isArrayLikeObject` infers `false` for an `unknown` input, even if the runtime value is an array. It can also infer `true` for a primitive string or for an object with a negative numeric length, both of which return `false`. `isArrayLike` has the same issue with an invalid numeric length. `isFunction` also narrows classes to the callable `FunctionT` even though invoking a class without `new` throws. Review the guard signatures separately.
+- **Structural object checks.** Should `isObject` remain a same-realm instance check? `isPlainObject` currently accepts `Math`, arguments objects, and an object inheriting directly from a custom null-prototype root. The pinned Lodash suite expects `false` for `Math` and arguments objects. Decide whether plainness should require an object tag and the usual root prototype.
+- **Emptiness.** A populated foreign map or set can appear empty because the local predicates use same-realm constructors. Should traversal by size include foreign collections? An array-like record that falls through to `isBuffer` can also throw a `ReferenceError` in a host without a global `Buffer`. The underlying buffer detection is tracked with the built-in predicates in [#288](https://github.com/extremejs/utils/issues/288).
+
+### Benchmarks
+
+Run `pnpm bench src/is-empty.bench.ts` for one predicate or `pnpm bench` for all. Each mapping has a colocated pair with an expected result checked before timing. Inputs are constructed before timing and include primitive values, functions, and structural values. The emptiness cases cover an empty record and a populated map so that both key lookup and size checks are exercised.
+
+Cases with divergent results, including foreign boxes and collections, custom tags, and boxed `NaN`, are excluded from the paired timings. Missing capabilities and the ExtremeJS-only predicates described above have no direct public API pair.

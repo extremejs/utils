@@ -1,10 +1,12 @@
 import { isPlainObject } from "@extremejs/utils";
-import { expect, it } from "vitest";
+import { isPlainObject as lodashIsPlainObject } from "lodash";
+import { describe, expect, it } from "vitest";
+import { boxedOne, foreignValues } from "#test";
+
+class Example {}
 
 it("should check if value is a plain object", () => {
-  class Foo {}
-
-  expect(isPlainObject(new Foo())).toBe(false);
+  expect(isPlainObject(new Example())).toBe(false);
 
   expect(isPlainObject([1, 2, 3])).toBe(false);
 
@@ -16,4 +18,67 @@ it("should check if value is a plain object", () => {
     x: 0,
     y: 0,
   })).toBe(true);
+});
+
+describe("lodash compatibility", () => {
+  it("recognizes ordinary and null-prototype records across realms", () => {
+    const nullPrototype: unknown = Object.create(null, { constructor: { value: Object } });
+    const records = foreignValues("({})", "Object.create(null)");
+
+    for (const value of [
+      {},
+      { a: 1 },
+      { constructor: Example },
+      Object.create(null) as unknown,
+      nullPrototype,
+      { valueOf: 0 },
+      { [Symbol.toStringTag]: "Custom" },
+      ...records,
+    ]) {
+      expect(isPlainObject(value)).toBe(true);
+      expect(lodashIsPlainObject(value)).toBe(true);
+    }
+  });
+
+  it("rejects arrays, class instances, functions, and primitives", () => {
+    for (const value of [
+      [1, 2, 3],
+      new Example(),
+      Error,
+      Object.create({ a: 1 }) as unknown,
+      boxedOne,
+      null,
+      void 0,
+      false,
+      0,
+      Number.NaN,
+      "",
+      true,
+      "a",
+      Symbol("x"),
+    ]) {
+      expect(isPlainObject(value)).toBe(false);
+      expect(lodashIsPlainObject(value)).toBe(false);
+    }
+  });
+
+  it("checks the prototype chain without consulting a read-only tag", () => {
+    const value = Object.defineProperty({}, Symbol.toStringTag, { value: "Custom" });
+
+    expect(isPlainObject(value)).toBe(true);
+    expect(lodashIsPlainObject(value)).toBe(false);
+  });
+
+  it("does not add an own tag to an object with an inherited tag", () => {
+    const prototype = { [Symbol.toStringTag]: void 0 };
+    const local = {};
+    const reference = {};
+    Object.setPrototypeOf(local, prototype);
+    Object.setPrototypeOf(reference, prototype);
+
+    expect(isPlainObject(local)).toBe(false);
+    expect(lodashIsPlainObject(reference)).toBe(false);
+    expect(Object.hasOwn(local, Symbol.toStringTag)).toBe(false);
+    expect(Object.hasOwn(reference, Symbol.toStringTag)).toBe(false);
+  });
 });

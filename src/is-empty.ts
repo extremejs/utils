@@ -14,26 +14,26 @@ import { isTypedArray } from "./is-typed-array.js";
 import { prototypeKeys } from "./prototype-keys.js";
 
 /**
- * Checks if the provided `value` is an empty array, string, object, map, or set.
+ * Checks a value for elements, collection entries, or own enumerable string keys.
  *
- * Objects are considered empty if they have no own enumerable string keyed properties.
- *
- * Array-like values such as `arguments` objects, arrays, buffers, strings,
- * or jQuery-like collections are considered empty if they have a `length` of `0`.
- * Similarly, maps and sets are considered empty if they have a `size` of `0`.
  * @group Other
  * @since 1.0.0
- * @param value
+ * @param value The value to check.
+ * @returns `true` for nullish values and empty values. Arrays, recognized arguments objects,
+ * buffers, typed arrays, strings, and array-like objects with a function-valued `splice`
+ * are checked by length. Recognized maps and sets are checked by size. Other objects
+ * are checked for own enumerable string keys, ignoring `constructor` on recognized
+ * constructor prototypes. Property reads can invoke getters or throw.
+ * @throws `ReferenceError` for array-like inputs that reach buffer detection in a host
+ * without a global `Buffer`, such as `{ length: 0 }`.
+ * @see {@link https://lodash.com/docs/4.18.1#isEmpty | Lodash isEmpty} as `_.isEmpty(value)`. Lodash also checks cross-realm maps and sets by size.
+ * A boxed string with its own enumerable keys can be nonempty in Lodash even when
+ * its length is zero.
  * @example
- *isEmpty(null); // => true
- * @example
- *isEmpty(true); // => true
- * @example
- *isEmpty(1); // => true
- * @example
- *isEmpty([1, 2, 3]); // => false
- * @example
- *isEmpty({ a: 1 }); // => false
+ * isEmpty(null); // => true
+ * isEmpty(new Set()); // => true
+ * isEmpty({ a: 1 }); // => false
+ * isEmpty([1]); // => false
  */
 export function isEmpty(value: unknown): boolean {
   if (isNil(value)) return true;

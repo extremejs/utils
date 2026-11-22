@@ -1,14 +1,14 @@
 /**
- * It will determine whether the provided `value` is null/undefined or not.
+ * Checks whether a value is nullish.
+ *
  * @group Other
  * @since 1.0.0
- * @param value
+ * @param value The value to check.
+ * @returns `true` for `null` or `undefined`.
+ * @see {@link https://lodash.com/docs/4.18.1#isNil | Lodash isNil} as `_.isNil(value)`.
  * @example
- * isNull(null); // => true
- * @example
- * isNil(undefined); // => true
- * @example
- * isNil(void 0); // => true
+ * isNil(null); // => true
+ * isNil(""); // => false
  */
 export function isNil(value: unknown): value is null | undefined {
   return value == null;

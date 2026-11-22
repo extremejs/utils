@@ -2,13 +2,17 @@ import { isTypeOf } from "./is-type-of.js";
 import { TYPE } from "./type-of.js";
 
 /**
- * It will determine whether the provided `value` is a function or not.
+ * Checks whether JavaScript reports a value as a function with `typeof`.
+ *
  * @group Function
  * @since 1.0.0
- * @param value
+ * @param value The value to check.
+ * @returns `true` for functions, including async functions, generators, classes, and
+ * callable proxies. Class constructors still require `new`.
+ * @see {@link https://lodash.com/docs/4.18.1#isFunction | Lodash isFunction} as `_.isFunction(value)`. Lodash checks object tags and can differ for async generators and custom `Symbol.toStringTag` values.
  * @example
  * isFunction(() => 0); // => true
- * @example
+ * isFunction(class Example {}); // => true
  * isFunction(2); // => false
  */
 export function isFunction(value: unknown): value is FunctionT {
@@ -16,7 +20,7 @@ export function isFunction(value: unknown): value is FunctionT {
 }
 
 /**
- *
+ * A function signature with arbitrary arguments and result.
  * @group Function
  */
 // oxlint-disable-next-line typescript/no-explicit-any

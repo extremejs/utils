@@ -2,21 +2,21 @@ import { type FunctionT, isFunction } from "./is-function.js";
 import { isLength } from "./is-length.js";
 
 /**
- * Checks if `value` is array-like.
- * A value is considered array-like if it's not a `function`
- * and has a `value.length` that's an integer greater than or equal to `0`
- * and less than or equal to `Number.MAX_SAFE_INTEGER`.
+ * Checks whether a value has a valid array-like length and is not a function.
+ *
+ * Length must be a primitive integer from zero through `Number.MAX_SAFE_INTEGER`.
+ * Reading `length` can invoke a getter or proxy trap.
+ *
  * @group Array
  * @since 1.0.0
- * @param value
+ * @param value The value to check.
+ * @returns `true` for a non-function with a valid `length`, including primitive strings,
+ * arrays, and objects with a length but no indexed properties.
+ * @see {@link https://lodash.com/docs/4.18.1#isArrayLike | Lodash isArrayLike} as `_.isArrayLike(value)`. Lodash uses function tags where ExtremeJS uses `typeof`.
  * @example
- * isArrayLike([1, 2, 3]); // => true
- * @example
- * isArrayLike(document.body.children); // => true
- * @example
+ * isArrayLike({ length: 0 }); // => true
  * isArrayLike("abc"); // => true
- * @example
- * isArrayLike(() => 0); // => false
+ * isArrayLike({ length: -1 }); // => false
  */
 export function isArrayLike<Value>(value: Value): Value extends FunctionT
   ? false

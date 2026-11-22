@@ -1,6 +1,8 @@
 // oxlint-disable unicorn/consistent-function-scoping
 import { MAX_SAFE_INTEGER, isEmpty } from "@extremejs/utils";
+import { isEmpty as lodashIsEmpty } from "lodash";
 import { describe, expect, it } from "vitest";
+import { foreignValues, toArguments } from "#test";
 
 describe("checks if the provided value is an empty array, string, object, map, or set", () => {
   it.each([[], {}, null, void 0, false, 0, Number.NaN, "", Buffer.alloc(0)])("should return true for %p", (value) => {
@@ -113,5 +115,130 @@ describe("checks if the provided value is an empty array, string, object, map, o
 
   it("should not treat objects with non-number lengths as array-like", () => {
     expect(isEmpty({ length: "0" })).toBe(false);
+  });
+});
+
+describe("lodash compatibility", () => {
+  it("checks nullish values, primitives, arrays, and indexed built-ins", () => {
+    const sparse = [0];
+    Reflect.deleteProperty(sparse, "0");
+
+    for (const value of [
+      ...foreignValues("new Map()", "new Set()"),
+      [],
+      {},
+      null,
+      void 0,
+      false,
+      true,
+      0,
+      1,
+      Number.NaN,
+      "",
+      /x/,
+      Symbol("x"),
+      Array.prototype.slice,
+      Buffer.alloc(0),
+      new Uint8Array(0),
+      toArguments(),
+    ]) {
+      expect(isEmpty(value)).toBe(true);
+      expect(lodashIsEmpty(value)).toBe(true);
+    }
+
+    for (const value of [[0], sparse, "a", Buffer.alloc(1), new Uint8Array(1), toArguments(1)]) {
+      expect(isEmpty(value)).toBe(false);
+      expect(lodashIsEmpty(value)).toBe(false);
+    }
+  });
+
+  it("checks own enumerable string keys on ordinary records", () => {
+    const value = {};
+    Object.setPrototypeOf(value, { inherited: true });
+    Object.defineProperty(value, "hidden", { value: true });
+    Object.assign(value, { [Symbol("token")]: true });
+
+    expect(isEmpty(value)).toBe(true);
+    expect(lodashIsEmpty(value)).toBe(true);
+
+    Object.assign(value, { own: void 0 });
+    expect(isEmpty(value)).toBe(false);
+    expect(lodashIsEmpty(value)).toBe(false);
+  });
+
+  it("ignores the constructor key on a constructor prototype", () => {
+    class Example {}
+    const value = Example.prototype;
+    Object.defineProperty(value, "constructor", { enumerable: true });
+
+    expect(isEmpty(value)).toBe(true);
+    expect(lodashIsEmpty(value)).toBe(true);
+
+    Object.assign(value, { a: 1 });
+    expect(isEmpty(value)).toBe(false);
+    expect(lodashIsEmpty(value)).toBe(false);
+  });
+
+  it("uses length for splice collections and keys for other array-like records", () => {
+    const emptyCollection = {
+      length: 0,
+      splice: Array.prototype.splice,
+    };
+    const populatedCollection = {
+      length: 1,
+      splice: Array.prototype.splice,
+    };
+
+    for (const value of [
+      emptyCollection,
+      Object.create({
+        length: -1,
+        splice: Array.prototype.splice,
+      }) as unknown,
+      Object.create({
+        length: Number.MAX_SAFE_INTEGER + 1,
+        splice: Array.prototype.splice,
+      }) as unknown,
+    ]) {
+      expect(isEmpty(value)).toBe(true);
+      expect(lodashIsEmpty(value)).toBe(true);
+    }
+
+    for (const value of [populatedCollection, { length: 0 }, { length: "0" }, { a: 0 }]) {
+      expect(isEmpty(value)).toBe(false);
+      expect(lodashIsEmpty(value)).toBe(false);
+    }
+  });
+
+  it("checks the size of maps and sets as entries are added and removed", () => {
+    const map = new Map<string, number>();
+    const set = new Set<number>();
+
+    expect(isEmpty(map)).toBe(true);
+    expect(lodashIsEmpty(map)).toBe(true);
+    expect(isEmpty(set)).toBe(true);
+    expect(lodashIsEmpty(set)).toBe(true);
+
+    map.set("a", 1);
+    set.add(1);
+    expect(isEmpty(map)).toBe(false);
+    expect(lodashIsEmpty(map)).toBe(false);
+    expect(isEmpty(set)).toBe(false);
+    expect(lodashIsEmpty(set)).toBe(false);
+
+    map.clear();
+    set.clear();
+    expect(isEmpty(map)).toBe(true);
+    expect(lodashIsEmpty(map)).toBe(true);
+    expect(isEmpty(set)).toBe(true);
+    expect(lodashIsEmpty(set)).toBe(true);
+  });
+
+  it("checks a boxed string by length even with an extra enumerable key", () => {
+    // oxlint-disable-next-line unicorn/new-for-builtins -- Exercise the boxed-string length branch.
+    const value: unknown = Object.assign(Object(""), { extra: true });
+
+    expect(isEmpty(value)).toBe(true);
+    expect(lodashIsEmpty(value)).toBe(false);
   });
 });
