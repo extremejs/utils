@@ -98,6 +98,7 @@
     "@types/lodash": "4.17.27",
     "@types/node": "26.6.3",
     "@vitest/coverage-v8": "5.0.2",
+    "chalk": "6.0.1",
     "eslint-plugin-import": "2.32.0",
     "eslint-plugin-perfectionist": "5.11.0",
     "eslint-plugin-unicorn": "74.0.0",

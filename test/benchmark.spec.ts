@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import { describe, expect, it } from "vitest";
 import { formatBenchmarkComparison } from "./benchmark.js";
 
@@ -21,9 +22,9 @@ describe("benchmark comparison", () => {
       result("library-d", 600_000),
     ])).toEqual([
       "Alternative    @example/baseline advantage",
-      "library-c      1.5x slower",
-      "lodash         2x faster",
-      "Prototyped.js  3x faster",
+      `library-c      ${ chalk.red("1.5x slower") }`,
+      `lodash         ${ chalk.green("2x faster") }`,
+      `Prototyped.js  ${ chalk.green("3x faster") }`,
       "library-d      tie",
     ]);
   });

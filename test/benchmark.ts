@@ -1,4 +1,5 @@
 import type { BenchFn, TestContext } from "vitest";
+import chalk from "chalk";
 import pkg from "../package.json" with { type: "json" };
 
 interface BaseLineImplementation {
@@ -23,7 +24,9 @@ function formatComparison(baseline: number, alternative: number): string {
   const ratio = faster ? baseline / alternative : alternative / baseline;
   const rounded = ratioFormat.format(ratio);
 
-  return `${ rounded === "1" ? "<1.01" : rounded }x ${ faster ? "faster" : "slower" }`;
+  const comparison = `${ rounded === "1" ? "<1.01" : rounded }x ${ faster ? "faster" : "slower" }`;
+
+  return faster ? chalk.green(comparison) : chalk.red(comparison);
 }
 
 export function formatBenchmarkComparison(
