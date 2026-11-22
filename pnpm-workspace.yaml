@@ -1,7 +1,14 @@
-autoDedupe: true
+includeWorkspaceRoot: false
+
+injectWorkspacePackages: true
 
 minimumReleaseAge: 1440
 minimumReleaseAgeStrict: true
+
+autoDedupe: true
+
+lockfile:
+  includeResolutionSettings: true
 
 allowBuilds:
   "@parcel/watcher": false

@@ -20,25 +20,18 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    timeout-minutes: 30
+    timeout-minutes: 5
 
     continue-on-error: true
 
     steps:
       - uses: actions/checkout@v7
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version-file: .node-version
-
-      - name: Set up PNPM
-        uses: pnpm/action-setup@v6
+      - name: Setup pnpm with runtime
+        uses: pnpm/setup@v3
         with:
           cache: true
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+          require-lockfile: true
 
       - name: Check dead code/deps
         run: pnpm knip
@@ -48,101 +41,54 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    timeout-minutes: 30
+    timeout-minutes: 5
 
     steps:
       - uses: actions/checkout@v7
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version-file: .node-version
-
-      - name: Set up PNPM
-        uses: pnpm/action-setup@v6
+      - name: Setup pnpm with runtime
+        uses: pnpm/setup@v3
         with:
           cache: true
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+          require-lockfile: true
 
       - name: Build the project
         run: pnpm build
 
-  typecheck:
-    name: Type Check
+  lint-typecheck:
+    name: Lint & Type check
 
     runs-on: ubuntu-latest
 
-    timeout-minutes: 30
+    timeout-minutes: 5
 
     steps:
       - uses: actions/checkout@v7
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version-file: .node-version
-
-      - name: Set up PNPM
-        uses: pnpm/action-setup@v6
+      - name: Setup pnpm with runtime
+        uses: pnpm/setup@v3
         with:
           cache: true
+          require-lockfile: true
 
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Type check the project
-        run: pnpm typecheck
-
-  lint:
-    name: Lint
-
-    runs-on: ubuntu-latest
-
-    timeout-minutes: 30
-
-    steps:
-      - uses: actions/checkout@v7
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version-file: .node-version
-
-      - name: Set up PNPM
-        uses: pnpm/action-setup@v6
-        with:
-          cache: true
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Check code styles
-        run: pnpm lint
+      - name: Check code styles & types
+        run: pnpm lint:typecheck
 
   document:
     name: Document
 
     runs-on: ubuntu-latest
 
-    timeout-minutes: 30
+    timeout-minutes: 5
 
     steps:
       - uses: actions/checkout@v7
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version-file: .node-version
-
-      - name: Set up PNPM
-        uses: pnpm/action-setup@v6
+      - name: Setup pnpm with runtime
+        uses: pnpm/setup@v3
         with:
           cache: true
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+          require-lockfile: true
 
       - name: Generate code documents
         run: pnpm document
@@ -152,25 +98,18 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    timeout-minutes: 30
+    timeout-minutes: 5
 
     steps:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version-file: .node-version
-
-      - name: Set up PNPM
-        uses: pnpm/action-setup@v6
+      - name: Setup pnpm with runtime
+        uses: pnpm/setup@v3
         with:
           cache: true
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+          require-lockfile: true
 
       - name: Check commit messages
         if: ${{ github.event_name == 'pull_request' && github.actor != 'dependabot[bot]' }}
@@ -191,23 +130,17 @@ jobs:
 
     runs-on: ${{ matrix.os }}
 
-    timeout-minutes: 15
+    timeout-minutes: 10
 
     steps:
       - uses: actions/checkout@v7
 
-      - name: Set up Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v7
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      - name: Set up PNPM
-        uses: pnpm/action-setup@v6
+      - name: Setup pnpm with runtime
+        uses: pnpm/setup@v3
         with:
           cache: true
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+          require-lockfile: true
+          runtime: node@${{ matrix.node-version }}
 
       - name: Test the project
         run: pnpm test
@@ -217,23 +150,16 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    timeout-minutes: 15
+    timeout-minutes: 10
 
     steps:
       - uses: actions/checkout@v7
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v7
-        with:
-          node-version-file: .node-version
-
-      - name: Set up PNPM
-        uses: pnpm/action-setup@v6
+      - name: Setup pnpm with runtime
+        uses: pnpm/setup@v3
         with:
           cache: true
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+          require-lockfile: true
 
       - name: Collect code coverage
         run: pnpm test:coverage
@@ -253,8 +179,7 @@ jobs:
     needs:
       - knip
       - build
-      - typecheck
-      - lint
+      - lint-typecheck
       - document
       - commitlint
       - test
@@ -266,5 +191,5 @@ jobs:
 
     steps:
       - name: Check ci status
-        if: ${{ needs.knip.result != 'success' || needs.build.result != 'success' || needs.typecheck.result != 'success' || needs.lint.result != 'success' || needs.document.result != 'success' || needs.commitlint.result != 'success' || needs.test.result != 'success' || needs.coverage.result != 'success' }}
+        if: ${{ needs.knip.result != 'success' || needs.build.result != 'success' || needs.lint-typecheck.result != 'success' || needs.document.result != 'success' || needs.commitlint.result != 'success' || needs.test.result != 'success' || needs.coverage.result != 'success' }}
         run: exit 1

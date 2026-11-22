@@ -18,6 +18,7 @@ files = files
 
 const PACKAGE_FILE = resolve(CWD, PACKAGE_FILENAME);
 
+// oxlint-disable-next-line js-plugin-unicorn/consistent-json-file-read
 const pkg = JSON.parse(await readFile(PACKAGE_FILE, ENCODING));
 
 const keywords = new Set(pkg.keywords);
