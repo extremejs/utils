@@ -33,7 +33,7 @@
     "knip:prod": "pnpm knip --production --include files,unlisted,unresolved",
     "test": "vitest run",
     "test:coverage": "pnpm test --coverage",
-    "bench": "pnpm build && vitest bench --run --mode benchmark --reporter=./test/benchmark-reporter.ts --hideSkippedTests",
+    "bench": "pnpm build && vitest bench --run --mode benchmark --reporter=verbose --hideSkippedTests",
     "document": "typedoc",
     "prepack": "pnpm build:pre && pnpm build && pnpm build:post",
     "build:post": "tsx scripts/post-build.ts",

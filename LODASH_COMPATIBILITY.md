@@ -45,6 +45,6 @@ pnpm bench benchmarks/sum-by.bench.ts -t sumByFn
 
 The [benchmark](benchmarks/sum-by.bench.ts) compares each mapped call form on the same 32- and 2,048-record arrays. Each pair uses the same callback or nested path and checks both results against the expected total before timing. The command builds ExtremeJS and loads its compiled JavaScript in Node, alongside the installed Lodash package.
 
-Use [`runBenchmark`](test/benchmark.ts) to register a baseline and any alternatives with Vitest. Use the exact package names as labels. The table shows operations per second, with the baseline first and its relative speed on each alternative's row. A solo run displays throughput only.
+Use [`runBenchmark`](test/benchmark.ts) to register a baseline and any alternatives with Vitest. Use the exact package names as labels. The annotation compares throughput using the standard table's `hz` column. Vitest ranks its rows by mean latency. A solo run shows the standard table alone.
 
 The workloads use dense arrays with numeric values at every path so both libraries perform equivalent work. Sparse arrays, missing-only paths, and ambiguous dotted keys can produce different observable results and are excluded from timing.

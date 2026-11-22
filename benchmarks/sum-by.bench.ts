@@ -36,12 +36,15 @@ describe.each([32, 2048])("%i records", (size) => {
       extreme: () => sumByProperty(values, path),
       lodash : () => lodashSumBy(values, path),
     },
-  ])("$name", async (workload, { bench, expect }) => {
+  ])("$name", async (workload, { annotate, bench, expect }) => {
     expect(workload.extreme()).toBe(expected);
     expect(workload.lodash()).toBe(expected);
 
     await runBenchmark(
-      bench,
+      {
+        annotate,
+        bench,
+      },
       {
         name: "@extremejs/utils",
         run : workload.extreme,
