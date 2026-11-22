@@ -46,6 +46,10 @@ pnpm bench src/sum-by-property.bench.ts
 
 The benchmarks sit alongside their implementations. [`sumBy`](src/sum-by.bench.ts) covers both selector forms, [`sumByFn`](src/sum-by-fn.bench.ts) covers callbacks, and [`sumByProperty`](src/sum-by-property.bench.ts) covers property paths. Each comparison uses the same 32- and 2,048-record inputs and checks both results against the expected total before timing. The command builds ExtremeJS and loads its compiled JavaScript in Node, alongside the installed Lodash package.
 
-Use [`runBenchmark`](test/benchmark.ts) to register a baseline and any alternatives with Vitest. Use the exact package names as labels. The annotation compares throughput using the standard table's `hz` column. Vitest ranks its rows by mean latency. A solo run shows the standard table alone.
+For future utilities, add a `*.bench.ts` file next to the implementation. Keep the inputs, selectors, and expected results in that file. Import the utility from `@extremejs/utils` and its counterpart from the pinned `lodash` package. Compare equivalent calls on the same input data. If a call mutates its input, give each invocation a fresh input and include equivalent setup in each workload. Document any Lodash scenarios that lack a fair comparison.
+
+Import [`benchmark`](test/benchmark.ts) from `#test` and call `benchmark(context, expected, workload)`. The first entry supplies a `run` function for the baseline, labeled with the name in `package.json`. Each alternative supplies a `run` function and its package name as a distinct label. The helper awaits each result and checks it against `expected` with strict deep equality before timing.
+
+Vitest reports throughput in `hz` and ranks its rows by mean latency. The annotation compares throughput against the baseline. A solo run shows the standard table alone.
 
 The workloads use dense arrays with numeric values at every path so both libraries perform equivalent work. Sparse arrays, missing-only paths, and ambiguous dotted keys can produce different observable results and are excluded from timing.

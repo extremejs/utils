@@ -14,13 +14,13 @@ describe("benchmark comparison", () => {
   });
 
   it("should show the relative speed for every alternative", () => {
-    expect(formatBenchmarkComparison(result("@extremejs/utils", 600_000), [
+    expect(formatBenchmarkComparison(result("@example/baseline", 600_000), [
       result("library-c", 900_000),
       result("lodash", 300_000),
       result("Prototyped.js", 200_000),
       result("library-d", 600_000),
     ])).toEqual([
-      "Alternative    @extremejs/utils advantage",
+      "Alternative    @example/baseline advantage",
       "library-c      1.5x slower",
       "lodash         2x faster",
       "Prototyped.js  3x faster",

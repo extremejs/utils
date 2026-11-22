@@ -36,7 +36,7 @@ export function formatBenchmarkComparison(
   const nameWidth = Math.max(label.length, ...alternatives.map(({ name }) => name.length));
 
   return [
-    `${ label.padEnd(nameWidth) }  ${ pkg.name } advantage`,
+    `${ label.padEnd(nameWidth) }  ${ baseline.name } advantage`,
     ...alternatives.map(({ name, throughput }) => {
       const comparison = formatComparison(baseline.throughput.mean, throughput.mean);
 
@@ -54,7 +54,8 @@ export async function benchmark(
 
   expect(baseline).toBeDefined();
 
-  for (const { run } of workload) expect(run()).toBe(expected);
+  // oxlint-disable-next-line eslint/no-await-in-loop -- Finish each validation before running the next implementation.
+  for (const { run } of workload) expect(await run()).toStrictEqual(expected);
 
   const reference = bench(pkg.name, baseline.run);
 
