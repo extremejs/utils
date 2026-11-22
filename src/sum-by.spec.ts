@@ -1,4 +1,4 @@
-import { identity, sumBy } from "@extremejs/utils";
+import { identity, sumBy, sumByFn } from "@extremejs/utils";
 import lodash from "lodash";
 import { describe, expect, it, vi } from "vitest";
 
@@ -29,16 +29,15 @@ describe("with function as iteratee", () => {
 });
 
 describe("lodash compatibility", () => {
-  it("should sum values returned by a unary callback", () => {
+  it.each([
+    ["sumBy", sumBy],
+    ["sumByFn", sumByFn],
+    ["Lodash sumBy", lodash.sumBy],
+  ] as const)("%s should sum values returned by a unary callback", (_, sum) => {
     const values = [{ a: 2 }, { a: 3 }, { a: 1 }];
     const iteratee = vi.fn(({ a }: { a: number; }) => a);
 
-    expect(sumBy(values, iteratee)).toBe(6);
-    expect(iteratee.mock.calls).toEqual([[values[0]], [values[1]], [values[2]]]);
-
-    iteratee.mockClear();
-
-    expect(lodash.sumBy(values, iteratee)).toBe(6);
+    expect(sum(values, iteratee)).toBe(6);
     expect(iteratee.mock.calls).toEqual([[values[0]], [values[1]], [values[2]]]);
   });
 
@@ -81,6 +80,21 @@ describe("lodash compatibility", () => {
     expect(lodash.sumBy(values, "a")).toBe(1);
     expect(sumBy(missing, "a")).toBe(0);
     expect(lodash.sumBy(missing, "a")).toBeUndefined();
+  });
+
+  it("should return zero for an all-hole array with a property selector", () => {
+    const values: Array<{ a: number; }> = [];
+    values.length = 2;
+
+    expect(sumBy(values, "a")).toBe(0);
+    expect(lodash.sumBy(values, "a")).toBeUndefined();
+  });
+
+  it("should propagate NaN from a numeric property", () => {
+    const values = [{ a: 1 }, { a: Number.NaN }];
+
+    expect(sumBy(values, "a")).toBeNaN();
+    expect(lodash.sumBy(values, "a")).toBeNaN();
   });
 
   it("should treat null properties as zero while Lodash sums null as a value", () => {

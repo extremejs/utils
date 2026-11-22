@@ -33,6 +33,14 @@ describe("lodash compatibility", () => {
     expect(lodash.sumBy(values, "a")).toBe(0);
   });
 
+  it("should return zero for an all-hole array", () => {
+    const values: Array<{ a: number; }> = [];
+    values.length = 2;
+
+    expect(sumByProperty(values, "a")).toBe(0);
+    expect(lodash.sumBy(values, "a")).toBeUndefined();
+  });
+
   it("should propagate NaN from a numeric property", () => {
     const values = [{ a: 1 }, { a: Number.NaN }];
 

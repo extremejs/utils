@@ -5,9 +5,11 @@ import { sumByFn } from "./sum-by-fn.js";
  * Sums numbers selected by a callback or property path, starting at positive zero.
  * Visits elements in order, skips sparse array holes, and leaves the array unchanged.
  *
- * Supply an explicit selector. Both libraries pass only the current element to
- * the callback. Lodash visits array holes with `undefined` and starts its sum at
- * the first defined value, which can preserve negative zero.
+ * Supply an explicit selector. Lodash defaults to its identity callback.
+ * Both libraries pass only the current element to the callback. Lodash visits
+ * array holes with `undefined` and starts its sum at the first defined value,
+ * which can preserve negative zero. Lodash skips `undefined` callback results.
+ * Here, callbacks should return numbers, since an `undefined` result produces `NaN`.
  *
  * For shorthand calls, use an ExtremeJS {@link get} path. Dotted paths traverse
  * nested properties even when a matching literal key exists. Missing, `null`,

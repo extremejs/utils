@@ -12,19 +12,6 @@ it("should return the sum of the elements provided by the iteratee", () => {
 });
 
 describe("lodash compatibility", () => {
-  it("should sum values returned by a unary callback", () => {
-    const values = [{ a: 2 }, { a: 3 }, { a: 1 }];
-    const iteratee = vi.fn(({ a }: { a: number; }) => a);
-
-    expect(sumByFn(values, iteratee)).toBe(6);
-    expect(iteratee.mock.calls).toEqual([[values[0]], [values[1]], [values[2]]]);
-
-    iteratee.mockClear();
-
-    expect(lodash.sumBy(values, iteratee)).toBe(6);
-    expect(iteratee.mock.calls).toEqual([[values[0]], [values[1]], [values[2]]]);
-  });
-
   it("should return zero for an empty array without calling the iteratee", () => {
     const iteratee = vi.fn((value: number) => value);
 
