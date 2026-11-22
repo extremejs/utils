@@ -2,6 +2,18 @@
 
 Compatibility tests and benchmarks use the main [`lodash` package at 4.18.1](https://www.npmjs.com/package/lodash/v/4.18.1) and the [matching upstream test tag](https://github.com/lodash/lodash/tree/4.18.1/test). Update the exact dev dependency and upstream test references together.
 
+The [pinned API reference](https://github.com/lodash/lodash/blob/4.18.1/doc/README.md) defines the inventory scope. `lodash/fp` is outside that scope. Find aliases alongside their canonical entries. **Covered** describes the supported ExtremeJS call, **Partial** identifies a specific capability still to port, **Missing** marks a capability without an ExtremeJS utility, and **Deferred** marks wrapper work reserved for a later design.
+
+| Inventory section | Family ticket |
+| --- | --- |
+| [Array and Collection](#array-and-collection) | [#283](https://github.com/extremejs/utils/issues/283) |
+| [Math](#math) and [Number](#number) | [#284](https://github.com/extremejs/utils/issues/284), with the [`sumBy` pilot](#_sumby) in [#282](https://github.com/extremejs/utils/issues/282) |
+| [String](#string) | [#285](https://github.com/extremejs/utils/issues/285) |
+| [Object, Path, and Iteratee](#object-path-and-iteratee), including some Lang and Util entries | [#286](https://github.com/extremejs/utils/issues/286) |
+| Lang [primitive and structural predicates](#primitive-and-structural-predicates) | [#287](https://github.com/extremejs/utils/issues/287) |
+| Lang [built-in predicates and object introspection](#built-in-predicates-and-object-introspection) | [#288](https://github.com/extremejs/utils/issues/288) |
+| [Remaining Date, Function, and Lang](#date-function-and-remaining-lang), [Util](#util), [Properties and Methods](#properties-and-methods), and [Seq](#seq) | [#289](https://github.com/extremejs/utils/issues/289) |
+
 ## Array and Collection
 
 The pinned API reference lists the [Array and Collection methods](https://lodash.com/docs/4.18.1#chunk). The array capability is **Covered** for each call below. The ExtremeJS inputs are mutable arrays, plus strings where indicated. Lodash also accepts several array-like or nullish inputs outside these contracts.
@@ -404,3 +416,69 @@ For each predicate, the common rejection fixtures cover nonmatching values and u
 Run `pnpm bench src/is-typed-array.bench.ts` for one predicate or `pnpm bench` for all. Each of the 12 mapped predicates has a pair that checks the expected boolean before timing. Inputs are created before timing. The Node.js `isElement` pair uses an element-like class instance, so its timing applies to the shared heuristic on that fixture.
 
 Comparisons exclude inputs with differing results, missing `Buffer` globals, and browser DOM fixtures. Lodash has no corresponding public introspection workload or local string-conversion pair.
+
+## Date, Function, and remaining Lang
+
+| Lodash category and capability | Missing Lodash entries |
+| --- | --- |
+| Date timestamp in milliseconds (available natively as `Date.now()`) | `now` |
+| Function call counts and rate limiting | `after`, `before`, `debounce`, `once`, `throttle` |
+| Function scheduling and result caching | `defer`, `delay`, `memoize` |
+| Function binding, currying, and partial application | `bind`, `bindKey`, `curry`, `curryRight`, `partial`, `partialRight`, `wrap` |
+| Function argument limits, order, and shape | `ary`, `flip`, `overArgs`, `rearg`, `rest`, `spread`, `unary` |
+| Function predicate negation | `negate` |
+| Lang array casting and conversion | `castArray`, `toArray` |
+| Lang shallow and deep copying, with optional customizers | `clone`, `cloneDeep`, `cloneDeepWith`, `cloneWith` |
+| Lang relational comparisons | `gt`, `gte`, `lt`, `lte` |
+| Lang numeric conversion, truncation, and clamping | `toFinite`, `toInteger`, `toLength`, `toNumber`, `toSafeInteger` |
+
+`wrap` partially applies a value to a function. Its backlog entry is independent of the [deferred sequence wrappers](#seq). See the [object family](#object-path-and-iteratee) for Lang's `toPlainObject` and the [built-in family](#built-in-predicates-and-object-introspection) for Lang's `toString`.
+
+## Util
+
+| Lodash invocation | ExtremeJS invocation | Coverage and migration notes |
+| --- | --- | --- |
+| `_.identity(value)` | `identity(value)` | **Covered**. Both return the supplied value unchanged, including the original object reference. Pass `undefined` explicitly to reproduce Lodash's zero-argument call. |
+| `_.noop()` | `noop()` | **Covered**. Both do nothing and return `undefined` at runtime. ExtremeJS types the return as `void` and accepts zero arguments in a direct call. It can also serve as a callback where the caller supplies arguments. |
+
+| Lodash capability | Missing Lodash entries |
+| --- | --- |
+| Catch errors, bind object methods, and choose defaults for nullish or `NaN` values | `attempt`, `bindAll`, `defaultTo` |
+| Build fixed-result callbacks and argument selectors | `constant`, `nthArg`, `stubArray`, `stubFalse`, `stubObject`, `stubString`, `stubTrue` |
+| Compose functions and predicates | `cond`, `conforms`, `flow`, `flowRight`, `over`, `overEvery`, `overSome` |
+| Build numeric sequences, repeat callbacks, and generate IDs | `range`, `rangeRight`, `times`, `uniqueId` |
+| Extend objects with methods, restore the prior global `_`, and create isolated Lodash instances | `mixin`, `noConflict`, `runInContext` |
+
+[Object, Path, and Iteratee](#object-path-and-iteratee) owns Util's `iteratee`, `matches`, `matchesProperty`, `method`, `methodOf`, `property`, `propertyOf`, and `toPath`. See [Seq](#seq) for the deferred chaining behavior of `mixin`.
+
+### Upstream scenario decisions
+
+| Lodash 4.18.1 scenario source | Coverage and decision |
+| --- | --- |
+| [`identity` spec](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L8159-L8168) | Checks the original object reference. The local suite also covers primitive values and compares explicit `undefined` with the Lodash zero-argument form. |
+| [`noop` API example](https://github.com/lodash/lodash/blob/4.18.1/doc/README.md#_noop) | The upstream example calls `noop` twice via `times`. The local suite calls both callbacks through native `map` and checks both `undefined` results. It also checks the direct zero-argument calls. |
+
+### Benchmark exceptions
+
+`identity` returns its argument and `noop` has an empty body. A standalone pair would largely measure call overhead or whether the engine inlines and removes the call. Putting either in a loop or a collection operation would primarily time the chosen caller. Both utilities use compatibility tests as evidence for the shared behavior.
+
+## Properties and Methods
+
+| Missing Lodash entries | Capability |
+| --- | --- |
+| `_.VERSION` | Read the version from the library object. ExtremeJS exposes its version through the exported `@extremejs/utils/package.json`. |
+| `_.templateSettings`, `_.templateSettings.escape`, `_.templateSettings.evaluate`, `_.templateSettings.imports`, `_.templateSettings.interpolate`, `_.templateSettings.variable`, `_.templateSettings.imports._` | Configure the compiler's delimiters, data binding, and imported values. These belong with the missing `template` capability in [String](#string). |
+
+## Seq
+
+The [Lodash Seq API](https://github.com/lodash/lodash/blob/4.18.1/doc/README.md#seq) is **Deferred** in full.
+
+| Lodash capability | Deferred entries |
+| --- | --- |
+| Wrap a value and start an implicit or explicit sequence | `_`, `_.chain`, `_.prototype.chain` |
+| Intercept or transform the current value | `_.tap`, `_.thru` |
+| Read paths, reverse wrapped arrays, or reuse a sequence with a new input | `_.prototype.at`, `_.prototype.reverse`, `_.prototype.plant` |
+| Iterate over wrapped values | `_.prototype[Symbol.iterator]`, `_.prototype.next` |
+| Execute queued actions and extract the result | `_.prototype.commit`, `_.prototype.value` (aliases `_.prototype.toJSON` and `_.prototype.valueOf`) |
+
+Deferral also covers implicit unwrapping, lazy evaluation, wrapper forms of standalone utilities, and chainable methods registered through `_.mixin`. The documented native array wrapper methods are `concat`, `join`, `pop`, `push`, `shift`, `sort`, `splice`, and `unshift`. The native string wrapper methods are `replace` and `split`. Standalone methods retain the status assigned in their own sections. The pinned [wrapper scenarios](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L26168-L26895) remain references for that future work.
