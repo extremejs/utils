@@ -10,23 +10,26 @@ import { isTypedArray } from "./is-typed-array.js";
 import { prototypeKeys } from "./prototype-keys.js";
 
 /**
- * Returns `value`'s keys.
+ * Lists own enumerable string keys.
+ *
+ * For arrays, arguments objects, buffers, and typed arrays, the list begins
+ * with every in-range index as a string, including sparse holes. Prototype
+ * objects omit their constructor key on the prototype-enumeration path.
+ * Primitives are boxed. Nullish values yield an empty array.
+ *
  * @group Object
  * @since 1.0.0
- * @param value
+ * @param value The value whose keys to list.
+ * @returns A fresh array of string keys. Inherited keys and symbols are excluded.
+ * @throws {ReferenceError} If buffer detection runs without a global `Buffer`,
+ * as can happen with strings and typed arrays.
+ * @see {@link https://lodash.com/docs/4.18.1#keys | Lodash keys} as `_.keys(value)`.
+ * Both cover ordinary objects and dense-style index enumeration. Lodash additionally
+ * filters certain legacy enumerable buffer and typed-array metadata.
  * @example
- * keys({ a: 0, b: 1, c: 2 }); // => ["a", "b", "c"]
+ * keys({ a: 0, b: 1 }); // => ["a", "b"]
  * @example
- * function Foo() {
- *   this.a = 1
- *   this.b = 2
- * }
- *
- * Foo.prototype.c = 3
- *
- * keys(new Foo) // => ["a", "b"] (iteration order is not guaranteed)
- * @example
- * keys("hi") // => ["0", "1"]
+ * keys("hi"); // => ["0", "1"]
  */
 export function keys(value: unknown): PropertyKey[] {
   if (isArrayLike(value)) {
