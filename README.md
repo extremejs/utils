@@ -22,9 +22,8 @@ aiming to be high performance while having minimal size impact.
 ## Table of Content
 
 - [Installation](#installation)
-  - [NPM](#npm)
-  - [PNPM](#pnpm)
-  - [Yarn](#yarn)
+  - [Pnpm](#pnpm)
+  - [Bun](#bun)
 - [Usage](#usage)
   - [Notes](#notes)
 - [Lodash compatibility](#lodash-compatibility)
@@ -34,22 +33,16 @@ aiming to be high performance while having minimal size impact.
 
 ## Installation
 
-### NPM
-
-```shell
-npm i @extremejs/utils
-```
-
-### PNPM
+### Pnpm
 
 ```shell
 pnpm add @extremejs/utils
 ```
 
-### Yarn
+### Bun
 
 ```shell
-yarn add @extremejs/utils
+bun add @extremejs/utils
 ```
 
 ## Usage
@@ -59,7 +52,9 @@ This package provides ES modules only.
 ```typescript
 import { sumByFn, sumByProperty, sumBy } from "@extremejs/utils";
 // or
-import { sumByFn, sumByProperty, sumBy } from "@extremejs/utils/sum-by-fn";
+import { sumBy } from "@extremejs/utils/sum-by";
+import { sumByFn } from "@extremejs/utils/sum-by-fn";
+import { sumByProperty } from "@extremejs/utils/sum-by-property";
 
 const sum1 = sumByFn([{ a: 1 }, { a: 2 }, { a: 3 }], ({ a }) => a); // => 6
 // or
