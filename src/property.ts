@@ -3,20 +3,27 @@ import { type ValueAtT, get } from "./get.js";
 import { type PathT } from "./to-path.js";
 
 /**
- * Creates a function that returns the value at `path` of a given object.
+ * Creates a unary accessor for a property key or path, including inherited properties.
+ *
+ * The accessor uses {@link get} with the supplied fallback. Pass a string
+ * with dot or simple unquoted bracket notation, or a direct numeric or symbol key.
+ * The accessor reads the current value each time it is called.
+ *
  * @group Object
  * @since 1.0.0
- * @param path The path of the property to get.
- * @param fallback The fallback value in case of not finding the value of the desired property.
- * @returns The new accessor function.
+ * @typeParam Property The property key or path to capture.
+ * @typeParam Fallback The type of the optional fallback.
+ * @param path The property key or path to read.
+ * @param fallback The result for a missing or nullish value. Defaults to `undefined`.
+ * @returns An accessor that takes an object or array.
+ * @see {@link https://lodash.com/docs/4.18.1#property | Lodash property} as `_.property(path)`.
+ * Lodash accepts segment arrays, prefers existing literal keys, distinguishes numeric
+ * `-0` from `0`, and returns `null` for a null-valued property. To provide a Lodash
+ * fallback at call time, use `value => _.get(value, path, fallback)` for undefined results.
  * @example
- * const fn = property("foo"); // => (value) => get(value, "foo");
- *
- * fn({ foo: "bar" }); // => "bar"
- * @example
- * const fn = property("foo.bar", 0); // => (value) => get(value, "foo.bar", 0);
- *
- * fn({ foo: "bar" }); // => 0
+ * const readScore = property("items[0].score", 0);
+ * readScore({ items: [{ score: 2 }] }); // => 2
+ * readScore({ items: [] }); // => 0
  */
 export function property<
   Property extends PropertyKey,
@@ -27,8 +34,10 @@ export function property<
 }
 
 /**
- *
+ * A unary accessor for a property key or path and an optional fallback.
  * @group Object
+ * @typeParam Property The captured key or path.
+ * @typeParam Fallback The fallback type.
  */
 export type PropertyAccessorT<
   Property extends PropertyKey,

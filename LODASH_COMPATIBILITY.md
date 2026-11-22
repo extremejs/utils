@@ -239,3 +239,58 @@ The Array and Collection section covers the string overloads of `first`, `last`,
 Use `pnpm bench src/split.bench.ts` for one utility or `pnpm bench` for the full suite. Every mapping has a colocated pair that validates equal results before timing. Whole-string transforms, splitting, and replacement use short and repeated inputs. Prefix and suffix checks use explicit UTF-16 positions. Repeat supplies the same count to both calls. The replacement pair uses the same global regex, with the local all flag enabled.
 
 Differing Unicode tokenization and splitting, omitted arguments with different defaults, and error paths produce different observable results. The paired timings use equivalent inputs and results. Missing methods and `LETTER_CASE_REGEX` have no public equivalent to time directly.
+
+## Object, Path, and Iteratee
+
+The [Lodash Object category](https://lodash.com/docs/4.18.1#assign) and the related path and shorthand utilities map by capability.
+
+| Lodash invocation | ExtremeJS invocation | Coverage and migration notes |
+| --- | --- | --- |
+| `_.get(value, path, fallback)` | `get(value, path, fallback)` | **Covered** for direct keys and simple deep reads. ExtremeJS applies the fallback to both `null` and `undefined`. Lodash applies it only to `undefined`. |
+| `_.property(path)` | `property(path, fallback)` | **Covered** for unary property accessors. ExtremeJS also captures an optional fallback and uses its own `get` rules. |
+| `_.toPath(path)` | `toPath(path)` | **Covered** for splitting dot paths and simple brackets after a key. ExtremeJS preserves numbers and symbols. Lodash preserves symbols, stringifies numbers, and accepts segment arrays and a broader bracket grammar. |
+| `_.iteratee(selector)` | `iteratee(selector, fallback)` | **Partial**. Both return functions unchanged and support string property shorthands. Implicit identity, object matching, and `[path, value]` matching still need a port. ExtremeJS accepts a fallback for property shorthands. |
+| `_.has(value, [key])` | `hasOwn(value, key)` | **Partial**. A direct own key can be a string, number, or symbol, and can be non-enumerable or hold `undefined`. Deep own-path existence still needs a port. ExtremeJS treats holes as absent. Lodash counts in-range sparse array and arguments indices. Lodash distinguishes numeric `-0` from `0` and can invoke a getter during the check. |
+| `_.keys(value)` | `keys(value)` | **Covered** for enumerable own string keys and dense-style array, arguments, buffer, and typed-array indices. Both omit `constructor` on ordinary constructor prototypes. Lodash additionally filters certain enumerable buffer and typed-array metadata. |
+| `_.keys(value)` | `ownKeys(value)` when all own string names are enumerable on an ordinary object, or `prototypeKeys(value)` on an ordinary constructor prototype | These calls overlap on the stated inputs. `ownKeys` also includes non-enumerable names and only reports existing indices. `prototypeKeys` always omits `constructor` and only reports existing enumerable indices. Both exclude symbols and inherited keys. |
+
+A supported ExtremeJS string path looks like `"items.0.score"` or `"items[0][score]"`. `get`, `property`, and `iteratee` parse such strings as paths and can read inherited values. Lodash prefers an existing literal key such as `"a.b"` over the matching nested path. `get` and `property` can take direct numeric or symbol keys where the signatures allow them, and use native key conversion for numeric `-0`. Use string indices with `get` on array inputs and string shortcuts with `iteratee`. Pass an explicit identity function such as `iteratee(identity)` for the default Lodash call. `hasOwn` always treats a key literally. `isPrototype` exposes the constructor-prototype test used by `keys`. Lodash has no public equivalent.
+
+### Missing capabilities
+
+| Lodash capability | Missing Lodash entries |
+| --- | --- |
+| Read multiple paths, check inherited paths, and call functions by path | `at`, `hasIn`, `invoke`, `result`, `method`, `methodOf`, `propertyOf` |
+| Build standalone matching predicates | `matches`, `matchesProperty` |
+| Traverse or search object properties | `findKey`, `findLastKey`, `forIn`, `forInRight`, `forOwn`, `forOwnRight`, `transform` |
+| Enumerate inherited keys, methods, values, or entries | `keysIn`, `functions`, `functionsIn`, `values`, `valuesIn`, `toPairs` (alias `entries`), `toPairsIn` (alias `entriesIn`) |
+| Select and transform properties | `invert`, `invertBy`, `mapKeys`, `mapValues`, `omit`, `omitBy`, `pick`, `pickBy` |
+| Create objects, copy properties, and merge or apply defaults | `assign`, `assignIn` (alias `extend`), `assignInWith` (alias `extendWith`), `assignWith`, `create`, `defaults`, `defaultsDeep`, `merge`, `mergeWith`, `toPlainObject` |
+| Write, update, and remove values at paths | `set`, `setWith`, `unset`, `update`, `updateWith` |
+
+Reading inherited values with `get` does not check whether a path exists when its value is `undefined`. Enumerating a prototype's own keys with `prototypeKeys` also differs from enumerating an object's inherited keys with `_.keysIn`.
+
+### Upstream scenario decisions
+
+| Lodash 4.18.1 scenario source | Coverage and decision |
+| --- | --- |
+| [Shared get and result scenarios](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L19412-L19585) | Covers direct and deep reads, symbols, numeric signed zero, inherited reads on a class instance, missing and nullish intermediates, literal-key precedence, the direct empty-string key when present, and defaults for undefined and null. Root nullish or primitive values and defaults unrelated to the selected value type exceed the local signature. The boxed-zero variants and segment arrays exceed the path type. Complex quoted or escaped paths and empty brackets exceed the simple path grammar. An empty-string key on a value without that key exceeds the inferred paths, and an empty segment array exceeds the path type. The empty-string result type is tracked below. Function invocation during traversal belongs to `result`. |
+| [property](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L17989-L18127) | Covers unary direct, deep, inherited, symbol, and numeric reads, missing values, signed zero, and literal-key precedence. Root nullish values, array paths, boxed keys, and arbitrary path coercion exceed the accessor signatures. The local captured fallback is compared separately. |
+| [toPath](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L23972-L24047) | Covers dot/bracket paths, fresh arrays, leading and consecutive dots, and primitive symbol preservation. Arrays and boxed symbols exceed the input type. Nested quotes, escapes, fractional bracket segments, and empty brackets need Lodash's broader grammar. Empty-string and empty-segment type behavior is tracked below. |
+| [iteratee](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L12117-L12300) and [custom iteratee hooks](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L12303-L12595) | Covers preserving callback identity, arguments and receiver, and direct, indexed and deep string shortcuts. Preserving a function is also the relevant behavior for upstream partial application cases. Numeric and symbol shorthands exceed the current local signature. Nullish identity, object and pair matching, and the clone-on-creation scenarios for those shorthands depend on missing capabilities. Callback-position guard and global override cases depend on Lodash's internal iteratee hook and collection APIs. |
+| [has and hasIn](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L7821-L8058) | Covers own, missing and inherited direct keys, shadowed `hasOwnProperty`, arguments and numeric array indices, non-enumerable symbols, literal dots, signed zero, and holes in arrays and arguments objects. An extra case compares checking a throwing getter. Single-segment paths translate to direct keys. Multi-segment paths, including nested nullish and sparse cases, require the missing deep existence capability. Nullish roots, boxed keys, and arbitrary coercion exceed the signature. Inherited existence belongs to `hasIn`. |
+| [keys and keysIn](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L12972-L13167) | Covers own string keys, excluding inherited, hidden, and symbol keys, sparse indices, custom keys on indexed values, arguments and boxed strings, array-likes, primitive boxing, nullish inputs, and constructor filtering. The required local argument uses explicit `undefined` for the omitted input. Inherited keys on arrays, arguments, and boxed primitives are exercised using an isolated prototype. `ownKeys` and `prototypeKeys` exercise the relevant overlap and their differences on sparse arrays, hidden names, and constructor handling. Scenarios expecting inherited keys belong to `keysIn`. |
+| [Wrapped results](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L26717-L26895) | Implicit and explicit chaining are deferred. |
+
+### Maintainer decisions and follow-ups
+
+- **Paths and reads.** Should a parsed path always win over a literal dotted key? Should a future port accept segment arrays and quoted syntax, and should lookup fallbacks continue to replace `null`? Review signed-zero coercion with the numeric path forms.
+- **Path type follow-up.** `PathT<"">` is `[]`, while `toPath("")` returns `[""]`. That tuple also prevents `get` from inferring the value type for a direct empty-string key. `PathT` also drops empty components in dotted paths and omits the leading empty component that the parser produces for a bracket-first path. Separately, the public type rejects the numeric fallback in `get({ items: [{ score: 1 }, null] }, "items[1].score", 0)` even though the lookup can return it. The path type also accepts `"a[]"` when `a` has an empty-string key, but the parser leaves the empty brackets intact. Review the path tuples, inferred paths, and value inference through nullable unions.
+- **Iteratee shorthands.** Should the existing shorthand extend to Lodash's matching predicates and implicit identity? Should numeric and symbol keys become typed shortcuts where direct accessors already accept them?
+- **Existence and enumeration.** Should deep existence be a separate API from `hasOwn`? Should a future deep check count sparse holes as present? Should enumerable metadata filtering for buffers and typed arrays follow Lodash, and should `ownKeys` continue to mean own string names or expand to symbols?
+
+### Benchmarks
+
+Run `pnpm bench src/get.bench.ts` for one utility or `pnpm bench` for all. The paired workloads validate equal results before timing. They cover direct and nested reads, accessor creation plus one read, reused accessors, string path splitting, callback and property iteratees, direct own-key hits and misses, and ordinary and sparse key enumeration. The literal `hasOwn` workload includes building a single-segment path in the Lodash call. `ownKeys` uses a record whose own string names are all enumerable. `prototypeKeys` uses a constructor prototype with an enumerable constructor that both calls exclude.
+
+Lodash has no direct equivalent for `isPrototype`, or for the full `ownKeys` and `prototypeKeys` results outside the overlaps above. The pairs also exclude differing path and coercion rules, sparse existence checks, and missing capabilities whose results cannot be compared directly.

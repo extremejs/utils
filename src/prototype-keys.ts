@@ -27,10 +27,22 @@ import { OBJECT_CONSTRUCTOR } from "./constants/index.js";
 import { hasOwn } from "./has-own.js";
 
 /**
- * Returns `prototype`'s keys.
+ * Lists own enumerable string keys of a prototype object, omitting `constructor`.
+ *
+ * The filter also applies to other values passed directly. Values are boxed for
+ * enumeration. Symbols, non-enumerable keys, and inherited keys are excluded.
+ *
  * @group Object
  * @since 1.0.0
- * @param value
+ * @param value The prototype or other value to enumerate.
+ * @returns A fresh array of own enumerable string keys other than `"constructor"`.
+ * @see {@link https://lodash.com/docs/4.18.1#keys | Lodash keys} as `_.keys(value)` for
+ * ordinary constructor prototypes. On a plain object Lodash can include an
+ * enumerable `constructor`, and on an array it can include sparse indices.
+ * @example
+ * class Example {}
+ * Object.assign(Example.prototype, { flag: true });
+ * prototypeKeys(Example.prototype); // => ["flag"]
  */
 export function prototypeKeys(value: unknown): PropertyKey[] {
   const result = [];
