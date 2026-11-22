@@ -8,7 +8,7 @@ export default defineConfig(({ mode }): ViteUserConfig => ({
   resolve: mode === "benchmark" ? { alias: { "@extremejs/utils": builtEntry } } : {},
   test   : {
     name         : "ExtremeJS Utils",
-    include      : ["src/**/*.spec.ts"],
+    include      : ["src/**/*.spec.ts", "test/**/*.spec.ts"],
     fsModuleCache: true,
     logHeapUsage : true,
     isolate      : false,

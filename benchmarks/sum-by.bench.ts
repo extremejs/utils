@@ -1,6 +1,7 @@
 import * as utils from "@extremejs/utils";
 import lodash from "lodash";
 import { describe, test } from "vitest";
+import { runBenchmark } from "../test/benchmark.js";
 
 const { sumBy, sumByFn, sumByProperty } = utils;
 const { sumBy: lodashSumBy } = lodash;
@@ -35,16 +36,20 @@ describe.each([32, 2048])("%i records", (size) => {
       extreme: () => sumByProperty(values, path),
       lodash : () => lodashSumBy(values, path),
     },
-  ])("$name", async (workload, { annotate, bench, expect }) => {
+  ])("$name", async (workload, { bench, expect }) => {
     expect(workload.extreme()).toBe(expected);
     expect(workload.lodash()).toBe(expected);
 
-    const results = await bench.compare(
-      bench("ExtremeJS", workload.extreme),
-      bench("Lodash", workload.lodash),
+    await runBenchmark(
+      bench,
+      {
+        name: "@extremejs/utils",
+        run : workload.extreme,
+      },
+      {
+        name: "lodash",
+        run : workload.lodash,
+      },
     );
-    const ratio = results.get("ExtremeJS").throughput.mean / results.get("Lodash").throughput.mean;
-
-    await annotate(`ExtremeJS / Lodash throughput ratio: ${ ratio.toFixed(2) }x`);
   });
 });
