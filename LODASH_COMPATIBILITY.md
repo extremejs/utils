@@ -288,6 +288,7 @@ Reading inherited values with `get` does not check whether a path exists when it
 - **Path type follow-up.** `PathT<"">` is `[]`, while `toPath("")` returns `[""]`. That tuple also prevents `get` from inferring the value type for a direct empty-string key. `PathT` also drops empty components in dotted paths and omits the leading empty component that the parser produces for a bracket-first path. Separately, the public type rejects the numeric fallback in `get({ items: [{ score: 1 }, null] }, "items[1].score", 0)` even though the lookup can return it. The path type also accepts `"a[]"` when `a` has an empty-string key, but the parser leaves the empty brackets intact. Review the path tuples, inferred paths, and value inference through nullable unions.
 - **Iteratee shorthands.** Should the existing shorthand extend to Lodash's matching predicates and implicit identity? Should numeric and symbol keys become typed shortcuts where direct accessors already accept them?
 - **Existence and enumeration.** Should deep existence be a separate API from `hasOwn`? Should a future deep check count sparse holes as present? Should enumerable metadata filtering for buffers and typed arrays follow Lodash, and should `ownKeys` continue to mean own string names or expand to symbols?
+- **Key enumeration without Node globals.** When `Buffer` is absent, `keys("hi")` can throw a `ReferenceError` during buffer detection. Review the shared `isBuffer` predicate in the built-in predicate follow-up.
 
 ### Benchmarks
 
