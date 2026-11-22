@@ -1,5 +1,8 @@
+/* oxlint-disable eslint/no-undefined -- Distinguish explicit undefined, omitted defaults, and sparse holes. */
+
 import { drop } from "@extremejs/utils";
-import { expect, it } from "vitest";
+import lodash from "lodash";
+import { describe, expect, it } from "vitest";
 
 it("should drop the first element", () => {
   expect(drop([1, 2, 3])).toEqual([2, 3]);
@@ -21,4 +24,37 @@ it("should return an empty array/string when `n` >= `length`", () => {
 
   expect(drop("123", 3)).toEqual("");
   expect(drop("123", 4)).toEqual("");
+});
+
+describe("lodash compatibility", () => {
+  it.each([
+    [undefined, [2, 3]],
+    [2, [3]],
+    [0, [1, 2, 3]],
+    [Number.NaN, [1, 2, 3]],
+    [-Infinity, [1, 2, 3]],
+    [1.6, [2, 3]],
+    [3, []],
+    [4, []],
+    [2 ** 32, []],
+    [Infinity, []],
+  ])("drops from the start with count %s", (count, expected) => {
+    expect(drop([1, 2, 3], count)).toStrictEqual(expected);
+    expect(lodash.drop([1, 2, 3], count)).toStrictEqual(expected);
+  });
+
+  it("keeps the string result while Lodash returns an array of code units", () => {
+    expect(drop("123", 2)).toBe("3");
+    expect(lodash.drop("123", 2)).toStrictEqual(["3"]);
+  });
+
+  it("preserves retained holes while Lodash fills them with undefined", () => {
+    const values: number[] = [];
+    values[2] = 2;
+    const expected: number[] = [];
+    expected[1] = 2;
+
+    expect(drop(values)).toStrictEqual(expected);
+    expect(lodash.drop(values)).toStrictEqual([undefined, 2]);
+  });
 });

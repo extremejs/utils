@@ -1,8 +1,12 @@
 /**
- * It will return the first element of the `value`.
+ * Reads index `0` of an array or string. On strings, this reads one
+ * UTF-16 code unit.
+ *
  * @group Collection
  * @since 1.0.0
- * @param value
+ * @param value The array or string to query.
+ * @returns The first element or code unit, or `undefined` for ordinary empty inputs.
+ * @see {@link https://lodash.com/docs/4.18.1#head | Lodash head} as `_.head(value)` (alias `_.first(value)`). For the prefix without the final element, see {@link head}.
  * @example
  * first([0, 1, 2, 3, 4, 5]); // => 0
  * @example
@@ -14,7 +18,7 @@ export function first<Value extends unknown[] | string>(value: Value): FirstT<Va
 }
 
 /**
- *
+ * The result type of {@link first}, inferred from a tuple, array element type, or string.
  * @group Collection
  */
 export type FirstT<Value extends unknown[] | string> = Value extends string
