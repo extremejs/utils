@@ -3,10 +3,14 @@ import { join } from "./join.js";
 import { lowerCase } from "./lower-case.js";
 
 /**
- * It will convert the given `string` to [snake case](https://en.wikipedia.org/wiki/Snake_case).
+ * Formats the ASCII letter and digit runs in a string as snake case.
+ * Case transitions, digits, and punctuation can mark word boundaries.
+ *
  * @group String
  * @since 1.0.0
- * @param string
+ * @param string The source string.
+ * @returns Lowercase words separated by underscores. If there are no matches, returns an empty string.
+ * @see {@link https://lodash.com/docs/4.18.1#snakeCase | Lodash snakeCase} as `_.snakeCase(string)`. Lodash also recognizes Unicode words and emoji, deburrs Latin letters, and joins the parts of contractions.
  * @example
  * snakeCase("camelCase"); // => "camel_case"
  * @example
