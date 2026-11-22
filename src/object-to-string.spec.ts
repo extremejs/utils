@@ -5,6 +5,10 @@ it("should convert value to a string using Object.prototype.toString", () => {
   expect(objectToString({})).toBe("[object Object]");
 
   expect(objectToString(2)).toBe("[object Number]");
+
+  expect(objectToString(null)).toBe("[object Null]");
+  expect(objectToString(void 0)).toBe("[object Undefined]");
+  expect(objectToString({ [Symbol.toStringTag]: "Widget" })).toBe("[object Widget]");
 });
 
 test("OBJECT_STRING_TAG should have all the js tags", () => {

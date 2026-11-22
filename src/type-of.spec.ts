@@ -5,6 +5,10 @@ it("should return the typeof result of value", () => {
   expect(typeOf("foo")).toBe("string");
 
   expect(typeOf(1)).toBe("number");
+
+  expect(typeOf(null)).toBe(TYPE.OBJECT);
+  expect(typeOf([])).toBe(TYPE.OBJECT);
+  expect(typeOf(void 0)).toBe(TYPE.UNDEFINED);
 });
 
 test("TYPE should have all the js types", () => {

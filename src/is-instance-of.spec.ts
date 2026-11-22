@@ -8,3 +8,20 @@ it("should determine whether the provided value is an instance of the provided c
 
   expect(isInstanceOf(1, Number)).toBe(false);
 });
+
+it("honors the constructor's Symbol.hasInstance method", () => {
+  class CustomInstance {
+
+    public static [Symbol.hasInstance](value: unknown): boolean {
+      return value === "accepted";
+    }
+
+  }
+
+  expect(isInstanceOf("accepted", CustomInstance)).toBe(true);
+  expect(isInstanceOf({}, CustomInstance)).toBe(false);
+});
+
+it("propagates the native error for a function with no instance prototype", () => {
+  expect(() => isInstanceOf({}, (): number => 0)).toThrow(TypeError);
+});

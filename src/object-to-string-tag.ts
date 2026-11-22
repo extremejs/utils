@@ -2,14 +2,18 @@ import { type OBJECT_STRING_TAG, objectToString } from "./object-to-string.js";
 import { slice } from "./slice.js";
 
 /**
- * Converts `value` to a string tag using `Object.prototype.toString`.
+ * Extracts the tag from {@link objectToString}.
+ *
+ * String-valued `Symbol.toStringTag` properties are reflected in the result.
+ * Reading the property can invoke a getter or proxy trap.
  * @group Other
  * @since 1.0.0
- * @param value
+ * @param value The value to describe, including primitives and nullish values.
+ * @returns The tag without the `[object …]` wrapper. Host and custom tags can
+ * extend the set of tags listed in {@link OBJECT_STRING_TAG}.
  * @example
- * objectToStringTag({}); // => "Object"
- * @example
- * objectToStringTag(2); // => "Number"
+ * objectToStringTag(new Map()); // => "Map"
+ * objectToStringTag({ [Symbol.toStringTag]: "Widget" }); // => "Widget"
  */
 export function objectToStringTag(value: unknown): OBJECT_STRING_TAG {
   // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve the existing enum return type.

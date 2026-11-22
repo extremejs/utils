@@ -1,10 +1,14 @@
 /**
  * Returns the `typeof` result of `value`.
+ *
+ * JavaScript reports `null`, arrays, and boxed primitives as `object`.
  * @group Other
  * @since 1.0.0
- * @param value
+ * @param value The value to inspect.
+ * @returns The native type string as a member of {@link TYPE}.
  * @example
  * typeOf(1); // => "number"
+ * typeOf(null); // => "object"
  */
 // oxlint-disable-next-line typescript/no-unnecessary-type-parameters -- Preserve the public generic signature.
 export function typeOf<Value>(value: Value): TYPE {

@@ -1,14 +1,18 @@
 import { OBJECT_PROTOTYPE } from "./constants/index.js";
 
 /**
- * Converts `value` to a string using `Object.prototype.toString`.
+ * Returns the result of calling `Object.prototype.toString` on a value.
+ *
+ * A string-valued `Symbol.toStringTag` can override the default tag, and
+ * reading that property can invoke a getter or proxy trap.
  * @group Other
  * @since 1.0.0
- * @param value
+ * @param value The value to describe, including primitives and nullish values.
+ * @returns The string in `[object Tag]` form. Host and custom tags can extend
+ * the set of tags listed in {@link OBJECT_STRING_TAG}.
  * @example
  * objectToString({}); // => "[object Object]"
- * @example
- * objectToString(2); // => "[object Number]"
+ * objectToString(null); // => "[object Null]"
  */
 export function objectToString(value: unknown): `[object ${ OBJECT_STRING_TAG }]` {
   // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve the existing enum return type.
@@ -19,7 +23,7 @@ export function objectToString(value: unknown): `[object ${ OBJECT_STRING_TAG }]
  * Standard ECMAScript and Intl tags returned by `Object.prototype.toString`.
  *
  * Host objects and custom `Symbol.toStringTag` values may produce other tags.
- * These tags describe objects; they do not validate their types.
+ * These tags are labels, and a custom tag can resemble a built-in tag.
  * @group Other
  */
 export enum OBJECT_STRING_TAG {

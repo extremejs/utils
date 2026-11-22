@@ -1,5 +1,6 @@
 import { runInNewContext } from "node:vm";
 import lodash from "lodash";
+import PRIMITIVES from "./primitives.js";
 import toArguments from "./to-arguments.js";
 
 const objectsWithoutLength: readonly unknown[] = [
@@ -20,6 +21,8 @@ export const ordinaryObjects: readonly unknown[] = [toArguments(1), ...objectsWi
 export const ordinaryFunctions: readonly unknown[] = [lodash, Array.prototype.slice];
 
 export const nonPrimitiveValues: readonly unknown[] = [...ordinaryObjects, ...ordinaryFunctions, [1, 2, 3]];
+
+export const builtInPredicatePrimitives: readonly unknown[] = [...PRIMITIVES, 0, "", Symbol("x")];
 
 export const nonNumericValues: readonly unknown[] = [
   ...nonPrimitiveValues,
