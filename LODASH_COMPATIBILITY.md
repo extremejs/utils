@@ -75,6 +75,52 @@ Sparse copies, differing string result types, invalid size/count behavior, and e
 
 ## Math
 
+### Arithmetic and aggregates
+
+| Lodash invocation | ExtremeJS invocation | Coverage and migration notes |
+| --- | --- | --- |
+| `_.add(a, b)`, `_.divide(a, b)`, `_.multiply(a, b)`, `_.subtract(a, b)` | `add(a, b)`, `divide(a, b)`, `multiply(a, b)`, `subtract(a, b)` | **Covered** for two numbers. Supply both operands. Lodash also handles omitted operands and accepts nonnumeric operands. |
+| `_.max(numbers)`, `_.min(numbers)` | `max(numbers)`, `min(numbers)` | **Covered** for numeric extrema. ExtremeJS skips holes, propagates `NaN`, and uses `-Infinity` for an empty maximum and `Infinity` for an empty minimum. Lodash skips `NaN` and uses `undefined` when nothing qualifies. ExtremeJS orders the two signed zeros, while Lodash keeps the first tied value. |
+| `_.maxBy(values, selector)`, `_.minBy(values, selector)` | `maxBy`, `maxByFn`, `maxByProperty`, `minBy`, `minByFn`, `minByProperty` | **Partial**. The local exports compute the extreme numeric score. Selecting and returning the original winning element, with Lodash's first-wins tie behavior, needs its own capability. |
+| `_.mean(numbers)` | `mean(numbers)` | **Covered**. Both divide by the full array length and return `NaN` for an empty array. A nonempty array of only holes produces zero in ExtremeJS and `NaN` in Lodash. |
+| `_.meanBy(values, selector)` | `meanBy(values, selector)`, `meanByFn(values, callback)`, `meanByProperty(values, path)` | **Covered** for numeric averages by callback or property path. Both divide by the full length. ExtremeJS skips holes during summation and treats missing or nullish properties as zero. Lodash skips `undefined` results and adds `null` as a value. When every lookup in a nonempty array yields `undefined`, ExtremeJS returns zero and Lodash returns `NaN`. |
+| `_.sum(numbers)` | `sum(numbers)` | **Covered**. Both return zero for an empty array and propagate `NaN`. A nonempty array of only holes yields zero in ExtremeJS and `undefined` in Lodash. |
+
+Use the `By` exports with a callback or property path, `ByFn` with a callback, and `ByProperty` with a path. Both libraries pass a single element to callbacks. ExtremeJS requires a selector and skips sparse holes. Lodash defaults to identity and supplies `undefined` for holes. ExtremeJS uses its [`get`](src/get.ts) path syntax and reads nested values when both a dotted literal key and the matching path exist. Lodash prefers the literal key. For `maxBy*` and `minBy*`, missing and nullish properties contribute the corresponding infinity sentinel in ExtremeJS. Lodash skips them. ExtremeJS starts sums at positive zero, so Lodash can preserve negative zero where `sum`, `mean`, or `meanBy*` returns positive zero.
+
+For a dense array with comparable numeric scores, apply the callback again to the returned Lodash element or look up the winning property to obtain its score. When both signed zeros tie, Lodash keeps the first element, while ExtremeJS prefers positive zero for a maximum and negative zero for a minimum. For example, `maxBy([{ score: 1 }, { score: 3 }], "score")` yields `3` in ExtremeJS and `{ score: 3 }` in Lodash. The extra read or callback can be observable. A callback used this way should be pure, and the two libraries' empty, sparse, and `NaN` cases still need their own handling.
+
+### Missing math capabilities
+
+The [Lodash Math API](https://lodash.com/docs/4.18.1#add) also includes `ceil`, `floor`, and `round`. ExtremeJS has no dedicated precision-aware rounding exports.
+
+### Upstream scenario decisions
+
+Each mapped export has a colocated `lodash compatibility` suite. Scenarios outside the typed input contracts are recorded here.
+
+| Lodash 4.18.1 scenario source | Coverage and decision |
+| --- | --- |
+| [`add`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L1170-L1187), [`divide`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L5055-L5072), [`multiply`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L16009-L16026), and [`subtract`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L21397-L21414) | Covers the positive and negative numeric operand pairs. String concatenation or conversion is outside the two-number contract. |
+| [Shared arithmetic scenarios](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L21418-L21496) | Covers signed-zero results with two numeric operands and adds division by zero and `NaN` cases. Omitted or `undefined` operands (including single-operand signed zero), object and symbol conversion, and wrapped calls exceed the local contracts. |
+| [`max`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L14566-L14595) and [`min`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L15662-L15691) | Covers numeric arrays, empty results, and the sparse, signed-zero, and `NaN` differences. Missing arguments, falsy non-arrays, and strings in the array fall outside the numeric array contract. |
+| [Shared extrema scenarios](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L15695-L15772) | Covers large arrays, negative callback scores, direct keys, array indices, and infinite tied scores. Uses string array indices in both APIs to fit the public types. The date-object comparisons require comparing nonnumeric scores or returning the date itself. Chained single-element calls require wrapper support. |
+| [Shared iteration scenarios](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L6856-L7133) | For `maxBy` and `minBy` callbacks, checks unary arguments, iteration across sparse arrays, and ignoring custom array properties. Implicit and explicit wrapper cases are deferred. |
+| [`mean` and `meanBy`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L14599-L14654) | Covers numeric averages, empty arrays, unary callback arguments, direct keys, and string array indices. Other empty or falsy values exceed the local array contract. Added nested paths, sparse inputs, and missing and nullish property tests. |
+| [`sum`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L21539-L21581) | Covers numeric totals, empty arrays, and `NaN` propagation. Explicit `undefined` entries, strings, and non-array inputs fall outside `number[]`. Actual sparse holes and signed zero have separate comparisons. The `sumBy` section below covers its own cases. |
+| [Lodash iteratee shorthands](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L12144-L12204) | Object and property-value pair selectors produce boolean match results. They fall outside the local numeric callback and property-path contracts. |
+| [Global iteratee overrides](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L12560-L12595), [wrapped results](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L26717-L26895), and [falsy arguments](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L27069-L27159) | ExtremeJS has no global iteratee override. Wrapper scenarios are deferred. Unsupported falsy inputs are outside the typed signatures. |
+
+### Maintainer decisions and follow-ups
+
+- **Extrema.** Should element selection ship as a separate API with first-wins ties? The existing `maxBy*` and `minBy*` numeric results cannot identify the winning record.
+- **Numeric selector types.** As in the `sumBy` pilot, the generic `By` signatures can accept callbacks whose results are nonnumeric, and property selectors can point to nonnumeric values. Should the extrema and mean selector types be tightened together with `sumBy`? An accepted `undefined` callback result can produce `NaN`, while Lodash skips it. These are candidates for a type follow-up.
+
+### Arithmetic and aggregate benchmarks
+
+Run `pnpm bench` or target a colocated file such as `pnpm bench src/max-by.bench.ts`. Arithmetic benchmarks use two numbers. The array benchmarks use 32 and 2,048 dense entries, and property selectors use the same nested path. For `maxBy*` and `minBy*`, the test title identifies the extra callback or path lookup timed in the Lodash row. The benchmark helper verifies both returned scores before timing.
+
+The fixtures exclude inputs that select different scores or require different traversal, including empty or sparse extrema, `NaN` scores, signed-zero differences, and ambiguous dotted keys. No same-result local pair exists for returning the winning record or for the missing Lodash entries.
+
 ### `_.sumBy`
 
 **Covered** for summing numeric values selected by a callback or property path.
@@ -124,3 +170,14 @@ Import [`benchmark`](test/benchmark.ts) from `#test` and call `benchmark(context
 Vitest reports throughput in `hz` and ranks its rows by mean latency. The annotation compares throughput against the baseline. When color is enabled, a faster baseline is shown in green, a slower baseline in red, and a tie in plain text. A solo run shows the standard table alone.
 
 The workloads use dense arrays with numeric values at every path so both libraries perform equivalent work. Sparse arrays, missing-only paths, and ambiguous dotted keys can produce different observable results and are excluded from timing.
+
+## Number
+
+The [Lodash Number API](https://lodash.com/docs/4.18.1#clamp) entries `clamp`, `inRange`, and `random` are **Missing**. `isPositive` only checks sign, with distinct results for signed zero. `isIndex` checks an integer index within a bound. Lodash's `inRange` checks a general numeric interval and can also accept fractions, so it serves a different use case.
+
+`isEven`, `isOdd`, `isPositive`, and `isIndex` have no public Lodash counterparts or paired benchmarks. The pinned [private `isIndex` test cases](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L931-L971) inform the local tests for canonical decimal strings, fractions, negative indices, and the exclusive length bound. Calling a private Lodash module or combining public predicates would measure a different API.
+
+### Maintainer decisions and follow-ups
+
+- **Parity.** `isOdd(-3)` currently returns `false` because the signed remainder is `-1`. Should negative odd integers return `true`, as they do under the usual parity definition? The existing tests leave that decision open.
+- **Index validation.** Should `isIndex` explicitly accept only numbers and canonical decimal strings, returning `false` for other inputs? The `unknown` parameter permits calls such as `isIndex(1n)`, which throws during remainder calculation. Coercion can also accept objects such as `[1]`. Those cases need a contract decision before adding regression expectations.
