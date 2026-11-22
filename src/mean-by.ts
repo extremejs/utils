@@ -2,20 +2,32 @@ import { type IterateeT } from "./iteratee.js";
 import { sumBy } from "./sum-by.js";
 
 /**
- * It will iterate through each element of the provided `values` array
- * and add the result of invoking `iteratee` function/property for each element to produce the desired `sum`,
- * to then be divided by the `values.length` to produce the desired `mean`.
+ * Averages numbers selected by a callback or property path.
+ * Starts the sum at positive zero and divides by the full array length.
+ * Skips sparse array holes during summation and leaves the array unchanged.
+ *
+ * Corresponds to Lodash's `meanBy(values, callback)` and `meanBy(values, path)`.
+ * Lodash defaults to an identity selector and starts the sum with the first
+ * defined value, which can preserve negative zero.
+ *
+ * Both pass only the current element to the callback. Lodash also visits holes
+ * with `undefined`. Callback exceptions propagate.
+ *
+ * Property selectors follow ExtremeJS {@link get} paths. Dotted paths traverse
+ * nested properties even when a matching literal key exists. Missing or
+ * nullish properties count as `0`. Lodash skips `undefined` and uses `null` in the sum. If every lookup yields
+ * `undefined` on nonempty input, Lodash returns `NaN`.
+ *
  * @group Math
  * @since 1.0.0
- * @param values The array to iterate over.
- * @param iteratee The function/property to get the value per element.
- * @returns The mean value.
+ * @param values The array of elements to visit.
+ * @param iteratee A required callback returning a number, or a key or path to a numeric property.
+ * @returns The arithmetic mean, or `NaN` for an empty array or a selected `NaN`.
+ * @see {@link https://lodash.com/docs/4.18.1#meanBy | Lodash meanBy}
  * @example
- * meanBy([1, 2, 3], number => number); // => 2
+ * meanBy([{ score: 1 }, { score: 3 }], record => record.score); // => 2
  * @example
- * meanBy([{ a: 1 }, { a: 2 }, { a: 3 }], ({ a }) => a); // => 2
- * @example
- * meanBy([{ a: 1 }, { a: 2 }, { a: 3 }], "a"); // => 2
+ * meanBy([{ score: 1 }, { score: 3 }], "score"); // => 2
  */
 export function meanBy<Value>(values: Value[], iteratee: IterateeT<Value>): number {
   return sumBy(values, iteratee) / values.length;

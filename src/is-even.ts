@@ -1,14 +1,13 @@
 /**
- * It will determine whether the provided `number` is an even number or not.
+ * Checks whether a number is divisible by two.
+ *
  * @group Number
  * @since 1.0.0
- * @param number
+ * @param number The number to check.
+ * @returns Whether the remainder after division by two is zero. Both signed zeros pass.
+ * Fractions, infinities, and `NaN` fail.
  * @example
- * isEven(2); // => true
- * @example
- * isEven(6.0); // => true
- * @example
- * isEven(3); // => false
+ * isEven(-2); // => true
  * @example
  * isEven(2.2); // => false
  */

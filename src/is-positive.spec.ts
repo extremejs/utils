@@ -14,3 +14,7 @@ it("should check if number is positive", () => {
 
   expect(isPositive(-Infinity)).toBe(false);
 });
+
+it("should reject NaN", () => {
+  expect(isPositive(Number.NaN)).toBe(false);
+});
