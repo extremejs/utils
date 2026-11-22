@@ -1,13 +1,13 @@
 /**
- * It will determine whether the provided `value` is undefined or not.
+ * Checks whether a value is strictly equal to `undefined`.
+ *
  * @group Other
  * @since 1.0.0
- * @param value
+ * @param value The value to check.
+ * @returns `true` only for `undefined`.
+ * @see {@link https://lodash.com/docs/4.18.1#isUndefined | Lodash isUndefined} as `_.isUndefined(value)`.
  * @example
  * isUndefined(undefined); // => true
- * @example
- * isUndefined(void 0); // => true
- * @example
  * isUndefined(null); // => false
  */
 export function isUndefined(value: unknown): value is undefined {

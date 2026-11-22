@@ -19,7 +19,7 @@ it("should determine whether the provided value is a string or not", () => {
 
 describe("lodash compatibility", () => {
   // oxlint-disable-next-line unicorn/new-for-builtins -- Include a boxed string.
-  it.each(["a", "", Object("a")])("recognizes string value %j", (value: unknown) => {
+  it.each(["a", "", Object("a"), Object("")])("recognizes string value %j", (value: unknown) => {
     expect(isString(value)).toBe(true);
     expect(lodash.isString(value)).toBe(true);
   });
