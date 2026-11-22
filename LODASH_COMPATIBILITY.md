@@ -39,11 +39,12 @@ The current `sumBy` type permits callbacks that return `undefined`, and both pro
 
 ```sh
 pnpm bench
-pnpm bench benchmarks/sum-by.bench.ts
-pnpm bench benchmarks/sum-by.bench.ts -t sumByFn
+pnpm bench src/sum-by.bench.ts
+pnpm bench src/sum-by-fn.bench.ts
+pnpm bench src/sum-by-property.bench.ts
 ```
 
-The [benchmark](benchmarks/sum-by.bench.ts) compares each mapped call form on the same 32- and 2,048-record arrays. Each pair uses the same callback or nested path and checks both results against the expected total before timing. The command builds ExtremeJS and loads its compiled JavaScript in Node, alongside the installed Lodash package.
+The benchmarks sit alongside their implementations. [`sumBy`](src/sum-by.bench.ts) covers both selector forms, [`sumByFn`](src/sum-by-fn.bench.ts) covers callbacks, and [`sumByProperty`](src/sum-by-property.bench.ts) covers property paths. Each comparison uses the same 32- and 2,048-record inputs and checks both results against the expected total before timing. The command builds ExtremeJS and loads its compiled JavaScript in Node, alongside the installed Lodash package.
 
 Use [`runBenchmark`](test/benchmark.ts) to register a baseline and any alternatives with Vitest. Use the exact package names as labels. The annotation compares throughput using the standard table's `hz` column. Vitest ranks its rows by mean latency. A solo run shows the standard table alone.
 

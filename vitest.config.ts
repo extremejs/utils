@@ -19,6 +19,7 @@ export default defineConfig(({ mode }): ViteUserConfig => ({
       include         : ["src/**/*.ts"],
       exclude         : [
         "src/**/*.d.ts",
+        "src/**/*.bench.ts",
         "src/**/*.spec.ts",
       ],
       thresholds: {

@@ -29,7 +29,6 @@
   },
   "include": [
     ".pnpmfile.mjs",
-    "benchmarks",
     "src",
     "test",
     "scripts",
