@@ -1,27 +1,45 @@
 import * as utils from "@extremejs/utils";
 import lodash from "lodash";
 import { describe, test } from "vitest";
-import { SUM_BY_INPUT_SIZES, compareSumBy, sumByInput } from "../test/sum-by-benchmark.js";
+import { runBenchmark } from "../test/benchmark.js";
 
 const { sumBy } = utils;
 const { sumBy: lodashSumBy } = lodash;
 
-describe.each(SUM_BY_INPUT_SIZES)("%i records", (size) => {
-  const { expected, path, selectPoints, values } = sumByInput(size);
+function selectPoints({ metrics }: { metrics: { points: number; }; }): number {
+  return metrics.points;
+}
 
-  test("sumBy callback", async (context) => {
-    await compareSumBy(context, {
-      expected,
+describe.each([32, 2048])("%i records", (size) => {
+  const values = Array.from({ length: size }, (_, index) => ({ metrics: { points: index + 1 } }));
+  const expected = size * (size + 1) / 2;
+  const path = "metrics.points";
+
+  test.for([
+    {
+      name   : "sumBy callback",
       extreme: () => sumBy(values, selectPoints),
       lodash : () => lodashSumBy(values, selectPoints),
-    });
-  });
-
-  test("sumBy property", async (context) => {
-    await compareSumBy(context, {
-      expected,
+    },
+    {
+      name   : "sumBy property",
       extreme: () => sumBy(values, path),
       lodash : () => lodashSumBy(values, path),
-    });
+    },
+  ])("$name", async (workload, context) => {
+    context.expect(workload.extreme()).toBe(expected);
+    context.expect(workload.lodash()).toBe(expected);
+
+    await runBenchmark(
+      context,
+      {
+        name: "@extremejs/utils",
+        run : workload.extreme,
+      },
+      {
+        name: "lodash",
+        run : workload.lodash,
+      },
+    );
   });
 });

@@ -1,19 +1,29 @@
 import * as utils from "@extremejs/utils";
 import lodash from "lodash";
 import { describe, test } from "vitest";
-import { SUM_BY_INPUT_SIZES, compareSumBy, sumByInput } from "../test/sum-by-benchmark.js";
+import { runBenchmark } from "../test/benchmark.js";
 
 const { sumByProperty } = utils;
 const { sumBy: lodashSumBy } = lodash;
 
-describe.each(SUM_BY_INPUT_SIZES)("%i records", (size) => {
-  const { expected, path, values } = sumByInput(size);
+describe.each([32, 2048])("%i records", (size) => {
+  const values = Array.from({ length: size }, (_, index) => ({ metrics: { points: index + 1 } }));
+  const expected = size * (size + 1) / 2;
+  const path = "metrics.points";
 
   test("sumByProperty property", async (context) => {
-    await compareSumBy(context, {
-      expected,
-      extreme: () => sumByProperty(values, path),
-      lodash : () => lodashSumBy(values, path),
-    });
+    const extreme = {
+      name: "@extremejs/utils",
+      run : (): number => sumByProperty(values, path),
+    };
+    const reference = {
+      name: "lodash",
+      run : (): number => lodashSumBy(values, path),
+    };
+
+    context.expect(extreme.run()).toBe(expected);
+    context.expect(reference.run()).toBe(expected);
+
+    await runBenchmark(context, extreme, reference);
   });
 });
