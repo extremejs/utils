@@ -1,10 +1,7 @@
-import * as utils from "@extremejs/utils";
-import lodash from "lodash";
+import { sumBy } from "@extremejs/utils";
+import { sumBy as lodashSumBy } from "lodash";
 import { describe, test } from "vitest";
-import { runBenchmark } from "../test/benchmark.js";
-
-const { sumBy } = utils;
-const { sumBy: lodashSumBy } = lodash;
+import { benchmark } from "#test";
 
 function selectPoints({ metrics }: { metrics: { points: number; }; }): number {
   return metrics.points;
@@ -17,29 +14,32 @@ describe.each([32, 2048])("%i records", (size) => {
 
   test.for([
     {
-      name   : "sumBy callback",
-      extreme: () => sumBy(values, selectPoints),
-      lodash : () => lodashSumBy(values, selectPoints),
+      description: "by callback",
+      workload   : [
+        {
+          run: (): number => sumBy(values, selectPoints),
+        },
+        {
+          name: "lodash",
+          run : (): number => lodashSumBy(values, selectPoints),
+        },
+      ] as const,
     },
     {
-      name   : "sumBy property",
-      extreme: () => sumBy(values, path),
-      lodash : () => lodashSumBy(values, path),
+      description: "by property",
+      workload   : [
+        {
+          run: (): number => sumBy(values, path),
+        },
+        {
+          name: "lodash",
+          run : (): number => lodashSumBy(values, path),
+        },
+      ] as const,
     },
-  ])("$name", async (workload, context) => {
-    context.expect(workload.extreme()).toBe(expected);
-    context.expect(workload.lodash()).toBe(expected);
-
-    await runBenchmark(
-      context,
-      {
-        name: "@extremejs/utils",
-        run : workload.extreme,
-      },
-      {
-        name: "lodash",
-        run : workload.lodash,
-      },
-    );
-  });
+  ])("$description", async ({ workload }, context) => benchmark(
+    context,
+    expected,
+    workload,
+  ));
 });

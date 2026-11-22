@@ -1,8 +1,12 @@
 import type { BenchFn, TestContext } from "vitest";
+import pkg from "../package.json" with { type: "json" };
 
-interface Implementation {
+interface BaseLineImplementation {
+  run: BenchFn;
+}
+
+interface Implementation extends BaseLineImplementation {
   name: string;
-  run : BenchFn;
 }
 
 interface BenchmarkResult {
@@ -32,7 +36,7 @@ export function formatBenchmarkComparison(
   const nameWidth = Math.max(label.length, ...alternatives.map(({ name }) => name.length));
 
   return [
-    `${ label.padEnd(nameWidth) }  ${ baseline.name } advantage`,
+    `${ label.padEnd(nameWidth) }  ${ pkg.name } advantage`,
     ...alternatives.map(({ name, throughput }) => {
       const comparison = formatComparison(baseline.throughput.mean, throughput.mean);
 
@@ -41,21 +45,29 @@ export function formatBenchmarkComparison(
   ];
 }
 
-export async function runBenchmark(
-  { annotate, bench }: Pick<TestContext, "annotate" | "bench">,
-  baseline: Implementation,
-  ...alternatives: Implementation[]
+export async function benchmark(
+  { annotate, bench, expect }: TestContext,
+  expected: unknown,
+  workload: readonly [BaseLineImplementation, ...Implementation[]],
 ): Promise<void> {
-  const reference = bench(baseline.name, baseline.run);
+  const [baseline, ...alternatives] = workload;
+
+  expect(baseline).toBeDefined();
+
+  for (const { run } of workload) expect(run()).toBe(expected);
+
+  const reference = bench(pkg.name, baseline.run);
 
   if (alternatives.length === 0) {
     await reference.run();
+
     return;
   }
 
   const results = await bench.compare(reference, ...alternatives.map(({ name, run }) => bench(name, run)));
+
   const rows = formatBenchmarkComparison(
-    results.get(baseline.name),
+    results.get(pkg.name),
     alternatives.map(({ name }) => results.get(name)),
   );
 

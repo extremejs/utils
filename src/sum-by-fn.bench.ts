@@ -1,10 +1,7 @@
-import * as utils from "@extremejs/utils";
-import lodash from "lodash";
+import { sumByFn } from "@extremejs/utils";
+import { sumBy as lodashSumBy } from "lodash";
 import { describe, test } from "vitest";
-import { runBenchmark } from "../test/benchmark.js";
-
-const { sumByFn } = utils;
-const { sumBy: lodashSumBy } = lodash;
+import { benchmark } from "#test";
 
 function selectPoints({ metrics }: { metrics: { points: number; }; }): number {
   return metrics.points;
@@ -14,19 +11,13 @@ describe.each([32, 2048])("%i records", (size) => {
   const values = Array.from({ length: size }, (_, index) => ({ metrics: { points: index + 1 } }));
   const expected = size * (size + 1) / 2;
 
-  test("sumByFn callback", async (context) => {
-    const extreme = {
-      name: "@extremejs/utils",
-      run : (): number => sumByFn(values, selectPoints),
-    };
-    const reference = {
+  test("by callback", async context => benchmark(context, expected, [
+    {
+      run: (): number => sumByFn(values, selectPoints),
+    },
+    {
       name: "lodash",
       run : (): number => lodashSumBy(values, selectPoints),
-    };
-
-    context.expect(extreme.run()).toBe(expected);
-    context.expect(reference.run()).toBe(expected);
-
-    await runBenchmark(context, extreme, reference);
-  });
+    },
+  ]));
 });
