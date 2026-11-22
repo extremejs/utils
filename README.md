@@ -27,6 +27,7 @@ aiming to be high performance while having minimal size impact.
   - [Yarn](#yarn)
 - [Usage](#usage)
   - [Notes](#notes)
+- [Lodash compatibility](#lodash-compatibility)
 - [Versioning](#versioning)
 - [Authors](#authors)
 - [License](#license)
@@ -79,6 +80,10 @@ const sum4 = sumBy([{ a: 1 }, { a: 2 }, { a: 3 }], "a"); // => 6
 2. The methods do not type check at runtime
    (e.g. The `Array` `chunk` method assumes the `size` parameter is always a valid positive integer)
    so make sure you pass the correct values based on the `documents`/`typescript` types.
+
+## Lodash compatibility
+
+The [compatibility inventory](https://github.com/extremejs/utils/blob/main/LODASH_COMPATIBILITY.md) maps Lodash calls to ExtremeJS, documents behavior differences, and lists the benchmark commands.
 
 ## Versioning
 
