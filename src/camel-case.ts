@@ -6,10 +6,16 @@ import { tail } from "./tail.js";
 import { upperCase } from "./upper-case.js";
 
 /**
- * It will convert the given `string` to [camel case](https://en.wikipedia.org/wiki/CamelCase).
+ * Formats the ASCII letter and digit runs in a string as camel case.
+ * Case transitions, digits, and punctuation can mark word boundaries.
+ *
  * @group String
  * @since 1.0.0
- * @param string
+ * @param string The source string.
+ * @returns A lowercase initial word followed by capitalized words without separators. If there are no matches,
+ * returns an empty string.
+ * @see {@link https://lodash.com/docs/4.18.1#camelCase | Lodash camelCase} as `_.camelCase(string)`. Lodash also
+ * recognizes Unicode words and emoji, deburrs Latin letters, and joins the parts of contractions.
  * @example
  * camelCase("some_database_field_name"); // => "someDatabaseFieldName"
  * @example

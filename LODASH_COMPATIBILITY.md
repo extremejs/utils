@@ -181,3 +181,61 @@ The [Lodash Number API](https://lodash.com/docs/4.18.1#clamp) entries `clamp`, `
 
 - **Parity.** `isOdd(-3)` currently returns `false` because the signed remainder is `-1`. Should negative odd integers return `true`, as they do under the usual parity definition? The existing tests leave that decision open.
 - **Index validation.** Should `isIndex` explicitly accept only numbers and canonical decimal strings, returning `false` for other inputs? The `unknown` parameter permits calls such as `isIndex(1n)`, which throws during remainder calculation. Coercion can also accept objects such as `[1]`. Those cases need a contract decision before adding regression expectations.
+
+## String
+
+The [Lodash String category](https://lodash.com/docs/4.18.1#camelCase) is mapped below by capability. The table also includes `isString` from Lodash's Lang category because ExtremeJS groups it with its string utilities. The transformations and searches take a string as input. Lodash also accepts inputs that it can coerce to strings.
+
+| Lodash invocation | ExtremeJS invocation | Coverage and migration notes |
+| --- | --- | --- |
+| `_.camelCase(string)`, `_.kebabCase(string)`, `_.snakeCase(string)` | `camelCase(string)`, `kebabCase(string)`, `snakeCase(string)` | **Covered** for formatting ASCII letter and digit runs. Lodash recognizes Unicode words and emoji, deburrs Latin letters, joins contraction suffixes, and recognizes ordinals as words. |
+| `_.capitalize(string)` | `capitalize(string)` | **Covered** for lowercasing the full string and capitalizing its beginning. ExtremeJS uppercases the first UTF-16 code unit, while Lodash can uppercase an astral letter at the start. |
+| `_.lowerFirst(string)`, `_.upperFirst(string)` | `lowerFirst(string)`, `upperFirst(string)` | **Covered** for changing case at the start while preserving the remainder. ExtremeJS cases the first UTF-16 code unit, while Lodash can case an entire astral letter. |
+| `_.toLower(string)`, `_.toUpper(string)` | `lowerCase(string)`, `upperCase(string)` | **Covered** for whole-string case conversion. Spacing and separators are preserved. |
+| `_.startsWith(string, target, position)`, `_.endsWith(string, target, position)` | `startsWith(string, searchString, position)`, `endsWith(string, searchString, endPosition)` | **Covered** for case-sensitive literal matches with numeric UTF-16 offsets. The defaults are zero for the start and the string length for the end. |
+| `_.repeat(string, n)` | `repeat(string, count)` | **Covered** for repetition with an explicit count. Lodash defaults to one copy and returns an empty string for negative counts. ExtremeJS requires a count and throws for negative counts after truncation. |
+| `_.replace(string, pattern, replacement)` | `replace(string, searchValue, replaceValue, all)` | **Covered** for literal and regex patterns and string or callback replacements. ExtremeJS also has an `all` flag for literal replacement. To replace every occurrence of a nonempty literal in Lodash, pass an escaped global regex. |
+| `_.split(string, separator, limit)` | `split(string, separator, limit)` | **Covered** for splitting on explicit text or regular expressions. When the separator is omitted, ExtremeJS splits into UTF-16 code units and Lodash returns the whole string in an array. For an explicit empty separator, Lodash preserves Unicode symbols. |
+| `_.isString(value)` | `isString(value)` | **Covered** for primitive strings and same-realm boxed strings. Lodash also recognizes boxed strings from another realm. |
+
+`LETTER_CASE_REGEX` is an ExtremeJS-specific export for matching ASCII letter and digit runs. It underlies the local word case formatters. Lodash's `words` returns a token array with a different tokenizer and an optional caller-supplied pattern.
+
+### Missing capabilities
+
+| Lodash capability | Missing Lodash entries |
+| --- | --- |
+| Rebuild a string as space-separated words in a specified case | `lowerCase`, `upperCase`, `startCase` |
+| Normalize accents and extract words | `deburr`, `words` |
+| HTML and regex escaping | `escape`, `unescape`, `escapeRegExp` |
+| Pad and trim text, optionally with a custom character set | `pad`, `padEnd`, `padStart`, `trim`, `trimEnd`, `trimStart` |
+| Parse integers and truncate text | `parseInt`, `truncate` |
+| Compile templates | `template` |
+
+The Array and Collection section covers the string overloads of `first`, `last`, `head`, `tail`, `slice`, `drop`, and `dropRight`, along with the array-to-string utility `join`.
+
+### Upstream scenario decisions
+
+| Lodash 4.18.1 scenario source | Coverage and decision |
+| --- | --- |
+| [Shared case methods](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L2220-L2354) and [camelCase](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L2358-L2387) | Covers ASCII separators and case transitions, a second conversion pass, numbers and acronyms in camel case, and ignoring mathematical operators. Representative accented text, emoji, straight and curly apostrophes, and ordinals show both tokenization outcomes. The full upstream deburring and contraction matrices test normalization that the ASCII tokenizer does not provide. Cycling through all case methods requires Lodash's space-separated variants. |
+| [Whole-string conversion](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L23458-L23483) and [word-converting lowerCase](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L13256-L13266) and [upperCase](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L25496-L25506) | Covers the `toLower` and `toUpper` punctuation examples and Unicode conversion. The similarly named Lodash word formatters are exercised to show their different results. |
+| [capitalize](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L2391-L2401), [lowerFirst](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L13270-L13280), and [upperFirst](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L25510-L25520) | Covers the upstream ASCII inputs, empty strings, first-position behavior, and a cased astral letter. Capitalizing an emoji leaves it intact in both libraries. |
+| [endsWith](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L5413-L5472) and [startsWith and shared matching cases](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L21258-L21362) | Covers positive and negative matches, optional positions, numeric clamping and truncation, empty targets, and UTF-16 indexing. Boxed and custom-coercing strings, targets, and positions, plus null, boolean, and string offsets, fall outside the declared parameter types. |
+| [repeat](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L19299-L19353) | Covers explicit counts, empty input, fractional truncation, zero and NaN, and the negative-count difference. Migrating Lodash's omitted-count call requires passing `1` explicitly. Boxed and custom-coercing strings and nonnumeric counts are outside the signature. |
+| [replace](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L19357-L19367) | Covers the upstream literal and global regex examples, plus substitution tokens, replacer arguments, literal replace-all, and the global-flag requirement in all mode. |
+| [split](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L21126-L21171) and [uncommon symbols](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L24509-L24553) | Covers string and regex delimiters, capture insertion, limits, and empty input. Explicit delimiters preserve adjacent emoji. Omitted and empty separators and limits on Unicode symbol splitting are compared separately because their results differ. The uncommon-symbol assertions for padding, trimming, truncation, sizing, array conversion, and word extraction belong to those methods. |
+| [isString](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L11718-L11759) | Covers primitive and boxed strings, non-string values including null and undefined, and a boxed string from a separate realm. ExtremeJS requires a value argument, so the upstream missing-value check uses explicit `undefined` locally. |
+| [Shared empty inputs](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L26975-L27015) and [case coercion and wrappers](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L2310-L2341) | Empty strings are tested. Missing and nullish string inputs and custom string coercion are outside the transformation signatures. Wrapped mixed string and array calls and implicit or explicit chaining are deferred. The upstream `map` scenarios for `repeat` and `split` depend on Lodash's iteratee-call guard. Use a unary callback and supply the intended count or separator explicitly. |
+
+### Maintainer decisions and follow-ups
+
+- **Word casing.** Should word casing stay ASCII-based or gain a Unicode mode? Should contractions and ordinals retain their current token boundaries? Independently, review acronym runs followed by digits as a possible tokenizer bug. For example, `kebabCase("XML2Parser")` yields `"x-m-l-2-parser"` where Lodash yields `"xml-2-parser"`.
+- **First-letter casing and splitting.** Should the string APIs keep UTF-16 code-unit behavior or work on Unicode symbols for first-letter case conversion and empty-separator splitting? Should splitting with an omitted separator retain the local behavior?
+- **Repetition.** Should the explicit count and native range errors remain the repetition contract, or should an omitted count and negative counts eventually be accepted with Lodash's defaults?
+- **Split and string predicate types.** An unmatched optional regex capture can put `undefined` in the split result despite its `string[]` type. For example, `split("a;b", /(;)|(,)/)` returns `["a", ";", undefined, "b"]`. The `isString` type guard also narrows boxed strings to primitive `string`. Review these signatures as separate follow-ups.
+
+### Benchmarks
+
+Use `pnpm bench src/split.bench.ts` for one utility or `pnpm bench` for the full suite. Every mapping has a colocated pair that validates equal results before timing. Whole-string transforms, splitting, and replacement use short and repeated inputs. Prefix and suffix checks use explicit UTF-16 positions. Repeat supplies the same count to both calls. The replacement pair uses the same global regex, with the local all flag enabled.
+
+Differing Unicode tokenization and splitting, omitted arguments with different defaults, and error paths produce different observable results. The paired timings use equivalent inputs and results. Missing methods and `LETTER_CASE_REGEX` have no public equivalent to time directly.

@@ -3,10 +3,14 @@ import { join } from "./join.js";
 import { lowerCase } from "./lower-case.js";
 
 /**
- * It will convert the given `string` to [kebab case](https://en.wikipedia.org/wiki/Letter_case#Special_case_styles).
+ * Formats the ASCII letter and digit runs in a string as kebab case.
+ * Case transitions, digits, and punctuation can mark word boundaries.
+ *
  * @group String
  * @since 1.0.0
- * @param string
+ * @param string The source string.
+ * @returns Lowercase words separated by hyphens. If there are no matches, returns an empty string.
+ * @see {@link https://lodash.com/docs/4.18.1#kebabCase | Lodash kebabCase} as `_.kebabCase(string)`. Lodash also recognizes Unicode words and emoji, deburrs Latin letters, and joins the parts of contractions.
  * @example
  * kebabCase("camelCase"); // => "camel-case"
  * @example

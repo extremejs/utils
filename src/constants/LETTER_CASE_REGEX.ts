@@ -23,4 +23,12 @@
  *
  */
 
+/**
+ * The global pattern used by the case formatters to find ASCII letter and digit runs.
+ * Use it with `String.prototype.match` to collect all runs.
+ *
+ * @group String
+ * @example
+ * "parseHTTPResponse2".match(LETTER_CASE_REGEX); // => ["parse", "HTTP", "Response", "2"]
+ */
 export const LETTER_CASE_REGEX = /[A-Z]{2,}(?=[A-Z][a-z]+\d*|\b)|[A-Z]?[a-z]+|[A-Z]|\d+/g;

@@ -1,9 +1,15 @@
 /**
- * It will repeat the given `string`, by `count` times.
+ * Repeats a string using JavaScript's native repetition rules.
+ *
  * @group String
  * @since 1.0.0
- * @param string
- * @param count
+ * @param string The string to repeat.
+ * @param count The required number of copies. Fractions are truncated toward zero. NaN acts as zero.
+ * @returns The concatenated copies, or an empty string when the count truncates to zero.
+ * @throws `RangeError` if the truncated count is negative, the count is infinite, or the result exceeds the
+ * engine's string length limit.
+ * @see {@link https://lodash.com/docs/4.18.1#repeat | Lodash repeat} as `_.repeat(string, count)`. Lodash
+ * defaults to one copy and returns an empty string for negative counts.
  * @example
  * repeat("*", 3); // => "***"
  * @example
