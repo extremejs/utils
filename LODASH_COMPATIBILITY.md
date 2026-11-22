@@ -350,3 +350,57 @@ The ExtremeJS-only numeric predicates `isEven`, `isOdd`, `isPositive`, and `isIn
 Run `pnpm bench src/is-empty.bench.ts` for one predicate or `pnpm bench` for all. Each mapping has a colocated pair with an expected result checked before timing. Inputs are constructed before timing and include primitive values, functions, and structural values. The emptiness cases cover an empty record and a populated map so that both key lookup and size checks are exercised.
 
 Cases with divergent results, including foreign boxes and collections, custom tags, and boxed `NaN`, are excluded from the paired timings. Missing capabilities and the ExtremeJS-only predicates described above have no direct public API pair.
+
+## Built-in predicates and object introspection
+
+These predicate mappings cover the built-in checks in the [Lodash Lang API](https://lodash.com/docs/4.18.1#isArguments). The realm comparisons use Node.js with the pinned Lodash package. A realm has its own global objects and built-in constructors.
+
+| Lodash invocation | ExtremeJS invocation | Coverage and migration notes |
+| --- | --- | --- |
+| `_.isArguments(value)` | `isArguments(value)` | **Covered** for strict and non-strict arguments objects, including across realms. ExtremeJS reads the `Arguments` tag directly. Lodash attempts to mask custom tags. |
+| `_.isArrayBuffer(value)` | `isArrayBuffer(value)` | **Covered** for local `ArrayBuffer` instances. Both reject array buffer views and `SharedArrayBuffer`. Lodash also recognizes foreign array buffers. |
+| `_.isBuffer(value)` | `isBuffer(value)` | **Partial**. Both recognize Node.js buffers and reject ordinary typed arrays. Hosts without a global `Buffer` need the fallback that Lodash provides. See the follow-up below. |
+| `_.isDate(value)` | `isDate(value)` | **Covered** for local dates, including invalid dates. Lodash also recognizes foreign dates. |
+| `_.isElement(value)` | `isElement(value)` | **Covered**. Both look for `nodeType === 1` and exclude plain objects according to their own plain-object predicate. Element-like class instances can pass. A custom null-prototype root can make the plain-object checks disagree. |
+| `_.isError(value)` | `isError(value)` | **Covered** for local `Error` instances and subclasses, including `DOMException` in Node.js. Lodash also recognizes foreign errors and some non-plain error-like objects. It checks for the `DOMException` tag independently of inheritance. |
+| `_.isRegExp(value)` | `isRegExp(value)` | **Covered** for local regular expressions. Lodash also recognizes foreign regular expressions. |
+| `_.isMap(value)`, `_.isSet(value)` | `isMap(value)`, `isSet(value)` | **Covered** for local maps and sets. Lodash recognizes foreign collections as well. |
+| `_.isWeakMap(value)`, `_.isWeakSet(value)` | `isWeakMap(value)`, `isWeakSet(value)` | **Covered** for local weak collections. Lodash recognizes foreign weak collections as well. |
+| `_.isTypedArray(value)` | `isTypedArray(value)` | **Covered** for ordinary numeric and BigInt typed arrays, including across realms and Node.js buffers. ExtremeJS inspects `length` and the tag. Lodash uses a native check in Node.js. |
+| `_.toString(value)` | | **Missing**. Lodash converts values to strings, including `""` for nullish values and `"-0"` for negative zero. ExtremeJS `objectToString` and `objectToStringTag` report object tags. |
+
+Lodash has no public equivalent for `typeOf` and `isTypeOf` (native `typeof`), `isInstanceOf` (native `instanceof`), `prototypeOf` (native `Object.getPrototypeOf`), or `objectToString` and `objectToStringTag` (native `Object.prototype.toString` and its tag). See [Object, Path, and Iteratee](#object-path-and-iteratee) for `isPrototype`.
+
+### Upstream scenario decisions
+
+| Lodash 4.18.1 scenario source | Coverage and decision |
+| --- | --- |
+| [`isArguments`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L8950-L8995) | Covers strict and non-strict arguments, foreign arguments, and rejection of arrays and arguments-like records with `callee` and `length`. |
+| [`isArrayBuffer`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L9045-L9095) | Covers local buffers, other storage and view types, and both outcomes for foreign array buffers. |
+| [`isBuffer`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L9207-L9258) | Covers Node.js buffers, typed arrays, and array buffers. Lodash's separate build with no `Buffer` returns `false`. The local missing-global case is a bug candidate and is recorded below without making the thrown error a compatibility assertion. |
+| [`isDate`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L9260-L9305) and [`isRegExp`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L11603-L11649) | Covers local dates, regex literals, constructed regexes, nonmatching inputs, and both outcomes for foreign dates and regexes. Prototype-only stand-ins are tracked below. |
+| [`isElement`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L9307-L9379) | Covers a non-plain element-like instance, ordinary records with the upstream `nodeType` variants, and nonmatching instances. A case with a custom null-prototype root asserts both plain-object rules. The `document.body` and iframe cases require a browser DOM, which the Node.js suite lacks. |
+| [`isError`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L10509-L10577) | Covers the upstream native error types, a custom subclass, plain error-like records, and both outcomes for foreign errors. Additional cases cover a Node.js `DOMException` and a non-plain object with error fields. |
+| [`isMap`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L10813-L10876), [`isSet`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L11651-L11716), [`isWeakMap`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L11946-L12011), and [`isWeakSet`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L12013-L12065) | Covers each local collection, the corresponding strong or weak negative case, records with non-function constructors where upstream checks them, and both outcomes for foreign collections. |
+| [`isTypedArray`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L11821-L11887) | Covers every upstream typed array locally and across realms, plus Float16, BigInt arrays, Node.js buffers, and rejection of other views. The supported Node versions supply the constructors, so there are no constructor-unavailable cases in the suite. |
+| [Shared type checks](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L12067-L12113) | Date and RegExp stand-ins with only the corresponding prototype are pending a branding decision. The legacy XML host-object case requires Internet Explorer. |
+| [`toString`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L24089-L24162) | The nullish, signed zero, symbol, and array conversion cases have no local equivalent. The wrapped-value case belongs to deferred chaining. |
+
+For each predicate, the common rejection fixtures cover nonmatching values and use explicit `undefined` for the upstream omitted argument case. The introspection specs exercise the native operations directly through ExtremeJS's public exports.
+
+### Maintainer decisions
+
+- **Constructor checks.** Should array buffers, dates, regular expressions, errors, and collections recognize genuine instances from other realms? `Object.create(Date.prototype)` and `Object.create(RegExp.prototype)` pass the current ExtremeJS checks, while Lodash rejects these upstream stand-ins. Consider whether those checks should require a native brand. For errors, decide whether to include DOM exceptions across hosts and non-plain error-like objects.
+- **Tag and element checks.** Should arguments and typed arrays require a native brand when `Symbol.toStringTag` or `length` can change their result? Should `isElement` keep the `nodeType` heuristic for class instances or require an actual DOM element? This also depends on the [plain-object decision](#primitive-and-structural-predicates).
+- **Return types.** Should `objectToString` and `objectToStringTag` describe host and custom tags in their return types? Should weak-collection guards account for supported symbol keys or values? Review how `isInstanceOf` should narrow functions that provide `Symbol.hasInstance`.
+
+### Suspected bugs and follow-ups
+
+- **Buffer availability.** `Buffer?.isBuffer(value)` can throw `ReferenceError` when the global binding is absent. This also affects callers such as `keys` and `isEmpty`. Verify the intended fallback in a host without `Buffer` when fixing this.
+- **Tag-based type results.** `isArguments({ [Symbol.toStringTag]: "Arguments" })` and `isTypedArray({ length: 1, [Symbol.toStringTag]: "Uint8Array" })` return `true` at runtime, while their conditional types report `false` for those inputs. An own tag can also hide a genuine instance. Custom tag strings can reach the introspection helpers even when their signatures only list `OBJECT_STRING_TAG` values.
+
+### Benchmarks
+
+Run `pnpm bench src/is-typed-array.bench.ts` for one predicate or `pnpm bench` for all. Each of the 12 mapped predicates has a pair that checks the expected boolean before timing. Inputs are created before timing. The Node.js `isElement` pair uses an element-like class instance, so its timing applies to the shared heuristic on that fixture.
+
+Comparisons exclude inputs with differing results, missing `Buffer` globals, and browser DOM fixtures. Lodash has no corresponding public introspection workload or local string-conversion pair.

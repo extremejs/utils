@@ -1,14 +1,16 @@
 import { isInstanceOf } from "./is-instance-of.js";
 
 /**
- * It will determine whether the provided `value` is a RegExp object or not.
+ * Checks whether a value is an instance of the current realm's `RegExp` constructor.
+ *
  * @group RegExp
  * @since 1.0.0
- * @param value
+ * @param value The value to check.
+ * @returns `true` if the local `instanceof RegExp` check succeeds.
+ * @see {@link https://lodash.com/docs/4.18.1#isRegExp | Lodash isRegExp} as `_.isRegExp(value)`. Lodash also recognizes regular expressions from other realms.
  * @example
  * isRegExp(/abc/); // => true
- * @example
- * isRegExp(2); // => false
+ * isRegExp("/abc/"); // => false
  */
 export function isRegExp(value: unknown): value is RegExp {
   return isInstanceOf(value, RegExp);
