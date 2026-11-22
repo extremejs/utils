@@ -1,8 +1,12 @@
 /**
- * It will return the last element of the `value`.
+ * Reads index `value.length - 1` of an array or string. On strings, this
+ * reads one UTF-16 code unit.
+ *
  * @group Collection
  * @since 1.0.0
- * @param value
+ * @param value The array or string to query.
+ * @returns The final element or code unit, or `undefined` for ordinary empty inputs.
+ * @see {@link https://lodash.com/docs/4.18.1#last | Lodash last} as `_.last(value)`.
  * @example
  * last([0, 1, 2, 3, 4, 5]); // => 5
  * @example
@@ -15,7 +19,7 @@ export function last<Value extends unknown[] | string>(value: Value): LastT<Valu
 }
 
 /**
- *
+ * The result type of {@link last}, inferred from a tuple, array element type, or string.
  * @group Collection
  */
 export type LastT<Value extends unknown[] | string> = Value extends string

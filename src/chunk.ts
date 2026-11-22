@@ -1,12 +1,16 @@
 import { slice } from "./slice.js";
 
 /**
- * It will create an array of elements, split into groups the length of `size`.
- * If the array can't be split evenly, the final chunk will be the remaining elements.
+ * Splits an array into consecutive groups of up to `size` elements.
+ * The final group can be shorter. Each group is a shallow copy that preserves
+ * sparse holes. Lodash fills those holes with `undefined`.
+ *
  * @group Array
  * @since 1.0.0
- * @param array
- * @param size
+ * @param array The array to split.
+ * @param size A positive integer group size. Defaults to `1`.
+ * @returns A new array of groups, or an empty array for empty input with a valid size.
+ * @see {@link https://lodash.com/docs/4.18.1#chunk | Lodash chunk} as `_.chunk(array, size)` for positive integer sizes.
  * @example
  * chunk([1, 2, 3]); // => [[1], [2], [3]]
  * @example
