@@ -1,6 +1,6 @@
 import { type RecordT } from "./constants/index.js";
-import { type ValueAtT, get } from "./get.js";
-import { type PathT } from "./to-path.js";
+import { type ValueAtT } from "./get.js";
+import { type PathT, toPath } from "./to-path.js";
 
 /**
  * Creates a unary accessor for a property key or path, including inherited properties.
@@ -29,8 +29,12 @@ export function property<
   Property extends PropertyKey,
   Fallback = undefined,
 >(path: Property, fallback?: Fallback): PropertyAccessorT<Property, Fallback> {
-  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve the existing generic return type.
-  return value => get(value, path as never, fallback as never) as never;
+  let parsed: PathT<Property> | undefined;
+
+  return value => (parsed ??= toPath(path))
+
+    // oxlint-disable-next-line typescript/no-explicit-any
+    .reduce<any>((previousValue, currentValue) => previousValue?.[currentValue], value) ?? fallback;
 }
 
 /**
