@@ -35,12 +35,9 @@ it("should treat sparse arrays as dense", () => {
 });
 
 it("should return keys for custom properties on arrays", () => {
-  const array = [1];
+  const array = Object.assign([1], { "a.b[0]": 1 });
 
-  // oxlint-disable-next-line typescript/no-explicit-any typescript/no-unsafe-type-assertion
-  (array as any).a = 1;
-
-  expect(keys(array)).toEqual(["0", "a"]);
+  expect(keys(array)).toEqual(["0", "a.b[0]"]);
 });
 
 it("should not include inherited string keyed properties of arrays", () => {

@@ -15,3 +15,13 @@ test("split a string path", async context => benchmark(context, expected, [
     run : (): string[] => lodashToPath(path),
   },
 ]));
+
+test("copy a string segment array", async context => benchmark(context, expected, [
+  {
+    run: (): string[] => toPath(expected),
+  },
+  {
+    name: "lodash",
+    run : (): string[] => lodashToPath(expected),
+  },
+]));

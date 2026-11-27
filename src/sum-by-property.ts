@@ -28,5 +28,6 @@ export function sumByProperty<Value extends RecordT>(
   values: Value[],
   property: CalculatedPropertyT<CalculatedPathT<Value>>,
 ): number {
-  return sumByFn(values, propertyUtil(property, 0));
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The selector is documented to select a number.
+  return sumByFn(values, propertyUtil(property, 0) as (value: Value) => number);
 }

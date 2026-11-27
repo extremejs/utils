@@ -30,7 +30,7 @@ import { maxByFn } from "./max-by-fn.js";
  * @example
  * maxBy([{ score: 1 }, { score: 3 }], "score"); // => 3
  */
-export function maxBy<Value>(values: Value[], iteratee: IterateeT<Value>): number {
+export function maxBy<Value>(values: Value[], iteratee: Exclude<IterateeT<Value>, readonly PropertyKey[]>): number {
   // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve the existing generic return type.
   return maxByFn(values, iterateeUtil(iteratee, -Infinity as never) as never);
 }

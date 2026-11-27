@@ -46,15 +46,68 @@ describe("lodash compatibility", () => {
     expect(() => lodashHas(value, ["a"])).toThrow("accessed a");
   });
 
-  it("checks a literal key while Lodash can traverse an own path", () => {
-    const literal = { "a.b": 1 };
-    const nested = { a: { b: 2 } };
+  it("traverses string paths and uses explicit segments for literal keys", () => {
+    const value = {
+      "a.b" : 1,
+      "a[c]": 3,
+      "a"   : { b: void 0 },
+      ""    : 4,
+    };
 
-    expect(hasOwn(literal, "a.b")).toBe(true);
-    expect(lodashHas(literal, ["a.b"])).toBe(true);
-    expect(hasOwn(nested, "a.b")).toBe(false);
-    expect(lodashHas(nested, "a.b")).toBe(true);
-    expect(lodashHas(nested, ["a.b"])).toBe(false);
+    expect(hasOwn(value, "a.b")).toBe(lodashHas(value, ["a", "b"]));
+    expect(hasOwn(value, "a[c]")).toBe(false);
+    expect(lodashHas(value, "a[c]")).toBe(true);
+    expect(hasOwn(value, ["a.b"])).toBe(lodashHas(value, ["a.b"]));
+    expect(hasOwn(value, ["a[c]"])).toBe(lodashHas(value, ["a[c]"]));
+    expect(hasOwn(value, [""])).toBe(lodashHas(value, [""]));
+    expect(hasOwn(value, "")).toBe(true);
+    expect(hasOwn(value, [])).toBe(lodashHas(value, []));
+  });
+
+  it("requires an own property at every segment", () => {
+    class Entry {
+
+      public branch: object = Object.create({ leaf: true });
+
+      public get inherited(): object {
+        throw new Error(`inherited getter for ${ this.constructor.name }`);
+      }
+
+    }
+
+    const entries = Array.from({ length: 2 });
+    Reflect.deleteProperty(entries, "0");
+    const value = Object.assign(new Entry(), {
+      entries,
+      missing: null,
+    });
+
+    expect(hasOwn(value, "inherited.leaf")).toBe(false);
+    expect(hasOwn(value, ["branch", "leaf"])).toBe(false);
+    expect(hasOwn(value, ["missing", "leaf"])).toBe(false);
+    expect(hasOwn(value, "entries[0]")).toBe(false);
+    expect(lodashHas(value, "entries[0]")).toBe(true);
+    expect(hasOwn(value, ["entries", 1])).toBe(true);
+  });
+
+  it("reads an intermediate getter once and leaves the final getter untouched", () => {
+    let accesses = 0;
+    const value = {
+      get a() {
+        accesses++;
+
+        return {
+          get b(): never {
+            throw new Error("accessed b");
+          },
+        };
+      },
+    };
+
+    expect(hasOwn(value, ["a", "b"])).toBe(true);
+    expect(accesses).toBe(1);
+    expect(() => hasOwn(value, "a.b.c")).toThrow("accessed b");
+    expect(() => lodashHas(value, ["a", "b"])).toThrow("accessed b");
   });
 
   it("excludes sparse holes and normalizes negative zero to the zero key", () => {

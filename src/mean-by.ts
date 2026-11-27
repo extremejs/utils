@@ -29,6 +29,6 @@ import { sumBy } from "./sum-by.js";
  * @example
  * meanBy([{ score: 1 }, { score: 3 }], "score"); // => 2
  */
-export function meanBy<Value>(values: Value[], iteratee: IterateeT<Value>): number {
+export function meanBy<Value>(values: Value[], iteratee: Exclude<IterateeT<Value>, readonly PropertyKey[]>): number {
   return sumBy(values, iteratee) / values.length;
 }

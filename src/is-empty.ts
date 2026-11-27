@@ -1,5 +1,4 @@
-import { type RecordT } from "./constants/index.js";
-import { hasOwn } from "./has-own.js";
+import { type RecordT, OBJECT_CONSTRUCTOR } from "./constants/index.js";
 import { isArguments } from "./is-arguments.js";
 import { isArrayLike } from "./is-array-like.js";
 import { isArray } from "./is-array.js";
@@ -67,7 +66,7 @@ export function isEmpty(value: unknown): boolean {
   // oxlint-disable-next-line unicorn/explicit-length-check -- Preserve the existing truthiness check.
   if (isPrototype(value)) return !prototypeKeys(value).length;
 
-  for (const key in value as RecordT) if (hasOwn(value as RecordT, key)) return false;
+  for (const key in value as RecordT) if (OBJECT_CONSTRUCTOR.hasOwn(value, key)) return false;
 
   return true;
 }
