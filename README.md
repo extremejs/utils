@@ -65,6 +65,18 @@ const sum3 = sumByProperty([{ a: 1 }, { a: 2 }, { a: 3 }], "a"); // => 6
 const sum4 = sumBy([{ a: 1 }, { a: 2 }, { a: 3 }], "a"); // => 6
 ```
 
+Numeric aggregates require a callback that returns a number or a typed path to a numeric property.
+Use a segment array for literal keys with dots or brackets. To retrieve the original record with
+the greatest or least score, use `maxElementBy` or `minElementBy`.
+
+```typescript
+import { maxElementBy, minElementBy } from "@extremejs/utils";
+
+const teams = [{ name: "A", stats: { score: 3 } }, { name: "B", stats: { score: 1 } }];
+maxElementBy(teams, ["stats", "score"]); // => teams[0]
+minElementBy(teams, team => team.stats.score); // => teams[1]
+```
+
 > API usage documents are available [here](https://extremejs.github.io/utils).
 
 ### Notes

@@ -30,9 +30,9 @@ describe("with function as iteratee", () => {
 
 describe("lodash compatibility", () => {
   it.each([
-    ["sumBy", sumBy],
-    ["sumByFn", sumByFn],
-    ["Lodash sumBy", lodash.sumBy],
+    ["sumBy", sumBy<{ a: number; }>],
+    ["sumByFn", sumByFn<{ a: number; }>],
+    ["Lodash sumBy", lodash.sumBy<{ a: number; }>],
   ] as const)("%s should sum values returned by a unary callback", (_, sum) => {
     const values = [{ a: 2 }, { a: 3 }, { a: 1 }];
     const iteratee = vi.fn(({ a }: { a: number; }) => a);
@@ -98,7 +98,7 @@ describe("lodash compatibility", () => {
   });
 
   it("should treat null properties as zero while Lodash sums null as a value", () => {
-    const values = [{ a: null }];
+    const values: Array<{ a: number | null; }> = [{ a: null }];
 
     expect(sumBy(values, "a")).toBe(0);
     expect(lodash.sumBy(values, "a")).toBeNull();

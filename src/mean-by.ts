@@ -1,5 +1,6 @@
-import { type IterateeT } from "./iteratee.js";
+import { type DefaultPropertyT, type NumericPropertyT } from "./internal/numeric-property.js";
 import { sumBy } from "./sum-by.js";
+import { type PropertyT } from "./to-path.js";
 
 /**
  * Averages numbers selected by a callback or property path.
@@ -18,6 +19,8 @@ import { sumBy } from "./sum-by.js";
  * nullish properties count as `0`. Lodash skips `undefined` and uses `null` in the sum. If every lookup yields
  * `undefined` on nonempty input, Lodash returns `NaN`.
  *
+ * Use a segment array for explicit keys such as `["stats", 0, "score"]`.
+ *
  * @group Math
  * @since 1.0.0
  * @param values The array of elements to visit.
@@ -29,6 +32,9 @@ import { sumBy } from "./sum-by.js";
  * @example
  * meanBy([{ score: 1 }, { score: 3 }], "score"); // => 2
  */
-export function meanBy<Value>(values: Value[], iteratee: Exclude<IterateeT<Value>, readonly PropertyKey[]>): number {
-  return sumBy(values, iteratee) / values.length;
+export function meanBy<Value, const Property extends PropertyT = DefaultPropertyT<Value>>(
+  values: Value[],
+  iteratee: ((value: Value) => number) | (Property & NumericPropertyT<Value, Property>),
+): number {
+  return sumBy<Value, Property>(values, iteratee) / values.length;
 }

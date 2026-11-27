@@ -7,6 +7,8 @@
   "intentionallyNotExported": [
     "src/get.ts:BracketKeyT",
     "src/get.ts:ValueAtKeyT",
+    "src/internal/numeric-property.ts:DefaultPropertyT",
+    "src/internal/numeric-property.ts:NumericPropertyT",
     "src/internal/read-path.ts:FallbackArgsT",
     "src/internal/read-path.ts:ReadResultT",
     "src/to-path.ts:ParsePathT"

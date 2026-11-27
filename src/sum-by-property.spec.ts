@@ -60,7 +60,7 @@ describe("lodash compatibility", () => {
   });
 
   it("should treat null properties as zero while Lodash sums null as a value", () => {
-    const values = [{ a: null }];
+    const values: Array<{ a: number | null; }> = [{ a: null }];
 
     expect(sumByProperty(values, "a")).toBe(0);
     expect(lodash.sumBy(values, "a")).toBeNull();
