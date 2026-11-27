@@ -4,6 +4,13 @@
     "src/index.ts"
   ],
   "entryPointStrategy": "resolve",
+  "intentionallyNotExported": [
+    "src/get.ts:BracketKeyT",
+    "src/get.ts:ValueAtKeyT",
+    "src/internal/read-path.ts:FallbackArgsT",
+    "src/internal/read-path.ts:ReadResultT",
+    "src/to-path.ts:ParsePathT"
+  ],
   "out": "docs",
   "includeVersion": true,
   "searchInComments": true,

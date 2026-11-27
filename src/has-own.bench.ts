@@ -20,10 +20,22 @@ test.for([
   },
 ] as const)("check a literal key $key", async ({ key, expected }, context) => benchmark(context, expected, [
   {
-    run: (): boolean => hasOwn(value, key),
+    run: (): boolean => hasOwn(value, [key]),
   },
   {
     name: "lodash (single-segment path)",
     run : (): boolean => lodashHas(value, [key]),
+  },
+]));
+
+const nested = { a: value.a };
+
+test("check a nested own path", async context => benchmark(context, true, [
+  {
+    run: (): boolean => hasOwn(nested, "a.b"),
+  },
+  {
+    name: "lodash",
+    run : (): boolean => lodashHas(nested, "a.b"),
   },
 ]));

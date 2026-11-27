@@ -28,7 +28,7 @@ import { sumByFn } from "./sum-by-fn.js";
  * @example
  * sumBy([{ a: { b: 1 } }, { a: { b: 2 } }], "a.b"); // => 3
  */
-export function sumBy<Value>(values: Value[], iteratee: IterateeT<Value>): number {
+export function sumBy<Value>(values: Value[], iteratee: Exclude<IterateeT<Value>, readonly PropertyKey[]>): number {
   // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve the existing generic return type.
   return sumByFn(values, iterateeUtil(iteratee, 0 as never) as never);
 }

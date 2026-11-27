@@ -1,5 +1,4 @@
 import { type RecordT, OBJECT_CONSTRUCTOR } from "./constants/index.js";
-import { hasOwn } from "./has-own.js";
 import { isArguments } from "./is-arguments.js";
 import { isArrayLike } from "./is-array-like.js";
 import { isArray } from "./is-array.js";
@@ -52,7 +51,7 @@ export function keys(value: unknown): PropertyKey[] {
       if (
 
         // oxlint-disable-next-line typescript/no-unsafe-type-assertion
-        hasOwn(value as RecordT, key)
+        OBJECT_CONSTRUCTOR.hasOwn(value as RecordT, key)
         && !(
           skipIndexes && (
 

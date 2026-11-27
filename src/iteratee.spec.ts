@@ -1,6 +1,6 @@
-import { iteratee } from "@extremejs/utils";
+import { type IterateeT, iteratee } from "@extremejs/utils";
 import { iteratee as lodashIteratee } from "lodash";
-import { describe, expect, it } from "vitest";
+import { describe, expect, expectTypeOf, it } from "vitest";
 
 describe("with property as iteratee", () => {
   it("should return value of the provided direct property", () => {
@@ -55,6 +55,18 @@ function select(this: { offset: number; }, first: number, ...rest: number[]): nu
   return [this.offset, first, ...rest];
 }
 
+const dynamicShortcutToken = Symbol("dynamic shortcut");
+
+function checkDynamicShortcuts(index: number, key: symbol): void {
+  const numberKey = iteratee(index)({ 0: "zero" });
+  const symbolKey = iteratee(key)({ [dynamicShortcutToken]: "symbol" });
+
+  expect(numberKey).toBe("zero");
+  expect(symbolKey).toBe("symbol");
+  expectTypeOf(numberKey).toEqualTypeOf<string | undefined>();
+  expectTypeOf(symbolKey).toEqualTypeOf<string | undefined>();
+}
+
 describe("lodash compatibility", () => {
   it("preserves the callback identity, arguments, and receiver", () => {
     const local = iteratee(select);
@@ -74,6 +86,25 @@ describe("lodash compatibility", () => {
     expect(iteratee("a")(value)).toBe(lodashIteratee("a")(value));
     expect(iteratee("a[0].b")(value)).toBe(lodashIteratee("a[0].b")(value));
     expect(iteratee("0")(array)).toBe(lodashIteratee("0")(array));
+  });
+
+  it("types numeric and symbol keys and reads segment arrays as paths", () => {
+    const token = Symbol("token");
+    const value = {
+      "0"    : 2,
+      [token]: "symbol",
+      "a.b"  : { "": 3 },
+    };
+
+    expect(iteratee(0)(value)).toBe(lodashIteratee(0)(value));
+    expect(iteratee(token)(value)).toBe(lodashIteratee(token)(value));
+    expect(iteratee(["a.b", ""])(value)).toBe(3);
+    expect(lodashIteratee(["a.b", ""])(value)).toBe(false);
+    expectTypeOf(iteratee(0)(value)).toEqualTypeOf<number>();
+    expectTypeOf(iteratee(token)(value)).toEqualTypeOf<string>();
+    expectTypeOf(iteratee(["a.b", ""])(value)).toEqualTypeOf<number>();
+    expectTypeOf<readonly ["a.b", ""]>().toExtend<IterateeT<typeof value>>();
+    checkDynamicShortcuts(0, dynamicShortcutToken);
   });
 
   it("uses the local path and fallback rules for property shorthands", () => {

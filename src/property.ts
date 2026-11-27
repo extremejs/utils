@@ -1,13 +1,13 @@
 import { type RecordT } from "./constants/index.js";
 import { type ValueAtT } from "./get.js";
-import { type PathT, toPath } from "./to-path.js";
+import { type FallbackArgsT, type ReadResultT, readPath } from "./internal/read-path.js";
+import { type PathT, type PropertyT, toPath } from "./to-path.js";
 
 /**
  * Creates a unary accessor for a property key or path, including inherited properties.
  *
- * The accessor uses {@link get} with the supplied fallback. Pass a string
- * with dot or simple unquoted bracket notation, or a direct numeric or symbol key.
- * The accessor reads the current value each time it is called.
+ * The accessor uses the same path syntax and nullish fallback as {@link get}.
+ * It captures a copy of the path and reads the current value on each call.
  *
  * @group Object
  * @since 1.0.0
@@ -17,7 +17,7 @@ import { type PathT, toPath } from "./to-path.js";
  * @param fallback The result for a missing or nullish value. Defaults to `undefined`.
  * @returns An accessor that takes an object or array.
  * @see {@link https://lodash.com/docs/4.18.1#property | Lodash property} as `_.property(path)`.
- * Lodash accepts segment arrays, prefers existing literal keys, distinguishes numeric
+ * Lodash prefers existing literal keys, distinguishes numeric
  * `-0` from `0`, and returns `null` for a null-valued property. To provide a Lodash
  * fallback at call time, use `value => _.get(value, path, fallback)` for undefined results.
  * @example
@@ -26,15 +26,13 @@ import { type PathT, toPath } from "./to-path.js";
  * readScore({ items: [] }); // => 0
  */
 export function property<
-  Property extends PropertyKey,
+  const Property extends PropertyT,
   Fallback = undefined,
->(path: Property, fallback?: Fallback): PropertyAccessorT<Property, Fallback> {
-  let parsed: PathT<Property> | undefined;
+>(path: Property, ...fallback: FallbackArgsT<Fallback>): PropertyAccessorT<Property, Fallback>;
+export function property(path: PropertyT, fallback?: unknown): (value: RecordT) => unknown {
+  let parsed = typeof path === "object" ? toPath(path) : void 0;
 
-  return value => (parsed ??= toPath(path))
-
-    // oxlint-disable-next-line typescript/no-explicit-any
-    .reduce<any>((previousValue, currentValue) => previousValue?.[currentValue], value) ?? fallback;
+  return value => readPath(value, (parsed ??= toPath(path))) ?? fallback;
 }
 
 /**
@@ -44,6 +42,6 @@ export function property<
  * @typeParam Fallback The fallback type.
  */
 export type PropertyAccessorT<
-  Property extends PropertyKey,
+  Property extends PropertyT,
   Fallback,
-> = <Value extends RecordT>(value: Value) => Fallback | ValueAtT<Value, PathT<Property>>;
+> = <Value extends RecordT>(value: Value) => ReadResultT<ValueAtT<Value, PathT<Property>>, Fallback>;

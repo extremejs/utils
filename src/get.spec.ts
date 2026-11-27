@@ -1,6 +1,13 @@
 import { get } from "@extremejs/utils";
 import { get as lodashGet } from "lodash";
-import { describe, expect, it } from "vitest";
+import { describe, expect, expectTypeOf, it } from "vitest";
+
+function checkNullableFallback(value: { item?: null | { score: number | null; }; }): void {
+  expectTypeOf(get(value, "item.score")).toEqualTypeOf<number | undefined>();
+  expectTypeOf(get(value, ["item", "score"], null)).toEqualTypeOf<number | null>();
+  expectTypeOf(get(value, ["item", "score"], 0)).toEqualTypeOf<number>();
+  expect(get(value, ["item", "score"], 0)).toBe(0);
+}
 
 it("should return value of the provided property in an object", () => {
   expect(get({ a: { b: [{ c: { d: 1 } }] } }, "a.b.0.c.d")).toBe(1);
@@ -31,6 +38,63 @@ it("should return value of the provided property in an array", () => {
 });
 
 describe("lodash compatibility", () => {
+  it("uses explicit segments for literal keys and mixed key types", () => {
+    const token = Symbol("token");
+    const value = { "a.b": { "a[b]": [{ "": { [token]: 2 } }] } };
+    const path = ["a.b", "a[b]", 0, "", token] as const;
+    const score = get(value, path, 0);
+
+    expect(score).toBe(2);
+    expect(score).toBe(lodashGet(value, [...path]));
+    expect(get(value, [...path])).toBe(2);
+    expect(get(Object.assign([1], { "a.b": 3 }), ["a.b"])).toBe(3);
+    expect(get([1], ["length"])).toBe(1);
+    expectTypeOf(score).toEqualTypeOf<number>();
+    expect(get(value, []) as unknown).toBe(lodashGet(value, []));
+    expect(get(value, [], "fallback")).toBe("fallback");
+  });
+
+  it("accounts for missing keys in a dictionary", () => {
+    const value: Record<string, number> = {};
+    const score = get(value, "missing", null);
+
+    expect(score).toBeNull();
+    expectTypeOf(score).toEqualTypeOf<number | null>();
+    expectTypeOf(get(value, "missing")).toEqualTypeOf<number | undefined>();
+  });
+
+  it("infers empty components and bracket-first paths as parsed", () => {
+    const value = { "": { a: { "": 3 } } };
+    const fromBrackets = get(value, "[a].");
+    const fromDots = get(value, ".a.");
+
+    expect(fromBrackets).toBe(3);
+    expect(fromDots).toBe(3);
+    expectTypeOf(fromBrackets).toEqualTypeOf<number>();
+    expectTypeOf(fromDots).toEqualTypeOf<number>();
+    expectTypeOf(get({ "": 3 }, "")).toEqualTypeOf<number>();
+  });
+
+  it("types fallbacks through nullable branches and missing array indices", () => {
+    checkNullableFallback({});
+    checkNullableFallback({ item: null });
+    checkNullableFallback({ item: { score: null } });
+
+    const value = { items: [{ score: 1 }, null] };
+    expect(get(value, "items[1].score", 0)).toBe(0);
+    expectTypeOf(get(value, ["items", 1, "score"])).toEqualTypeOf<number | undefined>();
+    expectTypeOf(get({ items: ["first", 2] } as const, ["items", 1])).toEqualTypeOf<2>();
+  });
+
+  it("uses explicit segments for an empty key where brackets would otherwise appear", () => {
+    const value = { a: { "": 3 } };
+
+    expect(get(value, ["a", ""])).toBe(3);
+
+    // @ts-expect-error Empty brackets do not represent a nested empty key.
+    expect(get(value, "a[]") as unknown).toBeUndefined();
+  });
+
   it("reads direct, nested, indexed, inherited, and symbol keys", () => {
     class Entry {
 
@@ -78,7 +142,7 @@ describe("lodash compatibility", () => {
     expect(get(value, "empty")).toBe(lodashGet(value, "empty"));
     expect(get(value, "enabled")).toBe(lodashGet(value, "enabled"));
     expect(get(value, "count")).toBe(lodashGet(value, "count"));
-    expect(get(value, "score")).toBeUndefined();
+    expect(get(value, "score") as unknown).toBeUndefined();
     expect(lodashGet(value, "score")).toBeNull();
   });
 

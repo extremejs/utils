@@ -31,5 +31,6 @@ export function minByProperty<Value extends RecordT>(
   values: Value[],
   property: CalculatedPropertyT<CalculatedPathT<Value>>,
 ): number {
-  return minByFn(values, propertyUtil(property, Infinity));
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The selector is documented to select a number.
+  return minByFn(values, propertyUtil(property, Infinity) as (value: Value) => number);
 }

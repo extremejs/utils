@@ -1,6 +1,14 @@
 import { property } from "@extremejs/utils";
 import { property as lodashProperty } from "lodash";
-import { describe, expect, it } from "vitest";
+import { describe, expect, expectTypeOf, it } from "vitest";
+
+function readChoice(key: "a" | "missing"): number | string {
+  const read = property([key], "fallback");
+  const result = read({ a: 1 });
+  expectTypeOf(result).toEqualTypeOf<number | string>();
+
+  return result;
+}
 
 it("should return value of the provided direct property", () => {
   const fn = property("foo");
@@ -25,6 +33,29 @@ it("should return the fallback value", () => {
 });
 
 describe("lodash compatibility", () => {
+  it("keeps the fallback type when some segments can be missing", () => {
+    const value: Record<string, number> = {};
+    const result = property("missing", "fallback")(value);
+
+    expect(result).toBe("fallback");
+    expectTypeOf(result).toEqualTypeOf<number | string>();
+    expect(readChoice("a")).toBe(1);
+    expect(readChoice("missing")).toBe("fallback");
+  });
+
+  it("reads explicit segments and substitutes the captured fallback through nullable segments", () => {
+    const value = { "a.b": [{ "[score]": 2 }, null] };
+    const fromPath = property(["a.b", 0, "[score]"])(value);
+    const missing = property(["a.b", 1, "[score]"], null)(value);
+
+    expect(fromPath).toBe(lodashProperty<typeof value, number>(["a.b", 0, "[score]"])(value));
+    expect(missing).toBeNull();
+    const readEmpty: (input: typeof value) => unknown = property([]);
+    expect(readEmpty(value)).toBeUndefined();
+    expectTypeOf(fromPath).toEqualTypeOf<number | undefined>();
+    expectTypeOf(missing).toEqualTypeOf<number | null>();
+  });
+
   it("creates unary accessors for direct, deep, inherited, and numeric keys", () => {
     class Entry {
 

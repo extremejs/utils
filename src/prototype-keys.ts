@@ -24,7 +24,6 @@
  */
 
 import { OBJECT_CONSTRUCTOR } from "./constants/index.js";
-import { hasOwn } from "./has-own.js";
 
 /**
  * Lists own enumerable string keys of a prototype object, omitting `constructor`.
@@ -46,11 +45,9 @@ import { hasOwn } from "./has-own.js";
  */
 export function prototypeKeys(value: unknown): PropertyKey[] {
   const result = [];
+  const object: object = OBJECT_CONSTRUCTOR(value);
 
-  for (const key in OBJECT_CONSTRUCTOR(value)) {
-    // oxlint-disable-next-line typescript/no-unsafe-type-assertion
-    if (hasOwn(value as never, key) && key !== "constructor") result.push(key);
-  }
+  for (const key in object) if (OBJECT_CONSTRUCTOR.hasOwn(object, key) && key !== "constructor") result.push(key);
 
   return result;
 }

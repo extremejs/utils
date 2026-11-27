@@ -1,14 +1,17 @@
 import { type RecordT } from "./constants/index.js";
 import { type CalculatedPathT, type CalculatedPropertyT } from "./get.js";
+import { type FallbackArgsT } from "./internal/read-path.js";
 import { isFunction } from "./is-function.js";
 import { type PropertyAccessorT, property } from "./property.js";
+import { type PropertyT } from "./to-path.js";
 
 /**
  * Returns a function unchanged or turns a property shorthand into an accessor.
  *
  * The shorthand uses {@link property} and {@link get} for path parsing,
- * inherited reads, and fallback behavior. Supply an explicit function
- * for identity or matching predicates.
+ * inherited reads, and fallback behavior. It accepts numeric and symbol keys,
+ * strings, and explicit segment arrays. Pass `identity` or a matching predicate
+ * as a function.
  *
  * @group Other
  * @since 1.0.0
@@ -28,17 +31,18 @@ import { type PropertyAccessorT, property } from "./property.js";
  * double(3); // => 6
  */
 export function iteratee<
-  Iteratee extends IterateeT,
+  const Iteratee extends PropertyT | IterateeFnT,
   Fallback = undefined,
 >(
   fn: Iteratee,
-  fallback?: Iteratee extends PropertyKey ? Fallback : never,
-): Iteratee extends PropertyKey ? PropertyAccessorT<Iteratee, Fallback> : Iteratee {
-  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve the existing generic return type.
-  if (isFunction(fn)) return fn as never;
+  ...fallback:
+    | [fallback: Iteratee extends PropertyT ? Fallback : never]
+    | (Iteratee extends PropertyT ? Extract<FallbackArgsT<Fallback>, []> : [])
+): Iteratee extends PropertyT ? PropertyAccessorT<Iteratee, Fallback> : Iteratee;
+export function iteratee(fn: PropertyT | IterateeFnT, fallback?: unknown): IterateeFnT {
+  if (isFunction(fn)) return fn;
 
-  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve the existing generic return type.
-  return property(fn, fallback) as never;
+  return property(fn, fallback);
 }
 
 /**
@@ -48,9 +52,11 @@ export function iteratee<
  * @typeParam Return The callback's result type.
  */
 // oxlint-disable-next-line typescript/no-explicit-any
-export type IterateeT<Value = any, Return = any> = Value extends RecordT
-  ? CalculatedPropertyT<CalculatedPathT<Value>> | IterateeFnT<Value, Return>
-  : IterateeFnT<Value, Return>;
+export type IterateeT<Value = any, Return = any> = unknown extends Value
+  ? PropertyT | IterateeFnT<Value, Return>
+  : Value extends RecordT
+    ? CalculatedPropertyT<CalculatedPathT<Value>> | readonly PropertyKey[] | IterateeFnT<Value, Return>
+    : IterateeFnT<Value, Return>;
 
 /**
  * A unary function for selecting a result from a value.

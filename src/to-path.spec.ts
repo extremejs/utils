@@ -1,6 +1,6 @@
 import { toPath } from "@extremejs/utils";
 import { toPath as lodashToPath } from "lodash";
-import { describe, expect, it } from "vitest";
+import { describe, expect, expectTypeOf, it } from "vitest";
 
 it("should return the path of a value in an object representing the property", () => {
   expect(toPath("a.b[0].c[d]")).toEqual(["a", "b", "0", "c", "d"]);
@@ -12,6 +12,33 @@ it("should return the path of a value in an object representing the property", (
   const symbol = Symbol();
 
   expect(toPath(symbol)).toEqual([symbol]);
+});
+
+it("copies explicit segments without reparsing or coercing keys", () => {
+  const token = Symbol("token");
+  const input = ["a.b", "a[b]", "", -0, token] as const;
+  const path = toPath(input);
+
+  expect(path).toStrictEqual(input);
+  expect(path).not.toBe(input);
+  expect(lodashToPath([...input])).toStrictEqual(["a.b", "a[b]", "", "-0", token]);
+  expectTypeOf(path).toEqualTypeOf<["a.b", "a[b]", "", 0, typeof token]>();
+});
+
+it("keeps empty keys and matches the runtime tuple for simple brackets", () => {
+  const literalEmpty = toPath("");
+  const fromBrackets = toPath("[a]..[b]");
+  const unsupportedBracket = toPath("a[]");
+
+  expectTypeOf(literalEmpty).toEqualTypeOf<[""]>();
+  expectTypeOf(fromBrackets).toEqualTypeOf<["", "a", "", "", "b"]>();
+  expectTypeOf(unsupportedBracket).toEqualTypeOf<["a[]"]>();
+  expect(literalEmpty).toStrictEqual([""]);
+  expect(lodashToPath("")).toStrictEqual([]);
+  expect(fromBrackets).toStrictEqual(["", "a", "", "", "b"]);
+  expect(lodashToPath("[a]..[b]")).toStrictEqual(["a", "", "b"]);
+  expect(unsupportedBracket).toStrictEqual(["a[]"]);
+  expect(lodashToPath("a[]")).toStrictEqual(["a", ""]);
 });
 
 describe("lodash compatibility", () => {
