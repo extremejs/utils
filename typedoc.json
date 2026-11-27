@@ -11,6 +11,7 @@
     "src/internal/numeric-property.ts:NumericPropertyT",
     "src/internal/read-path.ts:FallbackArgsT",
     "src/internal/read-path.ts:ReadResultT",
+    "src/internal/string-symbols.ts:CaseFirstSymbolT",
     "src/to-path.ts:ParsePathT"
   ],
   "out": "docs",

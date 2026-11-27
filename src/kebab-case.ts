@@ -1,16 +1,15 @@
-import { LETTER_CASE_REGEX } from "./constants/index.js";
-import { join } from "./join.js";
+import { caseWords } from "./internal/case-words.js";
 import { lowerCase } from "./lower-case.js";
 
 /**
- * Formats the ASCII letter and digit runs in a string as kebab case.
- * Case transitions, digits, and punctuation can mark word boundaries.
+ * Formats Unicode words and symbols as kebab case.
+ * Latin accents are folded, apostrophes are removed, and ordinals and emoji are kept together.
  *
  * @group String
  * @since 1.0.0
  * @param string The source string.
  * @returns Lowercase words separated by hyphens. If there are no matches, returns an empty string.
- * @see {@link https://lodash.com/docs/4.18.1#kebabCase | Lodash kebabCase} as `_.kebabCase(string)`. Lodash also recognizes Unicode words and emoji, deburrs Latin letters, and joins the parts of contractions.
+ * @see {@link https://lodash.com/docs/4.18.1#kebabCase | Lodash kebabCase}
  * @example
  * kebabCase("camelCase"); // => "camel-case"
  * @example
@@ -25,6 +24,6 @@ import { lowerCase } from "./lower-case.js";
  * // => "i-am-listening-to-fm-while-loading-different-url-on-my-browser-and-also-editing-some-xml-and-html"
  */
 export function kebabCase(string: string): string {
-  return join((string.match(LETTER_CASE_REGEX) ?? [])
-    .map(lowerCase), "-");
+  return caseWords(string).map(lowerCase)
+    .join("-");
 }

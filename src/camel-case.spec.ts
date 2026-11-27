@@ -37,14 +37,18 @@ describe("lodash compatibility", () => {
   });
 
   it.each([
-    ["déjà vu", "dJVu", "dejaVu"],
-    ["a b's c", "aBSC", "aBsC"],
-    ["a b’t c", "aBTC", "aBtC"],
-    ["🚀 Foo", "foo", "🚀Foo"],
-    ["42nd Street", "42NdStreet", "42ndStreet"],
-  ])("uses different word boundaries for %j", (value, local, upstream) => {
-    expect(camelCase(value)).toBe(local);
-    expect(lodash.camelCase(value)).toBe(upstream);
+    ["déjà vu", "dejaVu"],
+    ["a b's c", "aBsC"],
+    ["a b’t c", "aBtC"],
+    ["🚀 Foo", "🚀Foo"],
+    ["42nd Street", "42ndStreet"],
+    ["XML2Parser", "xml2Parser"],
+    ["Œuvre Æsir Straße İZ", "oeuvreAesirStrasseIz"],
+    ["Cafe\u0301 👩🏽‍💻 1stPrize", "cafe👩🏽‍💻1stPrize"],
+    ["東京 Map", "東京Map"],
+  ])("formats Unicode words and symbols in %j", (value, expected) => {
+    expect(camelCase(value)).toBe(expected);
+    expect(lodash.camelCase(value)).toBe(expected);
   });
 
   it.each([

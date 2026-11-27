@@ -16,4 +16,31 @@ describe.each([1, 64])("%i repetitions", (size) => {
       run : (): string[] => lodashSplit(value, ","),
     },
   ]));
+
+  const unicode = "a👩🏽‍💻🇮🇷".repeat(size);
+  const symbols = Array.from({ length: size }, () => ["a", "👩🏽‍💻", "🇮🇷"]).flat();
+
+  test("split joined emoji and flags with an empty separator", async context => benchmark(context, symbols, [
+    {
+      run: (): string[] => split(unicode, ""),
+    },
+    {
+      name: "lodash",
+      run : (): string[] => lodashSplit(unicode, ""),
+    },
+  ]));
+
+  test("take the first two Unicode symbols with an empty separator and limit", async context => benchmark(
+    context,
+    ["a", "👩🏽‍💻"],
+    [
+      {
+        run: (): string[] => split(unicode, "", 2),
+      },
+      {
+        name: "lodash",
+        run : (): string[] => lodashSplit(unicode, "", 2),
+      },
+    ],
+  ));
 });
