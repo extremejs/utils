@@ -1,17 +1,17 @@
-import { isInstanceOf } from "./is-instance-of.js";
+import { setSize } from "./internal/collection-size.js";
 
 /**
- * Checks whether a value is an instance of the current realm's `Set` constructor.
+ * Checks for a genuine `Set` across realms.
  *
  * @group Set
  * @since 1.0.0
  * @param value The value to check.
- * @returns `true` if the local `instanceof Set` check succeeds.
- * @see {@link https://lodash.com/docs/4.18.1#isSet | Lodash isSet} as `_.isSet(value)`. Lodash also recognizes sets from other realms.
+ * @returns `true` for genuine `Set` values, including across realms.
+ * @see {@link https://lodash.com/docs/4.18.1#isSet | Lodash isSet} as `_.isSet(value)`.
  * @example
  * isSet(new Set()); // => true
  * isSet(new WeakSet()); // => false
  */
 export function isSet(value: unknown): value is Set<unknown> {
-  return isInstanceOf(value, Set);
+  return setSize(value) !== void 0;
 }

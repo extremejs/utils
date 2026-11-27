@@ -1,21 +1,22 @@
-import { isObjectLike } from "./is-object-like.js";
-import { isPlainObject } from "./is-plain-object.js";
+import { builtinGetter, tryReadBuiltin } from "./internal/builtin-brand.js";
+
+const getNamespace = typeof Element === "function"
+  ? builtinGetter<string | null>(Element.prototype, "namespaceURI")
+  : void 0;
 
 /**
- * Checks whether a non-null, non-plain object has a numeric `nodeType` of `1`.
- *
- * This heuristic can accept element-like class instances. Reading `nodeType`
- * or inspecting the prototype can invoke getters or proxy traps.
+ * Checks for a genuine DOM element, including elements from other realms.
  *
  * @group Other
  * @since 1.0.0
  * @param value The value to check.
- * @returns `true` if the value satisfies the element heuristic.
- * @see {@link https://lodash.com/docs/4.18.1#isElement | Lodash isElement} as `_.isElement(value)`. Both use `nodeType` and their respective plain-object checks. Objects with a custom null-prototype root can differ.
+ * @returns `true` when the host's native `Element` accessor recognizes the value.
+ * Hosts without an `Element` interface return `false`.
+ * @see {@link https://lodash.com/docs/4.18.1#isElement | Lodash isElement} as `_.isElement(value)`. Lodash can accept element-like objects.
  * @example
  * isElement(document.body); // => true
  * isElement({ nodeType: 1 }); // => false
  */
 export function isElement(value: unknown): value is Element {
-  return isObjectLike(value) && value.nodeType === 1 && !isPlainObject(value);
+  return getNamespace !== void 0 && tryReadBuiltin(getNamespace, value) !== void 0;
 }

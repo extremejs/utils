@@ -1,4 +1,4 @@
-import { type FunctionT, isFunction } from "./is-function.js";
+import { type ArrayLikeObjectT } from "./is-array-like-object.js";
 import { isLength } from "./is-length.js";
 
 /**
@@ -18,14 +18,8 @@ import { isLength } from "./is-length.js";
  * isArrayLike("abc"); // => true
  * isArrayLike({ length: -1 }); // => false
  */
-export function isArrayLike<Value>(value: Value): Value extends FunctionT
-  ? false
-  : Value extends { length: number; }
-    ? true
-    : unknown extends Value
-      ? boolean
-      : false {
-  // Preserve the conditional generic result.
-  // oxlint-disable-next-line typescript/no-explicit-any typescript/no-unsafe-type-assertion
-  return (isLength((value as any)?.length) && !isFunction(value)) as any;
+export function isArrayLike(value: unknown): value is string | ArrayLikeObjectT {
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Property access boxes primitives.
+  const length = (value as { readonly length?: unknown; } | null | undefined)?.length;
+  return isLength(length) && typeof value !== "function";
 }

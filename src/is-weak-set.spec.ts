@@ -28,9 +28,9 @@ describe("lodash compatibility", () => {
     }
   });
 
-  it("uses the local constructor for values from another realm", () => {
+  it("recognizes genuine values from another realm", () => {
     for (const value of foreignValues("new WeakSet()")) {
-      expect(isWeakSet(value)).toBe(false);
+      expect(isWeakSet(value)).toBe(true);
       expect(lodashIsWeakSet(value)).toBe(true);
     }
   });

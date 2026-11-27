@@ -9,17 +9,17 @@ class ElementLike {
 
 }
 
-it("should check if value is likely a DOM element", () => {
-  expect(isElement(new ElementLike())).toBe(true);
+it("should check if value is a DOM element", () => {
+  expect(isElement(new ElementLike())).toBe(false);
 
   expect(isElement("<body>")).toBe(false);
 });
 
 describe("lodash compatibility", () => {
-  it("recognizes an element-like instance", () => {
+  it("rejects an element-like instance", () => {
     const value = new ElementLike();
 
-    expect(isElement(value)).toBe(true);
+    expect(isElement(value)).toBe(false);
     expect(lodashIsElement(value)).toBe(true);
   });
 
@@ -37,7 +37,7 @@ describe("lodash compatibility", () => {
     }
   });
 
-  it("uses ExtremeJS plain-object rules for a custom null-prototype root", () => {
+  it("rejects a nodeType stand-in rooted at a custom null prototype", () => {
     const root = {};
     const value = { nodeType: 1 };
     Object.setPrototypeOf(root, null);

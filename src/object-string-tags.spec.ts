@@ -72,7 +72,7 @@ test.each(cases)("should recognize the standard %s tag", (tag, value) => {
 
 test("should recognize Float16Array as a typed array", () => {
   const value = new Float16Array([1, 2]);
-  const result: true = isTypedArray(value);
+  const result = isTypedArray(value);
 
   expect(result).toBe(true);
   expect(isTypedArray(new DataView(new ArrayBuffer(0)))).toBe(false);

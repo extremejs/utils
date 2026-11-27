@@ -1,7 +1,6 @@
 import { type RecordT } from "./constants/index.js";
 import { type CalculatedPathT, type CalculatedPropertyT } from "./get.js";
 import { type FallbackArgsT } from "./internal/read-path.js";
-import { isFunction } from "./is-function.js";
 import { type PropertyAccessorT, property } from "./property.js";
 import { type PropertyT } from "./to-path.js";
 
@@ -40,7 +39,7 @@ export function iteratee<
     | (Iteratee extends PropertyT ? Extract<FallbackArgsT<Fallback>, []> : [])
 ): Iteratee extends PropertyT ? PropertyAccessorT<Iteratee, Fallback> : Iteratee;
 export function iteratee(fn: PropertyT | IterateeFnT, fallback?: unknown): IterateeFnT {
-  if (isFunction(fn)) return fn;
+  if (typeof fn === "function") return fn;
 
   return property(fn, fallback);
 }

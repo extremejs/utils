@@ -30,9 +30,9 @@ describe("lodash compatibility", () => {
     }
   });
 
-  it("uses the local constructor for values from another realm", () => {
+  it("recognizes genuine values from another realm", () => {
     for (const value of foreignValues("new Map()")) {
-      expect(isMap(value)).toBe(false);
+      expect(isMap(value)).toBe(true);
       expect(lodashIsMap(value)).toBe(true);
     }
   });

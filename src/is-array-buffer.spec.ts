@@ -31,9 +31,9 @@ describe("lodash compatibility", () => {
     }
   });
 
-  it("uses the local constructor for values from another realm", () => {
+  it("recognizes genuine values from another realm", () => {
     for (const value of foreignValues("new ArrayBuffer(8)")) {
-      expect(isArrayBuffer(value)).toBe(false);
+      expect(isArrayBuffer(value)).toBe(true);
       expect(lodashIsArrayBuffer(value)).toBe(true);
     }
   });

@@ -48,3 +48,13 @@ describe("lodash compatibility", () => {
     }
   });
 });
+
+it("recognizes tagged arguments and rejects an Arguments tag on a stand-in in Node.js", () => {
+  const taggedArguments = Object.defineProperty(toStrictArguments(1), Symbol.toStringTag, { value: "Custom" });
+  const standIn = Object.defineProperty({ length: 1 }, Symbol.toStringTag, { value: "Arguments" });
+
+  expect(isArguments(taggedArguments)).toBe(true);
+  expect(lodashIsArguments(taggedArguments)).toBe(false);
+  expect(isArguments(standIn)).toBe(false);
+  expect(lodashIsArguments(standIn)).toBe(true);
+});

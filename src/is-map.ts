@@ -1,17 +1,17 @@
-import { isInstanceOf } from "./is-instance-of.js";
+import { mapSize } from "./internal/collection-size.js";
 
 /**
- * Checks whether a value is an instance of the current realm's `Map` constructor.
+ * Checks for a genuine `Map` across realms.
  *
  * @group Map
  * @since 1.0.0
  * @param value The value to check.
- * @returns `true` if the local `instanceof Map` check succeeds.
- * @see {@link https://lodash.com/docs/4.18.1#isMap | Lodash isMap} as `_.isMap(value)`. Lodash also recognizes maps from other realms.
+ * @returns `true` for genuine `Map` values, including across realms.
+ * @see {@link https://lodash.com/docs/4.18.1#isMap | Lodash isMap} as `_.isMap(value)`.
  * @example
  * isMap(new Map()); // => true
  * isMap(new WeakMap()); // => false
  */
 export function isMap(value: unknown): value is Map<unknown, unknown> {
-  return isInstanceOf(value, Map);
+  return mapSize(value) !== void 0;
 }

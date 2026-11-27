@@ -8,14 +8,14 @@ import { TYPE } from "./type-of.js";
  * @since 1.0.0
  * @param value The value to check.
  * @returns `true` for functions, including async functions, generators, classes, and
- * callable proxies. Class constructors still require `new`.
+ * callable proxies. An unknown value gains no call signature because it may be a class.
  * @see {@link https://lodash.com/docs/4.18.1#isFunction | Lodash isFunction} as `_.isFunction(value)`. Lodash checks object tags and can differ for async generators and custom `Symbol.toStringTag` values.
  * @example
  * isFunction(() => 0); // => true
  * isFunction(class Example {}); // => true
  * isFunction(2); // => false
  */
-export function isFunction(value: unknown): value is FunctionT {
+export function isFunction(value: unknown): value is FunctionT | (abstract new (...args: never[]) => unknown) {
   return isTypeOf(value, TYPE.FUNCTION);
 }
 

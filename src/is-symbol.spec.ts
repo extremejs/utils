@@ -33,10 +33,10 @@ describe("lodash compatibility", () => {
     }
   });
 
-  it("distinguishes a boxed value from another realm", () => {
+  it("recognizes a boxed value from another realm", () => {
     const value: unknown = runInNewContext('Object(Symbol("x"))');
 
-    expect(isSymbol(value)).toBe(false);
+    expect(isSymbol(value)).toBe(true);
     expect(lodashIsSymbol(value)).toBe(true);
   });
 });
