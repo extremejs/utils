@@ -20,8 +20,6 @@ import { prototypeKeys } from "./prototype-keys.js";
  * @since 1.0.0
  * @param value The value whose keys to list.
  * @returns A fresh array of string keys. Inherited keys and symbols are excluded.
- * @throws {ReferenceError} If buffer detection runs without a global `Buffer`,
- * as can happen with strings and typed arrays.
  * @see {@link https://lodash.com/docs/4.18.1#keys | Lodash keys} as `_.keys(value)`.
  * Both cover ordinary objects and dense-style index enumeration. Lodash additionally
  * filters certain legacy enumerable buffer and typed-array metadata.
@@ -38,8 +36,7 @@ export function keys(value: unknown): PropertyKey[] {
     const isType = !isArr && !isArg && !isBuff && isTypedArray(value);
     const skipIndexes = isArr || isArg || isBuff || isType;
 
-    // oxlint-disable-next-line typescript/no-unsafe-type-assertion
-    const length = (value as { length: number; }).length;
+    const { length } = value;
     const result = Array.from({ length: skipIndexes ? length : 0 });
 
     let index = skipIndexes ? -1 : length;

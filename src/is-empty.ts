@@ -1,13 +1,12 @@
 import { type RecordT, OBJECT_CONSTRUCTOR } from "./constants/index.js";
+import { mapSize, setSize } from "./internal/collection-size.js";
 import { isArguments } from "./is-arguments.js";
 import { isArrayLike } from "./is-array-like.js";
 import { isArray } from "./is-array.js";
 import { isBuffer } from "./is-buffer.js";
 import { isFunction } from "./is-function.js";
-import { isMap } from "./is-map.js";
 import { isNil } from "./is-nil.js";
 import { isPrototype } from "./is-prototype.js";
-import { isSet } from "./is-set.js";
 import { isString } from "./is-string.js";
 import { isTypedArray } from "./is-typed-array.js";
 import { prototypeKeys } from "./prototype-keys.js";
@@ -20,12 +19,10 @@ import { prototypeKeys } from "./prototype-keys.js";
  * @param value The value to check.
  * @returns `true` for nullish values and empty values. Arrays, recognized arguments objects,
  * buffers, typed arrays, strings, and array-like objects with a function-valued `splice`
- * are checked by length. Recognized maps and sets are checked by size. Other objects
+ * are checked by length. Maps and sets are checked by their intrinsic size, including across realms. Other objects
  * are checked for own enumerable string keys, ignoring `constructor` on recognized
  * constructor prototypes. Property reads can invoke getters or throw.
- * @throws `ReferenceError` for array-like inputs that reach buffer detection in a host
- * without a global `Buffer`, such as `{ length: 0 }`.
- * @see {@link https://lodash.com/docs/4.18.1#isEmpty | Lodash isEmpty} as `_.isEmpty(value)`. Lodash also checks cross-realm maps and sets by size.
+ * @see {@link https://lodash.com/docs/4.18.1#isEmpty | Lodash isEmpty} as `_.isEmpty(value)`.
  * A boxed string with its own enumerable keys can be nonempty in Lodash even when
  * its length is zero.
  * @example
@@ -37,31 +34,25 @@ import { prototypeKeys } from "./prototype-keys.js";
 export function isEmpty(value: unknown): boolean {
   if (isNil(value)) return true;
 
-  if (
+  const isArr = isArray(value);
+  const size = isArr ? void 0 : mapSize(value) ?? setSize(value);
 
-    // Keep runtime checks despite conditional generic return types.
-    // oxlint-disable-next-line typescript/no-unnecessary-condition
+  if (size !== void 0) return size === 0;
+
+  if (
     isArrayLike(value)
     && (
-      isArray(value)
+      isArr
       || isString(value)
       || isFunction((value as RecordT).splice)
       || isBuffer(value)
-
-      // Keep runtime checks despite conditional generic return types.
-      // oxlint-disable-next-line typescript/no-unnecessary-condition
       || isTypedArray(value)
-
-      // Keep runtime checks despite conditional generic return types.
-      // oxlint-disable-next-line typescript/no-unnecessary-condition
       || isArguments(value)
     )
-
-  // oxlint-disable-next-line unicorn/explicit-length-check -- Preserve the existing truthiness check.
-  ) return !(value as RecordT).length;
-
-  // oxlint-disable-next-line unicorn/explicit-length-check -- Preserve the existing truthiness check.
-  if (isMap(value) || isSet(value)) return !value.size;
+  ) {
+    // oxlint-disable-next-line unicorn/explicit-length-check -- Preserve truthiness for a second read of length.
+    return !value.length;
+  }
 
   // oxlint-disable-next-line unicorn/explicit-length-check -- Preserve the existing truthiness check.
   if (isPrototype(value)) return !prototypeKeys(value).length;

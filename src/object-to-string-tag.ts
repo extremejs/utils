@@ -1,4 +1,4 @@
-import { type OBJECT_STRING_TAG, objectToString } from "./object-to-string.js";
+import { objectToString } from "./object-to-string.js";
 import { slice } from "./slice.js";
 
 /**
@@ -15,7 +15,6 @@ import { slice } from "./slice.js";
  * objectToStringTag(new Map()); // => "Map"
  * objectToStringTag({ [Symbol.toStringTag]: "Widget" }); // => "Widget"
  */
-export function objectToStringTag(value: unknown): OBJECT_STRING_TAG {
-  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve the existing enum return type.
-  return slice(objectToString(value), 8, -1) as never;
+export function objectToStringTag(value: unknown): string {
+  return slice(objectToString(value), 8, -1);
 }

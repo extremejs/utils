@@ -1,6 +1,6 @@
 import { isArrayLike } from "./is-array-like.js";
-import { type FunctionT } from "./is-function.js";
-import { isObjectLike } from "./is-object-like.js";
+
+declare const validLength: unique symbol;
 
 /**
  * Checks whether a non-null object has a valid array-like length.
@@ -19,12 +19,13 @@ import { isObjectLike } from "./is-object-like.js";
  * isArrayLikeObject("abc"); // => false
  * isArrayLikeObject({ length: -1 }); // => false
  */
-export function isArrayLikeObject<Value>(value: Value): Value extends FunctionT
-  ? false
-  : Value extends { length: number; }
-    ? true
-    : false {
-  // Preserve the conditional generic result.
-  // oxlint-disable-next-line typescript/no-explicit-any typescript/no-unsafe-type-assertion
-  return (isObjectLike(value) && isArrayLike(value)) as any;
+export function isArrayLikeObject(value: unknown): value is ArrayLikeObjectT {
+  return typeof value === "object" && value !== null && isArrayLike(value);
 }
+
+/**
+ * An object whose length has been checked by an array-like predicate.
+ * The length check does not imply that indexed properties exist.
+ * @group Array
+ */
+export type ArrayLikeObjectT = object & { readonly length: number & { readonly [validLength]: true; }; };

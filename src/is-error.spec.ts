@@ -55,11 +55,11 @@ describe("lodash compatibility", () => {
     }
   });
 
-  it("uses the local constructor for values from another realm", () => {
+  it("recognizes native errors from another realm", () => {
     const values = foreignValues(...nativeErrors.map(Ctor => `new ${ Ctor.name }('example')`));
 
     for (const value of values) {
-      expect(isError(value)).toBe(false);
+      expect(isError(value)).toBe(true);
       expect(lodashIsError(value)).toBe(true);
     }
   });
@@ -74,4 +74,23 @@ describe("lodash compatibility", () => {
     expect(isError(value)).toBe(false);
     expect(lodashIsError(value)).toBe(true);
   });
+});
+
+it("checks untagged native errors on hosts without Error.isError", () => {
+  const descriptor = Object.getOwnPropertyDescriptor(Error, "isError");
+
+  if (descriptor === void 0) throw new Error("Expected Node.js to provide Error.isError");
+
+  const [foreignError] = foreignValues("new Error('example')");
+  const standIn = { [Symbol.toStringTag]: "Error" };
+  Object.defineProperty(Error, "isError", { value: void 0 });
+
+  let results: boolean[];
+  try {
+    results = [isError(foreignError), isError(standIn)];
+  } finally {
+    Object.defineProperty(Error, "isError", descriptor);
+  }
+
+  expect(results).toEqual([true, false]);
 });

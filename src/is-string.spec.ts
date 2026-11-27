@@ -51,10 +51,10 @@ describe("lodash compatibility", () => {
     expect(lodash.isString(value)).toBe(false);
   });
 
-  it("uses the current realm's String constructor", () => {
+  it("recognizes a boxed string from another realm", () => {
     const value: unknown = runInNewContext('Object("a")');
 
-    expect(isString(value)).toBe(false);
+    expect(isString(value)).toBe(true);
     expect(lodash.isString(value)).toBe(true);
   });
 });

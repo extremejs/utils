@@ -30,11 +30,11 @@ describe("lodash compatibility", () => {
     }
   });
 
-  it("excludes objects outside the current realm's Object prototype chain", () => {
+  it("includes null-prototype objects and foreign objects and functions", () => {
     const objects = foreignValues("Object(false)", "new Date(0)", "Object(1)", "({})", "/x/", 'Object("a")', "() => 0");
 
     for (const value of [Object.create(null) as unknown, ...objects]) {
-      expect(isObject(value)).toBe(false);
+      expect(isObject(value)).toBe(true);
       expect(lodashIsObject(value)).toBe(true);
     }
   });

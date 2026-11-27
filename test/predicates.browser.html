@@ -1,0 +1,76 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>Predicate browser smoke test</title>
+<pre id="result">RUNNING</pre>
+<script src="../node_modules/lodash/lodash.js"></script>
+<script type="module">
+  const result = document.querySelector("#result");
+  const frame = document.createElement("iframe");
+  document.body.append(frame);
+  const foreign = frame.contentWindow;
+  const reference = globalThis._;
+
+  function check(label, actual, expected) {
+    if (JSON.stringify(actual) !== JSON.stringify(expected)) {
+      throw new Error(`${label}: expected ${JSON.stringify(expected)}, got ${JSON.stringify(actual)}`);
+    }
+  }
+
+  function tagged(value, tag) {
+    return Object.defineProperty(value, Symbol.toStringTag, { value: tag });
+  }
+
+  try {
+    const {
+      isArguments, isBuffer, isElement, isEmpty, isError, isPlainObject, isTypedArray, keys,
+    } = await import("../dist/index.js");
+
+    check("pinned Lodash", reference.VERSION, "4.18.1");
+    check("host has no Buffer", "Buffer" in globalThis, false);
+
+    const svg = foreign.document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    const xml = new foreign.DOMParser().parseFromString("<root/>", "application/xml").documentElement;
+    for (const value of [document.body, foreign.document.body, svg, xml]) {
+      check("genuine element", isElement(value), true);
+      check("Lodash genuine element", reference.isElement(value), true);
+      check("element is not a plain record", isPlainObject(value), false);
+    }
+
+    class ElementLike { nodeType = 1; }
+    const lookalike = new ElementLike();
+    check("element lookalike", isElement(lookalike), false);
+    check("Lodash element lookalike", reference.isElement(lookalike), true);
+    check("element prototype stand-in", isElement(Object.create(foreign.Element.prototype)), false);
+    check("non-element DOM node", isElement(foreign.document.createTextNode("text")), false);
+
+    const exception = tagged(new foreign.DOMException("message", "AbortError"), "custom");
+    check("foreign DOMException", isError(exception), true);
+    check("foreign Error", isError(new foreign.Error("message")), true);
+    check("DOMException prototype stand-in", isError(Object.create(foreign.DOMException.prototype)), false);
+    check("DOMException tag stand-in", isError(tagged({}, "DOMException")), false);
+
+    const args = foreign.eval("(function () { return arguments; })(1)");
+    check("foreign arguments", isArguments(args), true);
+    check("foreign arguments are not a plain record", isPlainObject(args), false);
+    check("tagged arguments without a native host check", isArguments(tagged(args, "custom")), false);
+    check("Arguments tag stand-in", isArguments(tagged({ length: 1 }, "Arguments")), false);
+    check("foreign Math is not a plain record", isPlainObject(foreign.Math), false);
+    check("foreign typed array with a custom tag", isTypedArray(tagged(new foreign.Uint8Array(1), "custom")), true);
+    check("typed array tag stand-in", isTypedArray(tagged({ length: 1 }, "Uint8Array")), false);
+    check("foreign populated map", isEmpty(new foreign.Map([[1, 2]])), false);
+    check("foreign populated set", isEmpty(new foreign.Set([1])), false);
+
+    const bytes = new foreign.Uint8Array(1);
+    check("Buffer fallback", isBuffer(bytes), reference.isBuffer(bytes));
+    check("string keys without Buffer", keys("hi"), reference.keys("hi"));
+    check("typed array keys without Buffer", keys(bytes), reference.keys(bytes));
+    check("array-like emptiness without Buffer", isEmpty({ length: 0 }), reference.isEmpty({ length: 0 }));
+    check("typed array emptiness without Buffer", isEmpty(new foreign.Uint8Array(0)), true);
+
+    result.textContent = "PASS";
+  } catch (error) {
+    result.textContent = `FAIL: ${error.message}`;
+  } finally {
+    frame.remove();
+  }
+</script>

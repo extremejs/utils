@@ -36,9 +36,9 @@ describe("lodash compatibility", () => {
     }
   });
 
-  it("uses the local constructor for values from another realm", () => {
+  it("recognizes genuine values from another realm", () => {
     for (const value of foreignValues("/x/")) {
-      expect(isRegExp(value)).toBe(false);
+      expect(isRegExp(value)).toBe(true);
       expect(lodashIsRegExp(value)).toBe(true);
     }
   });

@@ -146,7 +146,15 @@ describe("lodash compatibility", () => {
       expect(lodashIsEmpty(value)).toBe(true);
     }
 
-    for (const value of [[0], sparse, "a", Buffer.alloc(1), new Uint8Array(1), toArguments(1)]) {
+    for (const value of [
+      [0],
+      sparse,
+      "a",
+      Buffer.alloc(1),
+      new Uint8Array(1),
+      toArguments(1),
+      ...foreignValues("new Map([[1, 2]])", "new Set([1])"),
+    ]) {
       expect(isEmpty(value)).toBe(false);
       expect(lodashIsEmpty(value)).toBe(false);
     }
@@ -241,4 +249,16 @@ describe("lodash compatibility", () => {
     expect(isEmpty(value)).toBe(true);
     expect(lodashIsEmpty(value)).toBe(false);
   });
+});
+
+it("checks intrinsic collection size even when the size property is shadowed", () => {
+  const [map, set] = foreignValues(
+    "Object.defineProperty(new Map([[1, 2]]), 'size', { value: 0 })",
+    "Object.defineProperty(new Set(), 'size', { value: 1 })",
+  );
+
+  expect(isEmpty(map)).toBe(false);
+  expect(lodashIsEmpty(map)).toBe(true);
+  expect(isEmpty(set)).toBe(true);
+  expect(lodashIsEmpty(set)).toBe(false);
 });

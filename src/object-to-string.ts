@@ -14,9 +14,10 @@ import { OBJECT_PROTOTYPE } from "./constants/index.js";
  * objectToString({}); // => "[object Object]"
  * objectToString(null); // => "[object Null]"
  */
-export function objectToString(value: unknown): `[object ${ OBJECT_STRING_TAG }]` {
-  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve the existing enum return type.
-  return OBJECT_PROTOTYPE.toString.call(value) as never;
+export function objectToString(value: unknown): `[object ${ string }]` {
+  // Native toString always supplies the surrounding syntax.
+  // oxlint-disable-next-line typescript/no-unsafe-type-assertion
+  return OBJECT_PROTOTYPE.toString.call(value) as `[object ${ string }]`;
 }
 
 /**

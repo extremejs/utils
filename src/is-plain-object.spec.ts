@@ -82,3 +82,32 @@ describe("lodash compatibility", () => {
     expect(Object.hasOwn(reference, Symbol.toStringTag)).toBe(false);
   });
 });
+
+it("rejects namespaces, arguments, and records rooted at a custom null-prototype object", () => {
+  for (const value of [
+    Math,
+    ...foreignValues("Math", "(function () { return arguments; })()", "Object.create(Object.create(null))"),
+  ]) {
+    expect(isPlainObject(value)).toBe(false);
+    expect(lodashIsPlainObject(value)).toBe(false);
+  }
+});
+
+it("distinguishes a custom Math tag from the Math namespace", () => {
+  const taggedRecord = Object.defineProperty({}, Symbol.toStringTag, {
+    configurable: true,
+    value       : "Math",
+  });
+  const [untaggedMath] = foreignValues("Reflect.deleteProperty(Math, Symbol.toStringTag); Math");
+
+  const constants = Object.freeze({
+    E : Math.E,
+    PI: Math.PI,
+  });
+
+  expect(isPlainObject(constants)).toBe(true);
+  expect(isPlainObject(taggedRecord)).toBe(true);
+  expect(lodashIsPlainObject(taggedRecord)).toBe(false);
+  expect(isPlainObject(untaggedMath)).toBe(false);
+  expect(lodashIsPlainObject(untaggedMath)).toBe(true);
+});

@@ -1,7 +1,9 @@
 import { isEmpty } from "@extremejs/utils";
 import { isEmpty as lodashIsEmpty } from "lodash";
 import { test } from "vitest";
-import { benchmark } from "#test";
+import { benchmark, foreignValues } from "#test";
+
+const [foreignMap, foreignSet] = foreignValues("new Map([['a', 1]])", "new Set([1])");
 
 test.for([
   {
@@ -10,8 +12,13 @@ test.for([
     expected: true,
   },
   {
-    name    : "populated map",
-    value   : new Map([["a", 1]]),
+    name    : "populated foreign map",
+    value   : foreignMap,
+    expected: false,
+  },
+  {
+    name    : "populated foreign set",
+    value   : foreignSet,
     expected: false,
   },
 ])("check a $name", async ({ value, expected }, context) => benchmark(context, expected, [

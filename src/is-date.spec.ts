@@ -32,9 +32,9 @@ describe("lodash compatibility", () => {
     }
   });
 
-  it("uses the local constructor for values from another realm", () => {
+  it("recognizes genuine values from another realm", () => {
     for (const value of foreignValues("new Date(0)")) {
-      expect(isDate(value)).toBe(false);
+      expect(isDate(value)).toBe(true);
       expect(lodashIsDate(value)).toBe(true);
     }
   });

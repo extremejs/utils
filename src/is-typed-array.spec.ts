@@ -68,3 +68,23 @@ describe("lodash compatibility", () => {
     }
   });
 });
+
+it("recognizes typed arrays independently of custom tags and length properties", () => {
+  const source = 'Object.defineProperty(new Uint8Array(1), Symbol.toStringTag, { value: "Custom" })';
+  const [taggedArray] = foreignValues(source);
+
+  const standIn = {
+    length              : 1,
+    [Symbol.toStringTag]: "Uint8Array",
+  };
+
+  expect(isTypedArray(taggedArray)).toBe(true);
+  expect(lodashIsTypedArray(taggedArray)).toBe(true);
+  expect(isTypedArray(standIn)).toBe(false);
+  expect(lodashIsTypedArray(standIn)).toBe(false);
+
+  const value = new Uint8Array(1);
+  Object.defineProperty(value, "length", { value: -1 });
+  expect(isTypedArray(value)).toBe(true);
+  expect(lodashIsTypedArray(value)).toBe(true);
+});
