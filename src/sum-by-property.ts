@@ -1,7 +1,6 @@
-import { type RecordT } from "./constants/index.js";
-import { type CalculatedPathT, type CalculatedPropertyT } from "./get.js";
-import { property as propertyUtil } from "./property.js";
+import { type DefaultPropertyT, type NumericPropertyT, numericProperty } from "./internal/numeric-property.js";
 import { sumByFn } from "./sum-by-fn.js";
+import { type PropertyT } from "./to-path.js";
 
 /**
  * Sums numeric properties selected by the same key or path on each element,
@@ -15,6 +14,8 @@ import { sumByFn } from "./sum-by-fn.js";
  * `undefined`. Its sum starts at the first defined value, which can preserve
  * negative zero.
  *
+ * Use a segment array for explicit keys such as `["stats", 0, "score"]`.
+ *
  * @group Math
  * @since 1.0.0
  * @param values The array of records to iterate over.
@@ -24,10 +25,9 @@ import { sumByFn } from "./sum-by-fn.js";
  * @example
  * sumByProperty([{ a: 1 }, { a: 2 }, { a: 3 }], "a"); // => 6
  */
-export function sumByProperty<Value extends RecordT>(
+export function sumByProperty<Value, const Property extends PropertyT = DefaultPropertyT<Value>>(
   values: Value[],
-  property: CalculatedPropertyT<CalculatedPathT<Value>>,
+  property: Property & NumericPropertyT<Value, Property>,
 ): number {
-  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The selector is documented to select a number.
-  return sumByFn(values, propertyUtil(property, 0) as (value: Value) => number);
+  return sumByFn(values, numericProperty(property, 0));
 }

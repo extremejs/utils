@@ -1,6 +1,4 @@
 import { MAX_SAFE_INTEGER } from "./is-safe-integer.js";
-import { isTypeOf } from "./is-type-of.js";
-import { TYPE } from "./type-of.js";
 
 /** Used to detect unsigned integer values. */
 const UINT_REGEX = /^(?:0|[1-9]\d*)$/;
@@ -10,7 +8,7 @@ const UINT_REGEX = /^(?:0|[1-9]\d*)$/;
  *
  * Numeric indices and unsigned decimal strings are accepted. Use canonical
  * strings such as `"10"`, with no leading zeros except in `"0"`. Other
- * values can invoke JavaScript coercion, which can throw.
+ * candidate types return `false` without coercion.
  *
  * @group Other
  * @since 1.0.0
@@ -25,27 +23,15 @@ const UINT_REGEX = /^(?:0|[1-9]\d*)$/;
  * isIndex(3, 3); // => false
  * @example
  * isIndex("01"); // => false
+ * @example
+ * isIndex(1n); // => false
  */
 export function isIndex(value: unknown, length = MAX_SAFE_INTEGER): boolean {
-  return !!length
-    && (
-      isTypeOf(value, TYPE.NUMBER)
-      || (
-        !isTypeOf(value, TYPE.SYMBOL)
+  if (typeof value === "number") return Number.isInteger(value) && value >= 0 && value < length;
+  if (typeof value !== "string" || !UINT_REGEX.test(value)) return false;
 
-        // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve JavaScript coercion of index values.
-        && UINT_REGEX.test(value as string)
-      )
-    )
-    && (
+  const index = Number(value);
 
-      // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve JavaScript coercion of index values.
-      (value as number) > -1
-
-      // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve JavaScript coercion of index values.
-      && (value as number) % 1 === 0
-
-      // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve JavaScript coercion of index values.
-      && (value as number) < length
-    );
+  // A rounded decimal can only cross the exclusive bound when it rounds to the bound.
+  return index < length || (index === length && (length === Infinity || BigInt(value) < length));
 }

@@ -1,7 +1,6 @@
-import { type RecordT } from "./constants/index.js";
-import { type CalculatedPathT, type CalculatedPropertyT } from "./get.js";
+import { type DefaultPropertyT, type NumericPropertyT, numericProperty } from "./internal/numeric-property.js";
 import { minByFn } from "./min-by-fn.js";
-import { property as propertyUtil } from "./property.js";
+import { type PropertyT } from "./to-path.js";
 
 /**
  * Returns the least number read from a key or property path.
@@ -18,6 +17,8 @@ import { property as propertyUtil } from "./property.js";
  * nested properties even when a matching literal key exists. Missing or
  * nullish properties count as `Infinity`. Lodash skips both when selecting an element.
  *
+ * Use a segment array for explicit keys such as `["stats", 0, "score"]`.
+ *
  * @group Math
  * @since 1.0.0
  * @param values The array of elements to visit.
@@ -27,10 +28,9 @@ import { property as propertyUtil } from "./property.js";
  * @example
  * minByProperty([{ score: 1 }, { score: 3 }], "score"); // => 1
  */
-export function minByProperty<Value extends RecordT>(
+export function minByProperty<Value, const Property extends PropertyT = DefaultPropertyT<Value>>(
   values: Value[],
-  property: CalculatedPropertyT<CalculatedPathT<Value>>,
+  property: Property & NumericPropertyT<Value, Property>,
 ): number {
-  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- The selector is documented to select a number.
-  return minByFn(values, propertyUtil(property, Infinity) as (value: Value) => number);
+  return minByFn(values, numericProperty(property, Infinity));
 }

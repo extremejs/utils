@@ -1,6 +1,6 @@
-import { type RecordT } from "./constants/index.js";
-import { type CalculatedPathT, type CalculatedPropertyT } from "./get.js";
+import { type DefaultPropertyT, type NumericPropertyT } from "./internal/numeric-property.js";
 import { sumByProperty } from "./sum-by-property.js";
+import { type PropertyT } from "./to-path.js";
 
 /**
  * Averages numbers read from a key or property path.
@@ -16,6 +16,8 @@ import { sumByProperty } from "./sum-by-property.js";
  * nullish properties count as `0`. Lodash skips `undefined` and uses `null` in the sum. If every lookup yields
  * `undefined` on nonempty input, Lodash returns `NaN`.
  *
+ * Use a segment array for explicit keys such as `["stats", 0, "score"]`.
+ *
  * @group Math
  * @since 1.0.0
  * @param values The array of elements to visit.
@@ -25,9 +27,9 @@ import { sumByProperty } from "./sum-by-property.js";
  * @example
  * meanByProperty([{ score: 1 }, { score: 3 }], "score"); // => 2
  */
-export function meanByProperty<Value extends RecordT>(
+export function meanByProperty<Value, const Property extends PropertyT = DefaultPropertyT<Value>>(
   values: Value[],
-  property: CalculatedPropertyT<CalculatedPathT<Value>>,
+  property: Property & NumericPropertyT<Value, Property>,
 ): number {
-  return sumByProperty(values, property) / values.length;
+  return sumByProperty<Value, Property>(values, property) / values.length;
 }

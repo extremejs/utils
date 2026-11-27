@@ -1,5 +1,6 @@
-import { type IterateeT, iteratee as iterateeUtil } from "./iteratee.js";
+import { type DefaultPropertyT, type NumericPropertyT, numericProperty } from "./internal/numeric-property.js";
 import { sumByFn } from "./sum-by-fn.js";
+import { type PropertyT } from "./to-path.js";
 
 /**
  * Sums numbers selected by a callback or property path, starting at positive zero.
@@ -9,13 +10,15 @@ import { sumByFn } from "./sum-by-fn.js";
  * Both libraries pass only the current element to the callback. Lodash visits
  * array holes with `undefined` and starts its sum at the first defined value,
  * which can preserve negative zero. Lodash skips `undefined` callback results.
- * Here, callbacks should return numbers, since an `undefined` result produces `NaN`.
+ * Callbacks must return numbers.
  *
  * For shorthand calls, use an ExtremeJS {@link get} path. Dotted paths traverse
  * nested properties even when a matching literal key exists. Missing, `null`,
  * or `undefined` properties contribute zero. Lodash includes `null` as a value
  * and skips `undefined`. If every lookup in a nonempty array yields
  * `undefined`, Lodash returns `undefined`.
+ *
+ * Use a segment array for explicit keys such as `["stats", 0, "score"]`.
  *
  * @group Math
  * @since 1.0.0
@@ -28,7 +31,9 @@ import { sumByFn } from "./sum-by-fn.js";
  * @example
  * sumBy([{ a: { b: 1 } }, { a: { b: 2 } }], "a.b"); // => 3
  */
-export function sumBy<Value>(values: Value[], iteratee: Exclude<IterateeT<Value>, readonly PropertyKey[]>): number {
-  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve the existing generic return type.
-  return sumByFn(values, iterateeUtil(iteratee, 0 as never) as never);
+export function sumBy<Value, const Property extends PropertyT = DefaultPropertyT<Value>>(
+  values: Value[],
+  iteratee: ((value: Value) => number) | (Property & NumericPropertyT<Value, Property>),
+): number {
+  return sumByFn(values, typeof iteratee === "function" ? iteratee : numericProperty(iteratee, 0));
 }
