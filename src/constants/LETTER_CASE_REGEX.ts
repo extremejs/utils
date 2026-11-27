@@ -24,7 +24,7 @@
  */
 
 /**
- * The global pattern used by the case formatters to find ASCII letter and digit runs.
+ * The global pattern for finding ASCII letter and digit runs.
  * Use it with `String.prototype.match` to collect all runs.
  *
  * @group String

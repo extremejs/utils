@@ -1,16 +1,15 @@
-import { LETTER_CASE_REGEX } from "./constants/index.js";
-import { join } from "./join.js";
+import { caseWords } from "./internal/case-words.js";
 import { lowerCase } from "./lower-case.js";
 
 /**
- * Formats the ASCII letter and digit runs in a string as snake case.
- * Case transitions, digits, and punctuation can mark word boundaries.
+ * Formats Unicode words and symbols as snake case.
+ * Latin accents are folded, apostrophes are removed, and ordinals and emoji are kept together.
  *
  * @group String
  * @since 1.0.0
  * @param string The source string.
  * @returns Lowercase words separated by underscores. If there are no matches, returns an empty string.
- * @see {@link https://lodash.com/docs/4.18.1#snakeCase | Lodash snakeCase} as `_.snakeCase(string)`. Lodash also recognizes Unicode words and emoji, deburrs Latin letters, and joins the parts of contractions.
+ * @see {@link https://lodash.com/docs/4.18.1#snakeCase | Lodash snakeCase}
  * @example
  * snakeCase("camelCase"); // => "camel_case"
  * @example
@@ -25,6 +24,6 @@ import { lowerCase } from "./lower-case.js";
  * // => "i_am_listening_to_fm_while_loading_different_url_on_my_browser_and_also_editing_some_xml_and_html"
  */
 export function snakeCase(string: string): string {
-  return join((string.match(LETTER_CASE_REGEX) ?? [])
-    .map(lowerCase), "_");
+  return caseWords(string).map(lowerCase)
+    .join("_");
 }

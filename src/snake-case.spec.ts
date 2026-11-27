@@ -38,13 +38,17 @@ describe("lodash compatibility", () => {
   });
 
   it.each([
-    ["déjà vu", "d_j_vu", "deja_vu"],
-    ["a b's c", "a_b_s_c", "a_bs_c"],
-    ["a b’t c", "a_b_t_c", "a_bt_c"],
-    ["🚀 Foo", "foo", "🚀_foo"],
-    ["42nd Street", "42_nd_street", "42nd_street"],
-  ])("uses different word boundaries for %j", (value, local, upstream) => {
-    expect(snakeCase(value)).toBe(local);
-    expect(lodash.snakeCase(value)).toBe(upstream);
+    ["déjà vu", "deja_vu"],
+    ["a b's c", "a_bs_c"],
+    ["a b’t c", "a_bt_c"],
+    ["🚀 Foo", "🚀_foo"],
+    ["42nd Street", "42nd_street"],
+    ["XML2Parser", "xml_2_parser"],
+    ["Œuvre Æsir Straße İZ", "oeuvre_aesir_strasse_iz"],
+    ["Cafe\u0301 👩🏽‍💻 1stPrize", "cafe_👩🏽‍💻_1st_prize"],
+    ["東京 Map", "東京_map"],
+  ])("formats Unicode words and symbols in %j", (value, expected) => {
+    expect(snakeCase(value)).toBe(expected);
+    expect(lodash.snakeCase(value)).toBe(expected);
   });
 });

@@ -1,6 +1,6 @@
 import { repeat } from "@extremejs/utils";
 import lodash from "lodash";
-import { describe, expect, it } from "vitest";
+import { describe, expect, expectTypeOf, it } from "vitest";
 
 it("should repeat the given string, by count times", () => {
   expect(repeat("*", 3)).toBe("***");
@@ -16,6 +16,7 @@ describe("lodash compatibility", () => {
     ["abc", 2, "abcabc"],
     ["abc", 2.6, "abcabc"],
     ["abc", 0, ""],
+    ["abc", -0.5, ""],
     ["abc", Number.NaN, ""],
     ["", 2, ""],
     ["🚀", 2, "🚀🚀"],
@@ -29,9 +30,15 @@ describe("lodash compatibility", () => {
     expect(lodash.repeat("abc", -2)).toBe("");
   });
 
+  it("throws for an infinite count while Lodash returns an empty string", () => {
+    expect(() => repeat("abc", Infinity)).toThrow(RangeError);
+    expect(lodash.repeat("abc", Infinity)).toBe("");
+  });
+
   it("accepts an explicit count of one, which Lodash also uses by default", () => {
     expect(repeat("abc", 1)).toBe("abc");
     expect(lodash.repeat("abc", 1)).toBe("abc");
     expect(lodash.repeat("abc")).toBe("abc");
+    expectTypeOf<Parameters<typeof repeat>>().toEqualTypeOf<[string, number]>();
   });
 });

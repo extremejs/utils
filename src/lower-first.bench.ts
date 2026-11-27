@@ -3,9 +3,9 @@ import { lowerFirst as lodashLowerFirst } from "lodash";
 import { test } from "vitest";
 import { benchmark } from "#test";
 
-const value = "ÉCOLE";
+const value = "𐐀COLE";
 
-test("change only the case of the first letter", async context => benchmark(context, "éCOLE", [
+test("change only the case of the first letter", async context => benchmark(context, "𐐨COLE", [
   {
     run: (): string => lowerFirst(value),
   },

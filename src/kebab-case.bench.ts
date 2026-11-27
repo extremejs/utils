@@ -4,11 +4,11 @@ import { describe, test } from "vitest";
 import { benchmark } from "#test";
 
 describe.each([1, 64])("%i repetitions", (size) => {
-  const value = "safeHTML 42 Parser ".repeat(size);
+  const value = "déjà XML2Parser 👩🏽‍💻 42nd ".repeat(size);
 
-  const expected = `${ "safe-html-42-parser-".repeat(size - 1) }safe-html-42-parser`;
+  const expected = `${ "deja-xml-2-parser-👩🏽‍💻-42nd-".repeat(size - 1) }deja-xml-2-parser-👩🏽‍💻-42nd`;
 
-  test("format ASCII words, acronyms, and digits", async context => benchmark(context, expected, [
+  test("format accents, acronyms, joined emoji, and ordinals", async context => benchmark(context, expected, [
     {
       run: (): string => kebabCase(value),
     },
