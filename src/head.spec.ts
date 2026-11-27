@@ -1,6 +1,6 @@
 import { head } from "@extremejs/utils";
 import lodash from "lodash";
-import { describe, expect, it } from "vitest";
+import { describe, expect, expectTypeOf, it } from "vitest";
 
 it("should return all but the last element of the value", () => {
   expect(head([])).toEqual([]);
@@ -10,6 +10,18 @@ it("should return all but the last element of the value", () => {
   expect(head("")).toBe("");
 
   expect(head("012345")).toBe("01234");
+});
+
+it("types an array result by its elements and a tuple result by its prefix", () => {
+  const values = [1, 2, 3];
+  const tuple: [1, 2, 3] = [1, 2, 3];
+  const singleton: [1] = [1];
+  const empty: [] = [];
+
+  expectTypeOf(head(values)).toEqualTypeOf<number[]>();
+  expectTypeOf(head(tuple)).toEqualTypeOf<[1, 2]>();
+  expectTypeOf(head(singleton)).toEqualTypeOf<[]>();
+  expectTypeOf(head(empty)).toEqualTypeOf<[]>();
 });
 
 describe("lodash compatibility", () => {

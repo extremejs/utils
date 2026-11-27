@@ -8,7 +8,7 @@ import { slice } from "./slice.js";
  * @group Array
  * @since 1.0.0
  * @param array The array to split.
- * @param size A positive integer group size. Defaults to `1`.
+ * @param size A positive integer group size. Defaults to `1`. The caller is responsible for validation.
  * @returns A new array of groups, or an empty array for empty input with a valid size.
  * @see {@link https://lodash.com/docs/4.18.1#chunk | Lodash chunk} as `_.chunk(array, size)` for positive integer sizes.
  * @example
