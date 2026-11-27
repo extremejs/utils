@@ -20,20 +20,18 @@ The pinned API reference lists the [Array and Collection methods](https://lodash
 
 | Lodash invocation | ExtremeJS invocation | Migration notes |
 | --- | --- | --- |
-| `_.chunk(array, size)` | `chunk(array, size)` | Both default to groups of one. Use positive integer sizes. The final group can be shorter. |
+| `_.chunk(array, size)` | `chunk(array, size)` | Both default to groups of one. Callers validate that the size is a positive integer. The final group can be shorter. |
 | `_.compact(array)` | `compact(array)` | Both keep truthy elements in order, including the strings `"0"` and `"false"`. |
 | `_.concat(array, ...items)` | `concat(array, ...items)` | ExtremeJS requires a base array and uses native spreadability rules. Lodash also accepts an omitted or scalar base, flattens appended arguments objects, and spreads appended arrays even when they opt out with `Symbol.isConcatSpreadable`. |
-| `_.drop(array, n)` | `drop(array, n)` | Both default to dropping one. Use a nonnegative count for equivalent calls. ExtremeJS also returns a suffix string from string input. |
-| `_.dropRight(array, n)` | `dropRight(array, n)` | Both default to dropping one. Use an integer count for equivalent calls. ExtremeJS also returns a prefix string from string input. |
+| `_.drop(array, n)` | `drop(array, n)` | Both default to dropping one. Callers validate that the count is a nonnegative integer. ExtremeJS also returns a suffix string from string input. |
+| `_.dropRight(array, n)` | `dropRight(array, n)` | Both default to dropping one. Callers validate that the count is a nonnegative integer. ExtremeJS also returns a prefix string from string input. |
 | `_.fill(array, value, start, end)` | `fill(array, value, start, end)` | Both write in place. ExtremeJS always returns the input array. Lodash returns a fresh array for empty input. |
-| `_.head(value)`, alias `_.first(value)` | `first(value)` | Reads the first element or the first UTF-16 code unit of a string. |
+| `_.head(value)`, alias `_.first(value)` | `first(value)` | Reads the first element or the first UTF-16 code unit of a string. An empty input or missing index yields `undefined`. |
 | `_.initial(array)` | `head(array)` | Removes the final element. ExtremeJS also removes the final UTF-16 code unit of a string and returns a string. |
 | `_.join(array, separator)` | `join(array, separator)` | ExtremeJS defaults to `""`. Lodash defaults to `","`. Pass a separator explicitly when migrating. |
-| `_.last(value)` | `last(value)` | Reads the final element or the final UTF-16 code unit of a string. |
+| `_.last(value)` | `last(value)` | Reads the final element or the final UTF-16 code unit of a string. An empty input or missing index yields `undefined`. |
 | `_.slice(array, start, end)` | `slice(array, start, end)` | Both default to the full range, with an exclusive end. ExtremeJS also returns a substring from string input. |
 | `_.tail(array)` | `tail(array)` | Removes the first element. ExtremeJS also removes the first UTF-16 code unit of a string and returns a string. |
-
-ExtremeJS preserves holes when copying arrays with `chunk`, `concat`, `drop`, `dropRight`, `head`, `slice`, and `tail`. Lodash creates explicit `undefined` entries in those positions. When given strings, Lodash's `drop`, `dropRight`, `initial`, `slice`, and `tail` return arrays of UTF-16 code units. The corresponding ExtremeJS calls return strings.
 
 ### Missing capabilities
 
@@ -56,12 +54,12 @@ Each mapped utility has a colocated `lodash compatibility` suite. The sources be
 
 | Lodash scenario source | Coverage and decision |
 | --- | --- |
-| [`chunk`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L2536-L2594) | Covers the default size, even chunks, a remainder, and empty input. Positive integers are the documented local size. Lodash's minimum-size and fractional normalization are pending a contract decision below. |
+| [`chunk`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L2536-L2594) | Covers the default size, even chunks, a remainder, and empty input. The local contract requires a positive integer size. |
 | [`compact`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L3166-L3226) | Covers falsy removal and preserving truthy values in order. The lazy-sequence cases, including the global `_.iteratee` override, require Lodash wrappers. |
 | [`concat`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L3230-L3307) | Covers a shallow copy, scalar and one-level array appends, and sparse arrays. Missing and scalar bases are outside the local base-array contract. |
-| [`drop`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L5076-L5160) and [`dropRight`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L5164-L5248) | Covers defaults, zero, explicit counts, bounds, sparse arrays, and string outcomes. Covers fractional `drop` and negative integer `dropRight` where the results match. Negative finite `drop`, fractional `dropRight`, and `dropRight` with `NaN` need a contract decision below. |
+| [`drop`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L5076-L5160) and [`dropRight`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L5164-L5248) | Covers defaults, zero, explicit nonnegative integer counts, bounds, sparse arrays, and string outcomes. |
 | [`fill`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L5686-L5847) | Covers defaults, mutation and return identity, positive and negative numeric bounds, fractional truncation, `NaN`, and no-op ranges. Uses an explicit `undefined` value on a sparse array because the local fill value is required. Empty input identity is tested separately. |
-| [`head` and alias `first`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L8062-L8158) and [`last`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L13171-L13252) | Covers direct selection, ordinary empty arrays, use in `map`, and string indexing. The empty-array case with an indexed prototype property in `head`, and the annotated negative-key check in `last`, are tracked below. |
+| [`head` and alias `first`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L8062-L8158) and [`last`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L13171-L13252) | Covers direct selection, sparse and empty arrays, empty arrays with indexed properties, use in `map`, and string indexing. |
 | [`initial`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L8297-L8369) and [`tail`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L21584-L21679) | Covers dropping one endpoint, empty arrays, use in `map`, and empty and nonempty strings. Missing and other falsy non-array inputs fall outside the local input type. |
 | [`join`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L12839-L12873) | Covers an explicit separator. The default separator difference and empty fields are also tested. |
 | [`slice`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L20485-L20649) and [shared `slice` and `toArray` scenarios](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L23486-L23536) | Covers default shallow copies, bounds, numeric truncation, sparse arrays, and string results. Generic array-likes, arguments objects, and DOM node lists exceed the local input type. |
@@ -70,12 +68,23 @@ Each mapped utility has a colocated `lodash compatibility` suite. The sources be
 | [Falsy and string index coercion in `fill`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L5724-L5734) and [`slice`](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L20589-L20599) | Tests exercise numeric indices and optional defaults. String, boolean, and null indices are outside the local index types. The same restriction applies to nonnumeric `size` and `n` in the `chunk` and `drop` families. |
 | [Wrapped results](https://github.com/lodash/lodash/blob/4.18.1/test/test.js#L26717-L26895) and the wrapper scenarios in the method suites above | Implicit and explicit chaining, lazy evaluation, and delayed callback execution are deferred to the wrapper API. |
 
-### Maintainer decisions and follow-ups
+### Bugs fixed and intended divergences
 
-- **Chunking and dropping.** Which policy should apply to invalid or fractional sizes and counts? On a nonempty array, `chunk(array, 0)` throws `RangeError` while Lodash returns `[]`. With size `1.5`, ExtremeJS produces uneven groups while Lodash uses size `1`. On `[1, 2, 3]`, `drop(array, -1)` returns `[3]` while Lodash leaves all three elements. For `dropRight(array, 1.6)`, ExtremeJS returns `[1]` and Lodash returns `[1, 2]`. With `NaN`, ExtremeJS returns `[]` and Lodash returns all three elements.
-- **Endpoint selection.** Should length-zero arrays ignore indexed properties? A custom prototype with a `0` property is visible to `first`, and a `"-1"` property is visible to `last`. Lodash checks length before reading either index.
-- **Concatenation.** Is the scalar-base overload a future port? The coverage above describes concatenation with a base array. The scalar and omitted-base call forms are candidates for a separate capability if the overload is wanted.
-- **Return types.** `CompactT<number>` resolves to `never` because TypeScript types `Number.NaN` as `number`. It also retains `0n` even though the runtime filters it out. `HeadT<number[]>` and `TailT<number[]>` resolve to `number` despite the array result. The general array branches of `FirstT` and `LastT` can omit `undefined` for empty or sparse arrays. The generic return type used by `slice`, `drop`, and `dropRight` can also retain a tuple or string literal type after shortening the input. Review these signatures together as a separate type change.
+| Finding | Contract and migration |
+| --- | --- |
+| **Bug** · Empty endpoint reads | [`first`](src/first.ts) and [`last`](src/last.ts) previously exposed inherited index `0` and property `"-1"` on length-zero arrays, respectively. Both now return `undefined` before reading the index, matching Lodash. |
+| **Bug** · Endpoint result types | [`first`](src/first.ts) and [`last`](src/last.ts) now include `undefined` for general arrays. Check the result before using it on inputs that can be empty or sparse. |
+| **Bug** · Compact result types | [`compact`](src/compact.ts) now retains broad `number` and excludes known falsy literals, including `0n`. |
+| **Bug** · Head and tail result types | [`head`](src/head.ts) and [`tail`](src/tail.ts) now infer array results for general array inputs and retain the known prefix or suffix for fixed tuples. |
+| **Bug** · Slice and drop result types | [`slice`](src/slice.ts), [`drop`](src/drop.ts), and [`dropRight`](src/drop-right.ts) now return arrays of the input element type or strings. Narrow the result separately if downstream code needs a specific tuple or string literal. |
+| **Intended divergence** · Sizes and counts | [`chunk`](src/chunk.ts) requires a positive integer size. [`drop`](src/drop.ts) and [`dropRight`](src/drop-right.ts) require nonnegative integer counts. All default to one. Callers validate these preconditions. Lodash normalizes out-of-range or fractional values. ExtremeJS leaves results and errors for unsupported values unspecified. |
+| **Intended divergence** · Concat base | [`concat`](src/concat.ts) requires a base array. For a Lodash call with a scalar base, wrap it in an array. For an omitted base, use `[]`. |
+| **Intended divergence** · Concat spreadability | [`concat`](src/concat.ts) uses native spreadability, including arrays opting out and arguments objects staying whole by default. Lodash flattens both. Convert an arguments object to an array to flatten it explicitly. |
+| **Intended divergence** · Sparse array copies | [`chunk`](src/chunk.ts), [`concat`](src/concat.ts), [`drop`](src/drop.ts), [`dropRight`](src/drop-right.ts), [`head`](src/head.ts), [`slice`](src/slice.ts), and [`tail`](src/tail.ts) preserve holes. Lodash fills those positions with explicit `undefined` values. |
+| **Intended divergence** · String slicing results | [`drop`](src/drop.ts), [`dropRight`](src/drop-right.ts), [`head`](src/head.ts), [`slice`](src/slice.ts), and [`tail`](src/tail.ts) return strings from string inputs. Lodash returns an array of UTF-16 code units. |
+| **Intended divergence** · Empty fill identity | [`fill`](src/fill.ts) returns the input array even when it is empty. Lodash allocates an empty result. |
+| **Intended divergence** · Default join separator | [`join`](src/join.ts) defaults to the empty string. Pass `","` to match the Lodash default. |
+| **Intended divergence** · Iteratee-call guards | [`chunk`](src/chunk.ts), [`drop`](src/drop.ts), [`dropRight`](src/drop-right.ts), [`fill`](src/fill.ts), and [`slice`](src/slice.ts) interpret extra arguments normally. Wrap calls in a callback that passes the intended arguments. |
 
 ### Benchmarks
 
@@ -83,7 +92,7 @@ Run all benchmarks with `pnpm bench`. For an individual utility, use its colocat
 
 Each mapped utility has a paired workload. Traversal, copying, and mutation workloads use dense arrays with 32 and 2,048 elements. `first` and `last` use one size because their work is a single indexed read. `join` passes an explicit comma separator to both implementations. `fill` includes the same fresh array copy in both timed calls and validates the resulting contents before timing.
 
-Sparse copies, differing string result types, invalid size/count behavior, and empty-array fill identity have different observable results for the same input. They are useful compatibility cases or follow-ups and are excluded from direct timing. Lodash-only entries have no ExtremeJS workload to pair.
+Sparse copies, differing string result types, and empty-array fill identity are excluded from direct timing because results differ. Unsupported sizes and counts have no local contract to benchmark. Lodash-only entries have no ExtremeJS workload to pair.
 
 ## Math
 

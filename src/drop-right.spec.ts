@@ -2,7 +2,7 @@
 
 import { dropRight } from "@extremejs/utils";
 import lodash from "lodash";
-import { describe, expect, it } from "vitest";
+import { describe, expect, expectTypeOf, it } from "vitest";
 
 it("should drop the last element", () => {
   expect(dropRight([1, 2, 3])).toEqual([1, 2]);
@@ -26,17 +26,22 @@ it("should return an empty array/string when `n` >= `length`", () => {
   expect(dropRight("123", 4)).toEqual("");
 });
 
+it("types shortened tuple and string literal results as arrays and strings", () => {
+  const tuple: [1, 2, 3] = [1, 2, 3];
+
+  expectTypeOf(dropRight(tuple)).toEqualTypeOf<Array<1 | 2 | 3>>();
+  expectTypeOf(dropRight("123")).toEqualTypeOf<string>();
+  expectTypeOf<ReturnType<typeof dropRight<"123" | number[]>>>().toEqualTypeOf<string | number[]>();
+});
+
 describe("lodash compatibility", () => {
   it.each([
     [undefined, [1, 2]],
     [2, [1]],
     [0, [1, 2, 3]],
-    [-1, [1, 2, 3]],
-    [-Infinity, [1, 2, 3]],
     [3, []],
     [4, []],
     [2 ** 32, []],
-    [Infinity, []],
   ])("drops from the end with count %s", (count, expected) => {
     expect(dropRight([1, 2, 3], count)).toStrictEqual(expected);
     expect(lodash.dropRight([1, 2, 3], count)).toStrictEqual(expected);

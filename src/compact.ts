@@ -17,8 +17,8 @@ export function compact<Value>(array: Value[]): Array<CompactT<Value>> {
 }
 
 /**
- * The element type produced by {@link compact}'s falsy-value exclusion.
+ * The element type produced by {@link compact}. Known falsy literals are
+ * excluded. Broad types such as `number` are retained.
  * @group Array
  */
-// oxlint-disable-next-line typescript/no-redundant-type-constituents -- Keep the documented falsy values in the type.
-export type CompactT<Value> = Exclude<Value, typeof Number.NaN | "" | 0 | false | null | undefined>;
+export type CompactT<Value> = Exclude<Value, "" | 0 | 0n | false | null | undefined>;

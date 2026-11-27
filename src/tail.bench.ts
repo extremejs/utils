@@ -9,11 +9,11 @@ describe.each([32, 2048])("%i elements", (size) => {
 
   test("copy a numeric array without its first element", async context => benchmark(context, expected, [
     {
-      run: (): unknown => tail(values),
+      run: (): number[] => tail(values),
     },
     {
       name: "lodash",
-      run : (): unknown => lodashTail(values),
+      run : (): number[] => lodashTail(values),
     },
   ]));
 });

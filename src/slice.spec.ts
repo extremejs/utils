@@ -2,7 +2,7 @@
 
 import { slice } from "@extremejs/utils";
 import lodash from "lodash";
-import { describe, expect, it } from "vitest";
+import { describe, expect, expectTypeOf, it } from "vitest";
 
 it("should create a slice of the value from start, up to, but not including, end", () => {
   expect(slice([0, 1, 2, 3, 4, 5])).toEqual([0, 1, 2, 3, 4, 5]);
@@ -16,6 +16,14 @@ it("should create a slice of the value from start, up to, but not including, end
   expect(slice("012345", 2)).toBe("2345");
 
   expect(slice("012345", 2, 4)).toBe("23");
+});
+
+it("types shortened tuple and string literal results as arrays and strings", () => {
+  const tuple: [1, 2, 3] = [1, 2, 3];
+
+  expectTypeOf(slice(tuple, 1)).toEqualTypeOf<Array<1 | 2 | 3>>();
+  expectTypeOf(slice("123", 1)).toEqualTypeOf<string>();
+  expectTypeOf<ReturnType<typeof slice<"123" | number[]>>>().toEqualTypeOf<string | number[]>();
 });
 
 describe("lodash compatibility", () => {

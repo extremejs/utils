@@ -7,7 +7,7 @@ import { slice } from "./slice.js";
  * @group Collection
  * @since 1.0.0
  * @param value The array or string to slice.
- * @returns An array or string with the first element or code unit removed.
+ * @returns An array of the input's element type or a string with the first element or code unit removed.
  * Empty and single-element inputs produce an empty result.
  * @see {@link https://lodash.com/docs/4.18.1#tail | Lodash tail} as `_.tail(array)` for dense arrays. Lodash fills holes with `undefined` and returns an array for string input.
  * @example
@@ -15,29 +15,28 @@ import { slice } from "./slice.js";
  * @example
  * tail("012345"); // => "12345"
  */
-export function tail<Value extends unknown[] | string>(value: Value): TailT<Value> {
-  // oxlint-disable-next-line typescript/no-unsafe-type-assertion -- Preserve the existing generic return type.
-  return slice(value, 1) as TailT<Value>;
+export function tail<Value extends unknown[] | string>(value: Value): TailT<Value>;
+export function tail(value: unknown[] | string): unknown[] | string {
+  return slice(value, 1);
 }
 
 /**
  * The result type of {@link tail}. For fixed tuples and string literals, it describes the suffix.
+ * A leading template placeholder such as `${number}` can span multiple code units, so its suffix type widens.
  * @group Collection
  */
-export type TailT<Value extends unknown[] | string> = Value extends string
-
-  // oxlint-disable-next-line typescript/no-unused-vars
-  ? Value extends `${ infer First }${ infer Rest }`
-    ? Rest
-    : string
-
-  // oxlint-disable-next-line typescript/no-unused-vars
-  : Value extends [infer First]
+export type TailT<Value extends unknown[] | string> = Value extends ""
+  ? ""
+  : Value extends []
     ? []
-
-    // oxlint-disable-next-line typescript/no-unused-vars
-    : Value extends [infer First, ...infer Rest]
-      ? Rest
-      : Value extends Array<infer First>
-        ? First
-        : [];
+    : Value extends string
+      ? Value extends `${ infer First }${ infer Rest }`
+        ? Record<never, never> extends Record<First, never>
+          ? string
+          : Rest
+        : string
+      : Value extends [unknown, ...infer Rest]
+        ? Rest
+        : Value extends Array<infer Element>
+          ? Element[]
+          : [];

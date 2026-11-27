@@ -2,7 +2,7 @@
 
 import { compact } from "@extremejs/utils";
 import lodash from "lodash";
-import { describe, expect, it } from "vitest";
+import { describe, expect, expectTypeOf, it } from "vitest";
 
 it("should filter out the falsey values from the provided array", () => {
   expect(compact([
@@ -20,6 +20,15 @@ it("should filter out the falsey values from the provided array", () => {
     "s",
     34,
   ])).toEqual([1, 2, 3, "a", "s", 34]);
+});
+
+it("preserves broad numeric types and removes known falsy literals from the result type", () => {
+  const numbers = [0, 1, Number.NaN, 2];
+  const literals: Array<0 | 1 | 0n | 2n | "" | "0" | boolean | null | undefined>
+    = [0, 1, 0n, 2n, "", "0", false, true, null, undefined];
+
+  expectTypeOf(compact(numbers)).toEqualTypeOf<number[]>();
+  expectTypeOf(compact(literals)).toEqualTypeOf<Array<1 | 2n | "0" | true>>();
 });
 
 describe("lodash compatibility", () => {

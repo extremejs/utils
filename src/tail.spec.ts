@@ -1,6 +1,6 @@
 import { tail } from "@extremejs/utils";
 import lodash from "lodash";
-import { describe, expect, it } from "vitest";
+import { describe, expect, expectTypeOf, it } from "vitest";
 
 it("should return all but the first element of the value", () => {
   expect(tail([])).toEqual([]);
@@ -10,6 +10,21 @@ it("should return all but the first element of the value", () => {
   expect(tail("")).toBe("");
 
   expect(tail("012345")).toBe("12345");
+});
+
+it("types an array result by its elements and known tuple and string results by their suffixes", () => {
+  const values = [1, 2, 3];
+  const tuple: [1, 2, 3] = [1, 2, 3];
+  const singleton: [1] = [1];
+  const empty: [] = [];
+
+  expectTypeOf(tail(values)).toEqualTypeOf<number[]>();
+  expectTypeOf(tail(tuple)).toEqualTypeOf<[2, 3]>();
+  expectTypeOf(tail(singleton)).toEqualTypeOf<[]>();
+  expectTypeOf(tail(empty)).toEqualTypeOf<[]>();
+  expectTypeOf(tail("abc")).toEqualTypeOf<"bc">();
+  expectTypeOf(tail("")).toEqualTypeOf<"">();
+  expectTypeOf<ReturnType<typeof tail<`${ number }x`>>>().toEqualTypeOf<string>();
 });
 
 describe("lodash compatibility", () => {
